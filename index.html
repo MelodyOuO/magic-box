@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="milk-tea">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="文字魔法盒">
+    <title>文字魔法盒 ✨</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* ====== 8 種精選主題配色 ====== */
+        :root, [data-theme="milk-tea"] {
+            --bg: #FAF6F0; --card: #FFFFFF; --surface: #F3ECE2;
+            --primary: #A67B5B; --primary-text: #FFFFFF;
+            --text: #3E3129; --text-muted: #8C7A6B; --border: #E8DDD0;
+            --danger: #D96B6B; --shadow: 0 4px 16px rgba(107, 81, 59, 0.07);
+        }
+        [data-theme="sakura"] {
+            --bg: #FFF5F7; --card: #FFFFFF; --surface: #FCEAEF;
+            --primary: #DE7392; --primary-text: #FFFFFF;
+            --text: #452932; --text-muted: #997480; --border: #F5D7E0;
+            --danger: #E05A5A; --shadow: 0 4px 16px rgba(222, 115, 146, 0.09);
+        }
+        [data-theme="matcha"] {
+            --bg: #F3F7F2; --card: #FFFFFF; --surface: #E7EFE5;
+            --primary: #668C63; --primary-text: #FFFFFF;
+            --text: #2A3B29; --text-muted: #70856E; --border: #D5E2D3;
+            --danger: #D66868; --shadow: 0 4px 16px rgba(83, 117, 80, 0.08);
+        }
+        [data-theme="lavender"] {
+            --bg: #F6F4FA; --card: #FFFFFF; --surface: #ECE7F6;
+            --primary: #896BB3; --primary-text: #FFFFFF;
+            --text: #322742; --text-muted: #7E7094; --border: #DFD7EC;
+            --danger: #DA6575; --shadow: 0 4px 16px rgba(115, 85, 158, 0.08);
+        }
+        [data-theme="ocean"] {
+            --bg: #F2F7FB; --card: #FFFFFF; --surface: #E4EFF7;
+            --primary: #4A89B8; --primary-text: #FFFFFF;
+            --text: #1F3547; --text-muted: #6C8499; --border: #D3E3EF;
+            --danger: #DC6464; --shadow: 0 4px 16px rgba(74, 137, 184, 0.08);
+        }
+        [data-theme="butter"] {
+            --bg: #FFFDF2; --card: #FFFFFF; --surface: #FAF2D6;
+            --primary: #D49A2A; --primary-text: #FFFFFF;
+            --text: #42351C; --text-muted: #94825E; --border: #EFE2B8;
+            --danger: #D96459; --shadow: 0 4px 16px rgba(212, 154, 42, 0.09);
+        }
+        [data-theme="dark"] {
+            --bg: #131317; --card: #1D1D24; --surface: #272731;
+            --primary: #9381FF; --primary-text: #FFFFFF;
+            --text: #ECECF2; --text-muted: #9898AA; --border: #2F2F3C;
+            --danger: #EF6F6F; --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        }
+        [data-theme="black-gold"] {
+            --bg: #111111; --card: #1B1A18; --surface: #262420;
+            --primary: #D4AF37; --primary-text: #14120E;
+            --text: #F2ECE1; --text-muted: #A39A88; --border: #332E24;
+            --danger: #E06666; --shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+        }
+
+        /* ====== 基礎設定 ====== */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color 0.25s, color 0.25s;
+            overscroll-behavior-y: none;
+        }
+
+        .app-shell {
+            max-width: 640px;
+            margin: 0 auto;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 頂部列 */
+        .app-header {
+            position: sticky; top: 0; z-index: 20;
+            background: var(--bg);
+            padding: 14px 16px 10px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .app-title {
+            font-size: 1.2rem; font-weight: 800; margin: 0;
+            letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;
+        }
+
+        .header-actions { display: flex; gap: 8px; }
+
+        .icon-btn {
+            background: var(--card); border: 1px solid var(--border);
+            color: var(--text); border-radius: 12px;
+            padding: 8px 12px; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 4px;
+            box-shadow: var(--shadow);
+        }
+        .icon-btn:active { transform: scale(0.95); }
+
+        /* 主內容 */
+        .app-main {
+            flex: 1;
+            padding: 4px 16px calc(88px + env(safe-area-inset-bottom));
+        }
+
+        .tab-panel { display: none; animation: fadeIn 0.2s ease; }
+        .tab-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 分段切換器 */
+        .segmented {
+            display: grid; grid-template-columns: 1fr 1fr;
+            background: var(--surface); padding: 4px; border-radius: 14px;
+            margin-bottom: 14px; gap: 4px;
+        }
+        .seg-btn {
+            border: none; background: transparent; color: var(--text-muted);
+            padding: 10px; border-radius: 10px; font-size: 0.92rem; font-weight: 700;
+            cursor: pointer; transition: all 0.2s; font-family: inherit;
+        }
+        .seg-btn.active {
+            background: var(--card); color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* 卡片 */
+        .card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 18px; padding: 14px; margin-bottom: 14px;
+            box-shadow: var(--shadow);
+        }
+
+        /* 輸入框 (16px 防 iOS 自動放大) */
+        textarea, input[type="text"], input[type="search"] {
+            width: 100%; font-size: 16px; font-family: inherit;
+            color: var(--text); background: var(--surface);
+            border: 1.5px solid transparent; border-radius: 12px;
+            padding: 11px 12px; outline: none; transition: border-color 0.2s, background 0.2s;
+        }
+        textarea:focus, input[type="text"]:focus, input[type="search"]:focus {
+            border-color: var(--primary); background: var(--card);
+        }
+        textarea { resize: vertical; line-height: 1.6; }
+
+        /* 搜尋欄 */
+        .search-bar {
+            position: relative; margin-bottom: 12px;
+        }
+        .search-bar input {
+            padding-left: 38px; padding-right: 34px;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 14px; box-shadow: var(--shadow);
+        }
+        .search-icon {
+            position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+            font-size: 0.95rem; pointer-events: none; opacity: 0.65;
+        }
+        .search-clear {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            background: var(--surface); border: none; color: var(--text-muted);
+            width: 22px; height: 22px; border-radius: 50%; font-size: 12px;
+            cursor: pointer; display: none; align-items: center; justify-content: center;
+        }
+        .search-clear.show { display: flex; }
+
+        /* 橫向捲動標籤列 (分組 / 標籤用) */
+        .chips-scroll {
+            display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+            margin-bottom: 12px; scrollbar-width: none;
+        }
+        .chips-scroll::-webkit-scrollbar { display: none; }
+
+        .chip {
+            flex-shrink: 0; border: 1.5px solid var(--border);
+            background: var(--card); color: var(--text-muted);
+            padding: 7px 13px; border-radius: 99px;
+            font-size: 0.84rem; font-weight: 700; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 5px;
+            transition: all 0.2s; font-family: inherit;
+        }
+        .chip.active {
+            background: var(--primary); color: var(--primary-text);
+            border-color: var(--primary);
+        }
+        .chip.add-chip {
+            border-style: dashed; color: var(--primary); background: transparent;
+        }
+
+        /* 選項膠囊 */
+        .pills-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .pill-toggle {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 7px 12px; border-radius: 99px; font-size: 0.83rem; font-weight: 600;
+            background: var(--surface); color: var(--text-muted);
+            border: 1.5px solid transparent; cursor: pointer; user-select: none;
+        }
+        .pill-toggle.on {
+            background: var(--card); color: var(--primary); border-color: var(--primary);
+        }
+
+        /* 按鈕 */
+        .btn {
+            border: none; border-radius: 14px; padding: 13px 16px;
+            font-size: 0.95rem; font-weight: 700; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 6px; transition: transform 0.12s; font-family: inherit;
+        }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary {
+            background: var(--primary); color: var(--primary-text);
+            width: 100%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+        .btn-soft { background: var(--surface); color: var(--text); }
+        .btn-outline { background: var(--card); color: var(--primary); border: 1.5px solid var(--primary); }
+        .btn-sm { padding: 7px 11px; font-size: 0.82rem; border-radius: 10px; }
+        .btn-danger-soft { background: rgba(217, 107, 107, 0.13); color: var(--danger); }
+
+        .row-between { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .btn-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        /* 富文本輸出 */
+        .rich-output {
+            min-height: 230px; max-height: 55dvh; overflow-y: auto;
+            padding: 14px; background: var(--surface); border-radius: 12px;
+            line-height: 1.75; font-size: 0.98rem; word-break: break-word;
+        }
+        .rich-output h1 { font-size: 1.45em; margin: 0.4em 0; }
+        .rich-output h2 { font-size: 1.25em; margin: 0.4em 0; }
+        .rich-output h3 { font-size: 1.1em; margin: 0.4em 0; }
+        .rich-output p { margin: 0 0 0.75em; }
+        .rich-output p:last-child { margin-bottom: 0; }
+        .rich-output ul, .rich-output ol { padding-left: 1.4em; margin: 0 0 0.75em; }
+        .rich-output blockquote {
+            border-left: 3.5px solid var(--primary); margin: 0.6em 0;
+            padding: 4px 0 4px 12px; color: var(--text-muted);
+            background: var(--card); border-radius: 0 8px 8px 0;
+        }
+
+        /* 詞庫列表 */
+        .rule-add-grid {
+            display: grid; grid-template-columns: 1fr auto 1fr;
+            align-items: center; gap: 8px; margin-bottom: 10px;
+        }
+        .rule-item {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 8px; padding: 11px 12px; background: var(--card);
+            border: 1px solid var(--border); border-radius: 14px; margin-bottom: 8px;
+        }
+        .rule-item.disabled { opacity: 0.45; }
+        .rule-words {
+            flex: 1; display: flex; align-items: center; flex-wrap: wrap;
+            gap: 6px; font-size: 0.94rem; font-weight: 600; word-break: break-all;
+        }
+        .word-badge { background: var(--surface); padding: 4px 9px; border-radius: 8px; }
+        .word-badge.new { color: var(--primary); }
+
+        /* 開關 Switch */
+        .switch { position: relative; display: inline-block; width: 42px; height: 24px; flex-shrink: 0; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; inset: 0; background-color: var(--border);
+            border-radius: 24px; transition: 0.25s; cursor: pointer;
+        }
+        .slider:before {
+            content: ""; position: absolute; height: 18px; width: 18px;
+            left: 3px; bottom: 3px; background-color: white;
+            border-radius: 50%; transition: 0.25s;
+        }
+        input:checked + .slider { background-color: var(--primary); }
+        input:checked + .slider:before { transform: translateX(18px); }
+
+        /* 倉庫卡片 */
+        .vault-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 14px; margin-bottom: 12px;
+            box-shadow: var(--shadow);
+        }
+        .vault-title { font-weight: 700; font-size: 1rem; margin: 0 0 4px; }
+        .vault-meta { font-size: 0.76rem; color: var(--text-muted); }
+        .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0 8px; }
+        .tag-badge {
+            font-size: 0.74rem; font-weight: 700; color: var(--primary);
+            background: var(--surface); padding: 3px 8px; border-radius: 6px;
+        }
+        .vault-preview {
+            font-size: 0.88rem; color: var(--text-muted); background: var(--surface);
+            padding: 10px 12px; border-radius: 10px; margin-bottom: 10px;
+            white-space: pre-wrap; max-height: 86px; overflow: hidden; line-height: 1.55;
+            cursor: pointer;
+        }
+        .vault-preview.expanded { max-height: none; color: var(--text); }
+
+        .empty-state {
+            text-align: center; padding: 34px 20px; color: var(--text-muted);
+            font-size: 0.92rem; line-height: 1.6;
+        }
+
+        /* 底部導覽列 */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 640px; background: var(--card);
+            border-top: 1px solid var(--border);
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+            z-index: 30; box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+        }
+        .nav-item {
+            background: none; border: none; color: var(--text-muted);
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
+            padding: 6px; border-radius: 12px; cursor: pointer; font-family: inherit;
+        }
+        .nav-item .nav-icon { font-size: 1.3rem; line-height: 1; }
+        .nav-item .nav-label { font-size: 0.75rem; font-weight: 700; }
+        .nav-item.active { color: var(--primary); }
+
+        /* 彈窗 */
+        .modal-backdrop {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.45);
+            z-index: 50; display: none; align-items: flex-end; justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+        .modal-backdrop.open { display: flex; }
+        .modal-sheet {
+            width: 100%; max-width: 640px; background: var(--card);
+            border-radius: 24px 24px 0 0;
+            padding: 20px 18px calc(24px + env(safe-area-inset-bottom));
+            max-height: 86dvh; overflow-y: auto;
+            animation: slideUp 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .modal-title {
+            font-size: 1.08rem; font-weight: 800; margin: 0 0 14px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        /* 主題色票 */
+        .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .theme-card {
+            border: 2px solid var(--border); border-radius: 14px; padding: 11px;
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+            background: var(--surface); color: var(--text); font-weight: 700; font-size: 0.88rem;
+        }
+        .theme-card.active { border-color: var(--primary); background: var(--card); }
+        .swatch {
+            width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+            border: 2px solid rgba(255,255,255,0.6); box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        /* 浮動提示 */
+        .toast {
+            position: fixed; top: 64px; left: 50%;
+            transform: translateX(-50%) translateY(-16px);
+            background: var(--text); color: var(--bg);
+            padding: 10px 18px; border-radius: 99px;
+            font-size: 0.88rem; font-weight: 700; z-index: 100;
+            opacity: 0; pointer-events: none; transition: all 0.25s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.22); white-space: nowrap;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <!-- 頂部列 -->
+    <header class="app-header">
+        <h1 class="app-title">✨ 文字魔法盒</h1>
+        <div class="header-actions">
+            <button class="icon-btn" onclick="openModal('themeModal')">🎨 配色</button>
+            <button class="icon-btn" onclick="openBackupModal()">💾 備份</button>
+        </div>
+    </header>
+
+    <!-- 主內容 -->
+    <main class="app-main">
+
+        <!-- ====== 分頁 1：轉換工作台 ====== -->
+        <section id="tab-work" class="tab-panel active">
+            <div class="segmented">
+                <button class="seg-btn active" id="seg-input" onclick="switchWorkView('input')">📝 輸入原文</button>
+                <button class="seg-btn" id="seg-result" onclick="switchWorkView('result')">🎉 轉換結果</button>
+            </div>
+
+            <!-- 子畫面：輸入 -->
+            <div id="work-input-view">
+                <div class="card">
+                    <div class="row-between" style="margin-bottom: 10px;">
+                        <span style="font-weight: 700; font-size: 0.9rem;">⚡ 轉換開關</span>
+                        <span style="font-size: 0.78rem; color: var(--text-muted);" id="activeRuleCount">已啟用 0 組詞庫</span>
+                    </div>
+                    <div class="pills-wrap">
+                        <div class="pill-toggle" id="opt-rules" onclick="toggleOption('rules')">🔄 套用詞庫</div>
+                        <div class="pill-toggle" id="opt-punct" onclick="toggleOption('punct')">，全形標點</div>
+                        <div class="pill-toggle" id="opt-quotes" onclick="toggleOption('quotes')">「」中文引號</div>
+                        <div class="pill-toggle" id="opt-ellipsis" onclick="toggleOption('ellipsis')">……刪節號</div>
+                        <div class="pill-toggle" id="opt-cleanLines" onclick="toggleOption('cleanLines')">🧹 清多餘空行</div>
+                        <div class="pill-toggle" id="opt-space" onclick="toggleOption('space')">␣ 中英加空白</div>
+                    </div>
+
+                    <div class="row-between" style="margin-bottom: 8px;">
+                        <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600;" id="inputWordCount">0 字</span>
+                        <div style="display: flex; gap: 6px;">
+                            <button class="btn btn-soft btn-sm" onclick="pasteFromClipboard()">📋 貼上</button>
+                            <button class="btn btn-danger-soft btn-sm" onclick="clearInput()">🗑️ 清空</button>
+                        </div>
+                    </div>
+
+                    <textarea id="inputText" rows="9" placeholder="貼上 AI 輸出或文章，支援 Markdown 語法，會自動暫存不用怕不見..."></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="runConvert()">
+                    ✨ 一鍵轉換並預覽結果
+                </button>
+            </div>
+
+            <!-- 子畫面：轉換結果 -->
+            <div id="work-result-view" class="hidden">
+                <div class="card">
+                    <div class="row-between" style="margin-bottom: 10px;">
+                        <span style="font-weight: 700; font-size: 0.9rem;">✨ 富文本預覽 <small style="color:var(--text-muted); font-weight:600;" id="outputWordCount"></small></span>
+                        <button class="btn btn-soft btn-sm" onclick="switchWorkView('input')">✏️ 修改原文</button>
+                    </div>
+                    <div id="richOutput" class="rich-output"></div>
+                </div>
+
+                <div class="btn-grid-2" style="margin-bottom: 10px;">
+                    <button class="btn btn-primary" onclick="copyCurrentRichText()">📋 複製富文本</button>
+                    <button class="btn btn-outline" onclick="copyCurrentPlainText()">📄 複製純文字</button>
+                </div>
+                <button class="btn btn-soft" style="width: 100%;" onclick="openSaveOutputModal()">
+                    💾 存進倉庫（保留這段結果）
+                </button>
+            </div>
+        </section>
+
+        <!-- ====== 分頁 2：分組詞庫管理 ====== -->
+        <section id="tab-rules" class="tab-panel">
+            <!-- 詞庫分組切換列 -->
+            <div class="chips-scroll" id="groupChips"></div>
+
+            <!-- 當前分組控制卡 + 一組一組新增 -->
+            <div class="card">
+                <div class="row-between" style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <label class="switch">
+                            <input type="checkbox" id="currentGroupToggle" onchange="toggleCurrentGroup()">
+                            <span class="slider"></span>
+                        </label>
+                        <span style="font-weight: 800; font-size: 0.96rem;" id="currentGroupName">預設詞庫</span>
+                    </div>
+                    <div style="display:flex; gap:6px;">
+                        <button class="btn btn-soft btn-sm" onclick="toggleBulkEdit()">📝 批次</button>
+                        <button class="btn btn-danger-soft btn-sm" id="deleteGroupBtn" onclick="deleteCurrentGroup()">🗑️</button>
+                    </div>
+                </div>
+
+                <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600;">
+                    ➕ 新增一組替換詞到這個分組：
+                </div>
+                <div class="rule-add-grid">
+                    <input type="text" id="newRuleFrom" placeholder="原本的字">
+                    <span style="font-weight: 800; color: var(--primary);">➔</span>
+                    <input type="text" id="newRuleTo" placeholder="換成(留空=刪除)">
+                </div>
+                <button class="btn btn-primary" onclick="addRule()">＋ 加入這一組</button>
+
+                <!-- 批次編輯摺疊區 -->
+                <div id="bulkEditBox" class="hidden" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0 0 6px;">批次輸入（一行一組，用「->」分隔）</p>
+                    <textarea id="bulkRulesText" rows="5"></textarea>
+                    <button class="btn btn-outline btn-sm" style="margin-top: 8px; width: 100%;" onclick="applyBulkRules()">套用到目前分組</button>
+                </div>
+            </div>
+
+            <!-- 搜尋詞庫 -->
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="search" id="ruleSearchInput" placeholder="搜尋這個分組的替換詞..." oninput="handleSearch('rule')">
+                <button class="search-clear" id="ruleSearchClear" onclick="clearSearch('rule')">✕</button>
+            </div>
+
+            <div class="row-between" style="padding: 0 4px 8px;">
+                <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-muted);" id="ruleListLabel">詞庫列表</span>
+                <button class="btn btn-soft btn-sm" onclick="addPresetRules()">⚡ 一鍵加常用詞</button>
+            </div>
+
+            <div id="rulesList"></div>
+        </section>
+
+        <!-- ====== 分頁 3：咒語 & 存檔倉庫 ====== -->
+        <section id="tab-vault" class="tab-panel">
+            <div class="segmented">
+                <button class="seg-btn active" id="seg-prompts" onclick="switchVaultView('prompts')">🔮 情境咒語</button>
+                <button class="seg-btn" id="seg-saves" onclick="switchVaultView('saves')">📚 輸出存檔</button>
+            </div>
+
+            <!-- 子畫面：情境咒語 -->
+            <div id="vault-prompts-view">
+                <button class="btn btn-primary" style="margin-bottom: 12px;" onclick="openPromptModal()">
+                    ➕ 新增情境咒語
+                </button>
+
+                <!-- 搜尋咒語 -->
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="search" id="promptSearchInput" placeholder="搜尋咒語標題、內容或標籤..." oninput="handleSearch('prompt')">
+                    <button class="search-clear" id="promptSearchClear" onclick="clearSearch('prompt')">✕</button>
+                </div>
+
+                <!-- 標籤篩選列 -->
+                <div class="chips-scroll" id="promptTagChips"></div>
+
+                <div id="promptsList"></div>
+            </div>
+
+            <!-- 子畫面：輸出存檔 -->
+            <div id="vault-saves-view" class="hidden">
+                <!-- 搜尋存檔 -->
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="search" id="saveSearchInput" placeholder="搜尋存檔標題或內文關鍵字..." oninput="handleSearch('save')">
+                    <button class="search-clear" id="saveSearchClear" onclick="clearSearch('save')">✕</button>
+                </div>
+
+                <div id="savesList"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 底部導覽列 -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" id="nav-work" onclick="switchTab('work')">
+            <span class="nav-icon">✨</span>
+            <span class="nav-label">轉換</span>
+        </button>
+        <button class="nav-item" id="nav-rules" onclick="switchTab('rules')">
+            <span class="nav-icon">🔄</span>
+            <span class="nav-label">詞庫</span>
+        </button>
+        <button class="nav-item" id="nav-vault" onclick="switchTab('vault')">
+            <span class="nav-icon">📦</span>
+            <span class="nav-label">倉庫</span>
+        </button>
+    </nav>
+</div>
+
+<!-- ====== 彈窗：主題配色 ====== -->
+<div class="modal-backdrop" id="themeModal" onclick="backdropClose(event, 'themeModal')">
+    <div class="modal-sheet">
+        <div class="modal-title">
+            <span>🎨 挑選喜歡的配色</span>
+            <button class="btn btn-soft btn-sm" onclick="closeModal('themeModal')">關閉</button>
+        </div>
+        <div class="theme-grid" id="themeGrid"></div>
+    </div>
+</div>
+
+<!-- ====== 彈窗：新增詞庫分組 ====== -->
+<div class="modal-backdrop" id="groupModal" onclick="backdropClose(event, 'groupModal')">
+    <div class="modal-sheet">
+        <div class="modal-title">
+            <span>📂 新增詞庫分組</span>
+            <button class="btn btn-soft btn-sm" onclick="closeModal('groupModal')">取消</button>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); margin: 0 0 10px;">
+            可以依不同故事或用途建立分組（例如：角色改名用、古風用語），不用時一鍵關閉整組！
+        </p>
+        <input type="text" id="newGroupNameInput" placeholder="輸入分組名稱..." style="margin-bottom: 14px;">
+        <button class="btn btn-primary" onclick="saveNewGroup()">✅ 建立分組</button>
+    </div>
+</div>
+
+<!-- ====== 彈窗：編輯單組替換詞 ====== -->
+<div class="modal-backdrop" id="editRuleModal" onclick="backdropClose(event, 'editRuleModal')">
+    <div class="modal-sheet">
+        <div class="modal-title">
+            <span>✏️ 修改這組替換詞</span>
+            <button class="btn btn-soft btn-sm" onclick="closeModal('editRuleModal')">取消</button>
+        </div>
+        <input type="hidden" id="editRuleId">
+        <div class="rule-add-grid" style="margin-bottom: 14px;">
+            <input type="text" id="editRuleFrom" placeholder="原本的字">
+            <span style="font-weight: 800; color: var(--primary);">➔</span>
+            <input type="text" id="editRuleTo" placeholder="換成這個字">
+        </div>
+        <button class="btn btn-primary" onclick="saveEditedRule()">💾 儲存修改</button>
+    </div>
+</div>
+
+<!-- ====== 彈窗：新增/編輯咒語 ====== -->
+<div class="modal-backdrop" id="promptModal" onclick="backdropClose(event, 'promptModal')">
+    <div class="modal-sheet">
+        <div class="modal-title">
+            <span id="promptModalTitle">🔮 新增情境咒語</span>
+            <button class="btn btn-soft btn-sm" onclick="closeModal('promptModal')">取消</button>
+        </div>
+        <input type="hidden" id="editPromptId">
+        <div style="margin-bottom: 10px;">
+            <input type="text" id="promptTitleInput" placeholder="咒語標題（例如：雨夜咖啡廳重逢）">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <input type="text" id="promptTagsInput" placeholder="分類標籤，用空白隔開（例如：現代 浪漫 萬用）">
+        </div>
+        <div style="margin-bottom: 6px;">
+            <textarea id="promptContentInput" rows="6" placeholder="輸入咒語內容...&#10;💡小秘訣：用 {{名字}} 或 {{地點}} 包起來，複製時就會自動跳出填空框喔！"></textarea>
+        </div>
+        <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0 0 12px;">
+            💡 支援變數填空：寫成 <b>{{角色}}</b>，之後點一下就能快速代換複製！
+        </p>
+        <button class="btn btn-primary" onclick="savePrompt()">💾 儲存咒語</button>
+    </div>
+</div>
+
+<!-- ====== 彈窗：變數填空複製 ====== -->
+<div class="modal-backdrop" id="fillPromptModal" onclick="backdropClose(event, 'fillPromptModal')">
+    <div class="modal-sheet">
+        <div class="modal-title">
+            <span>✨ 填入變數並複製</span>
+            <button class="btn btn-soft btn-sm" onclick="closeModal('fillPromptModal')">取消</button>
+        </div>
+        <input type="hidden" id="fillPromptId">
+        <div id="fillVariablesContainer" style="margin-bottom: 14px;"></div>
+        <button class="btn btn-primary" onclick="confirmFillAndCopy()">📋 套用並一鍵複製</button>
+    </div>
+</div>
+
+<!-- ====== 彈窗：儲存轉換結果 ====== -->
+<div class="modal-backdrop" id="saveOutputModal" onclick="backdropClose(event, 'saveOutputModal')">
+    <div class="modal-sheet">
+        <div class="modal-title">
+            <span>📚 存檔這次的轉換結果</span>
+            <button class="btn btn-soft btn-sm" onclick="closeModal('saveOutputModal')">取消</button>
+        </div>
+        <input type="text" id="saveTitleInput" placeholder="輸入存檔標題（留空會自動抓取第一行）" style="margin-bottom: 14px;">
+        <button class="btn btn-primary" onclick="confirmSaveOutput()">✅ 確認存檔</button>
+    </div>
+</div>
+
+<!-- ====== 彈窗：備份與還原 ====== -->
+<div class="modal-backdrop" id="backupModal" onclick="backdropClose(event, 'backupModal')">
+    <div class="modal-sheet">
+        <div class="modal-title">
+            <span>💾 資料備份與搬家</span>
+            <button class="btn btn-soft btn-sm" onclick="closeModal('backupModal')">關閉</button>
+        </div>
+        <p style="font-size: 0.84rem; color: var(--text-muted); margin: 0 0 10px;">
+            換手機或清除瀏覽器資料前，可以把這段備份碼存到備忘錄，之後貼回來就能完整還原所有詞庫與咒語！
+        </p>
+        <textarea id="backupDataArea" rows="5" style="font-size: 13px; margin-bottom: 10px;"></textarea>
+        <div class="btn-grid-2">
+            <button class="btn btn-primary" onclick="copyBackupData()">📋 複製備份碼</button>
+            <button class="btn btn-outline" onclick="importBackupData()">📥 貼上並還原</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+    const STORAGE_KEY = 'text_magic_box_v3';
+    const OLD_V2_KEY = 'text_magic_box_v2';
+
+    const THEMES = [
+        { id: 'milk-tea',   name: '🧋 燕麥奶茶', color: '#A67B5B' },
+        { id: 'sakura',     name: '🌸 櫻花莓果', color: '#DE7392' },
+        { id: 'matcha',     name: '🍵 宇治抹茶', color: '#668C63' },
+        { id: 'lavender',   name: '💜 夢幻芋泥', color: '#896BB3' },
+        { id: 'ocean',      name: '🌊 晴空海鹽', color: '#4A89B8' },
+        { id: 'butter',     name: '🧈 奶油起司', color: '#D49A2A' },
+        { id: 'dark',       name: '🌙 深夜護眼', color: '#272731' },
+        { id: 'black-gold', name: '🖤 黑金質感', color: '#D4AF37' }
+    ];
+
+    const DEFAULT_STATE = {
+        theme: 'milk-tea',
+        options: { rules: true, punct: true, quotes: true, ellipsis: true, cleanLines: true, space: false },
+        draft: '# 測試故事片段\n\n他輕輕嘆了口氣,嘴角露出一抹溫柔的笑:"沒事的,這個視頻和軟件我都幫你處理好了..."\n\n\n* **重點一**: 標點和引號都會自動變好看!\n* **重點二**: 可以複製富文本直接貼上.',
+        selectedGroupId: 'g_default',
+        ruleGroups: [
+            {
+                id: 'g_default',
+                name: '常用替換',
+                enabled: true,
+                rules: [
+                    { id: 'r1', from: '視頻', to: '影片', enabled: true },
+                    { id: 'r2', from: '軟件', to: '軟體', enabled: true },
+                    { id: 'r3', from: '質量', to: '品質', enabled: true }
+                ]
+            },
+            {
+                id: 'g_story',
+                name: '角色改名範例',
+                enabled: false,
+                rules: [
+                    { id: 'r4', from: '小明', to: '顧景深', enabled: true }
+                ]
+            }
+        ],
+        prompts: [
+            {
+                id: 'p1',
+                title: '範例：溫柔重逢情境（可填空）',
+                tags: ['現代', '浪漫'],
+                content: '請扮演溫柔細心的{{角色名}}。我們現在在{{地點}}意外重逢，外面正下著細雨。請用繁體中文、自然口語的風格回覆，多描寫細微的表情與動作，不要條列式回答。',
+                updatedAt: new Date().toLocaleDateString('zh-TW')
+            }
+        ],
+        saves: []
+    };
+
+    function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
+
+    let state = loadState();
+    let selectedPromptTag = 'ALL';
+    let lastConvertedPlain = '';
+    let lastConvertedHtml = '';
+
+    function loadState() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                return {
+                    ...clone(DEFAULT_STATE),
+                    ...parsed,
+                    options: { ...DEFAULT_STATE.options, ...(parsed.options || {}) }
+                };
+            }
+            // 若有舊版 v2 資料，自動無痛升級
+            const oldRaw = localStorage.getItem(OLD_V2_KEY);
+            if (oldRaw) {
+                const old = JSON.parse(oldRaw);
+                const migrated = clone(DEFAULT_STATE);
+                migrated.theme = old.theme || 'milk-tea';
+                migrated.draft = old.draft || '';
+                migrated.prompts = (old.prompts || []).map(p => ({ ...p, tags: p.tags || [] }));
+                migrated.saves = old.saves || [];
+                if (Array.isArray(old.rules)) {
+                    migrated.ruleGroups[0].rules = old.rules;
+                }
+                return migrated;
+            }
+            return clone(DEFAULT_STATE);
+        } catch (e) {
+            return clone(DEFAULT_STATE);
+        }
+    }
+
+    function saveState() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+            showToast('⚠️ 儲存空間不足');
+        }
+    }
+
+    function init() {
+        applyTheme(state.theme);
+        const inputEl = document.getElementById('inputText');
+        inputEl.value = state.draft || '';
+        updateInputWordCount();
+        inputEl.addEventListener('input', (e) => {
+            state.draft = e.target.value;
+            updateInputWordCount();
+            saveState();
+        });
+
+        renderOptions();
+        renderThemeGrid();
+        renderGroupsAndRules();
+        renderPrompts();
+        renderSaves();
+    }
+
+    function updateInputWordCount() {
+        const len = document.getElementById('inputText').value.replace(/\s/g, '').length;
+        document.getElementById('inputWordCount').textContent = `目前 ${len} 字`;
+    }
+
+    // ====== 分頁切換 ======
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-panel').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        document.getElementById('nav-' + tab).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function switchWorkView(view) {
+        const isInput = view === 'input';
+        document.getElementById('work-input-view').classList.toggle('hidden', !isInput);
+        document.getElementById('work-result-view').classList.toggle('hidden', isInput);
+        document.getElementById('seg-input').classList.toggle('active', isInput);
+        document.getElementById('seg-result').classList.toggle('active', !isInput);
+        if (!isInput && !lastConvertedHtml) runConvert(false);
+    }
+
+    function switchVaultView(view) {
+        const isPrompts = view === 'prompts';
+        document.getElementById('vault-prompts-view').classList.toggle('hidden', !isPrompts);
+        document.getElementById('vault-saves-view').classList.toggle('hidden', isPrompts);
+        document.getElementById('seg-prompts').classList.toggle('active', isPrompts);
+        document.getElementById('seg-saves').classList.toggle('active', !isPrompts);
+    }
+
+    // ====== 搜尋處理 ======
+    function handleSearch(type) {
+        const input = document.getElementById(type + 'SearchInput');
+        const clearBtn = document.getElementById(type + 'SearchClear');
+        clearBtn.classList.toggle('show', input.value.length > 0);
+        if (type === 'rule') renderRules();
+        if (type === 'prompt') renderPrompts();
+        if (type === 'save') renderSaves();
+    }
+
+    function clearSearch(type) {
+        document.getElementById(type + 'SearchInput').value = '';
+        handleSearch(type);
+    }
+
+    // ====== 主題配色 ======
+    function applyTheme(themeId) {
+        state.theme = themeId;
+        document.documentElement.setAttribute('data-theme', themeId);
+        saveState();
+        renderThemeGrid();
+    }
+
+    function renderThemeGrid() {
+        document.getElementById('themeGrid').innerHTML = THEMES.map(t => `
+            <div class="theme-card ${state.theme === t.id ? 'active' : ''}" onclick="applyTheme('${t.id}'); showToast('已切換：${t.name}')">
+                <span class="swatch" style="background:${t.color}"></span>
+                <span>${t.name}</span>
+            </div>
+        `).join('');
+    }
+
+    // ====== 轉換選項 ======
+    function toggleOption(key) {
+        state.options[key] = !state.options[key];
+        saveState();
+        renderOptions();
+    }
+
+    function getActiveRules() {
+        const active = [];
+        state.ruleGroups.forEach(g => {
+            if (g.enabled) {
+                g.rules.forEach(r => { if (r.enabled && r.from) active.push(r); });
+            }
+        });
+        return active;
+    }
+
+    function renderOptions() {
+        for (const [key, val] of Object.entries(state.options)) {
+            const el = document.getElementById('opt-' + key);
+            if (el) el.classList.toggle('on', val);
+        }
+        const activeCount = getActiveRules().length;
+        const activeGroups = state.ruleGroups.filter(g => g.enabled).length;
+        document.getElementById('activeRuleCount').textContent = `啟用 ${activeGroups} 分組 (${activeCount} 詞)`;
+    }
+
+    // ====== 核心文字轉換 ======
+    function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function processTextContent(rawText) {
+        let text = rawText;
+
+        // 1. 套用所有已啟用分組的替換詞
+        if (state.options.rules) {
+            getActiveRules().forEach(rule => {
+                const regex = new RegExp(escapeRegExp(rule.from), 'g');
+                text = text.replace(regex, rule.to || '');
+            });
+        }
+
+        // 保護程式碼與網址
+        const protectedChunks = [];
+        const protect = (match) => {
+            const token = `___PROTECTED_${protectedChunks.length}___`;
+            protectedChunks.push(match);
+            return token;
+        };
+        text = text.replace(/```[\s\S]*?```/g, protect);
+        text = text.replace(/`[^`\n]+`/g, protect);
+        text = text.replace(/\]\((https?:\/\/[^\s)]+)\)/g, protect);
+        text = text.replace(/https?:\/\/[^\s]+/g, protect);
+
+        // 2. 清除多餘空行
+        if (state.options.cleanLines) {
+            text = text.replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+        }
+
+        // 3. 刪節號
+        if (state.options.ellipsis) {
+            text = text.replace(/\.{3,}/g, '……').replace(/。{3,}/g, '……');
+        }
+
+        // 4. 中文引號
+        if (state.options.quotes) {
+            text = text.replace(/[“"]([^“”"\n]+)[”"]/g, '「$1」');
+            text = text.replace(/[‘']([^‘’'\n]+)[’']/g, '『$1』');
+        }
+
+        // 5. 半形轉全形標點
+        if (state.options.punct) {
+            const map = { ',': '，', '!': '！', '\\?': '？', ';': '；', ':': '：', '\\(': '（', '\\)': '）' };
+            for (const [half, full] of Object.entries(map)) {
+                text = text.replace(new RegExp(half + '[ \\t]*', 'g'), full);
+            }
+            text = text.replace(/([^\d.])\.([ \t]*(\n|$))/g, '$1。$2');
+        }
+
+        // 6. 中英數字加空白
+        if (state.options.space) {
+            text = text.replace(/([\u4e00-\u9fff])([A-Za-z0-9])/g, '$1 $2');
+            text = text.replace(/([A-Za-z0-9])([\u4e00-\u9fff])/g, '$1 $2');
+        }
+
+        protectedChunks.forEach((chunk, idx) => {
+            text = text.replace(`___PROTECTED_${idx}___`, chunk);
+        });
+
+        return text;
+    }
+
+    function runConvert(switchToRes = true) {
+        const raw = document.getElementById('inputText').value;
+        if (!raw.trim()) return showToast('請先輸入或貼上文字喔！');
+
+        const processed = processTextContent(raw);
+        lastConvertedPlain = processed;
+
+        if (typeof marked !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+            lastConvertedHtml = marked.parse(processed);
+        } else {
+            lastConvertedHtml = '<p>' + escapeHtml(processed).replace(/\n/g, '<br>') + '</p>';
+        }
+
+        const outEl = document.getElementById('richOutput');
+        outEl.innerHTML = lastConvertedHtml;
+        const count = outEl.innerText.replace(/\s/g, '').length;
+        document.getElementById('outputWordCount').textContent = `(${count} 字)`;
+
+        if (switchToRes) {
+            switchWorkView('result');
+            showToast('✨ 轉換完成！');
+        }
+    }
+
+    async function pasteFromClipboard() {
+        try {
+            const text = await navigator.clipboard.readText();
+            if (text) {
+                document.getElementById('inputText').value = text;
+                state.draft = text;
+                updateInputWordCount();
+                saveState();
+                showToast('📋 已貼上剪貼簿內容');
+            } else {
+                showToast('剪貼簿是空的喔');
+            }
+        } catch (err) {
+            showToast('請長按輸入框手動貼上喔');
+        }
+    }
+
+    function clearInput() {
+        document.getElementById('inputText').value = '';
+        state.draft = '';
+        lastConvertedPlain = '';
+        lastConvertedHtml = '';
+        updateInputWordCount();
+        saveState();
+        showToast('🗑️ 已清空');
+    }
+
+    // ====== 複製工具 ======
+    async function copyRichHtml(htmlContent, fallbackPlain) {
+        try {
+            if (navigator.clipboard && window.ClipboardItem) {
+                const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+                const textBlob = new Blob([fallbackPlain], { type: 'text/plain' });
+                await navigator.clipboard.write([new ClipboardItem({ 'text/html': htmlBlob, 'text/plain': textBlob })]);
+                return showToast('✅ 已複製富文本格式！');
+            }
+        } catch (e) {}
+
+        const temp = document.createElement('div');
+        temp.innerHTML = htmlContent;
+        temp.style.cssText = 'position:fixed;left:-9999px;background:#fff;color:#000;';
+        document.body.appendChild(temp);
+        const range = document.createRange();
+        range.selectNodeContents(temp);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        try {
+            document.execCommand('copy');
+            showToast('✅ 已複製富文本格式！');
+        } catch (err) {
+            showToast('複製失敗，請手動選取');
+        }
+        sel.removeAllRanges();
+        document.body.removeChild(temp);
+    }
+
+    async function copyPlainText(text, msg = '✅ 已複製！') {
+        try {
+            await navigator.clipboard.writeText(text);
+            showToast(msg);
+        } catch (e) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.cssText = 'position:fixed;opacity:0;';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast(msg);
+        }
+    }
+
+    function copyCurrentRichText() {
+        if (!lastConvertedHtml) return showToast('目前沒有內容');
+        copyRichHtml(lastConvertedHtml, document.getElementById('richOutput').innerText);
+    }
+
+    function copyCurrentPlainText() {
+        if (!lastConvertedHtml) return showToast('目前沒有內容');
+        copyPlainText(document.getElementById('richOutput').innerText, '📄 已複製純文字！');
+    }
+
+    // ====== 分組詞庫管理 ======
+    function getCurrentGroup() {
+        let g = state.ruleGroups.find(item => item.id === state.selectedGroupId);
+        if (!g && state.ruleGroups.length > 0) {
+            g = state.ruleGroups[0];
+            state.selectedGroupId = g.id;
+        }
+        return g;
+    }
+
+    function renderGroupsAndRules() {
+        const current = getCurrentGroup();
+        const chipsEl = document.getElementById('groupChips');
+
+        chipsEl.innerHTML = state.ruleGroups.map(g => `
+            <button class="chip ${g.id === current.id ? 'active' : ''}" onclick="selectGroup('${g.id}')">
+                <span>${g.enabled ? '🟢' : '⚪'}</span>
+                <span>${escapeHtml(g.name)} (${g.rules.length})</span>
+            </button>
+        `).join('') + `<button class="chip add-chip" onclick="openGroupModal()">＋ 新增分組</button>`;
+
+        document.getElementById('currentGroupName').textContent = current.name;
+        document.getElementById('currentGroupToggle').checked = current.enabled;
+        document.getElementById('deleteGroupBtn').classList.toggle('hidden', state.ruleGroups.length <= 1);
+        document.getElementById('bulkEditBox').classList.add('hidden');
+
+        renderRules();
+        renderOptions();
+    }
+
+    function selectGroup(groupId) {
+        state.selectedGroupId = groupId;
+        saveState();
+        renderGroupsAndRules();
+    }
+
+    function openGroupModal() {
+        document.getElementById('newGroupNameInput').value = '';
+        openModal('groupModal');
+    }
+
+    function saveNewGroup() {
+        const name = document.getElementById('newGroupNameInput').value.trim();
+        if (!name) return showToast('請輸入分組名稱喔！');
+        const newId = 'g_' + Date.now();
+        state.ruleGroups.push({ id: newId, name, enabled: true, rules: [] });
+        state.selectedGroupId = newId;
+        saveState();
+        closeModal('groupModal');
+        renderGroupsAndRules();
+        showToast(`📂 已建立「${name}」分組`);
+    }
+
+    function toggleCurrentGroup() {
+        const g = getCurrentGroup();
+        g.enabled = document.getElementById('currentGroupToggle').checked;
+        saveState();
+        renderGroupsAndRules();
+        showToast(g.enabled ? `✅ 已啟用「${g.name}」` : `⏸️ 已暫停「${g.name}」`);
+    }
+
+    function deleteCurrentGroup() {
+        if (state.ruleGroups.length <= 1) return;
+        const g = getCurrentGroup();
+        if (!confirm(`確定要刪除「${g.name}」分組及裡面的 ${g.rules.length} 組替換詞嗎？`)) return;
+        state.ruleGroups = state.ruleGroups.filter(item => item.id !== g.id);
+        state.selectedGroupId = state.ruleGroups[0].id;
+        saveState();
+        renderGroupsAndRules();
+        showToast('🗑️ 已刪除分組');
+    }
+
+    function renderRules() {
+        const g = getCurrentGroup();
+        const keyword = document.getElementById('ruleSearchInput').value.trim().toLowerCase();
+        const container = document.getElementById('rulesList');
+
+        const filtered = g.rules.filter(r =>
+            !keyword || r.from.toLowerCase().includes(keyword) || r.to.toLowerCase().includes(keyword)
+        );
+
+        document.getElementById('ruleListLabel').textContent =
+            keyword ? `搜尋結果：${filtered.length} 組` : `「${g.name}」共有 ${g.rules.length} 組替換詞`;
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<div class="empty-state">${keyword ? '找不到符合的替換詞 🔎' : '這個分組還是空的～<br>在上面填寫字詞按「加入這一組」就能開始用！'}</div>`;
+            return;
+        }
+
+        container.innerHTML = filtered.map(r => `
+            <div class="rule-item ${r.enabled && g.enabled ? '' : 'disabled'}">
+                <label class="switch">
+                    <input type="checkbox" ${r.enabled ? 'checked' : ''} onchange="toggleRule('${r.id}')">
+                    <span class="slider"></span>
+                </label>
+                <div class="rule-words">
+                    <span class="word-badge">${escapeHtml(r.from)}</span>
+                    <span style="color: var(--text-muted); font-size: 0.8rem;">➔</span>
+                    <span class="word-badge new">${r.to ? escapeHtml(r.to) : '(刪除)'}</span>
+                </div>
+                <button class="btn btn-soft btn-sm" onclick="openEditRuleModal('${r.id}')">✏️</button>
+                <button class="btn btn-danger-soft btn-sm" onclick="deleteRule('${r.id}')">✕</button>
+            </div>
+        `).join('');
+    }
+
+    function addRule() {
+        const fromEl = document.getElementById('newRuleFrom');
+        const toEl = document.getElementById('newRuleTo');
+        const from = fromEl.value.trim();
+        const to = toEl.value.trim();
+        if (!from) return showToast('請輸入「原本的字」喔！');
+
+        const g = getCurrentGroup();
+        g.rules.unshift({ id: 'r_' + Date.now(), from, to, enabled: true });
+        fromEl.value = '';
+        toEl.value = '';
+        saveState();
+        renderGroupsAndRules();
+        showToast(`✅ 已加入：${from} ➔ ${to || '(刪除)'}`);
+    }
+
+    function toggleRule(ruleId) {
+        const r = getCurrentGroup().rules.find(item => item.id === ruleId);
+        if (r) {
+            r.enabled = !r.enabled;
+            saveState();
+            renderRules();
+            renderOptions();
+        }
+    }
+
+    function openEditRuleModal(ruleId) {
+        const r = getCurrentGroup().rules.find(item => item.id === ruleId);
+        if (!r) return;
+        document.getElementById('editRuleId').value = r.id;
+        document.getElementById('editRuleFrom').value = r.from;
+        document.getElementById('editRuleTo').value = r.to;
+        openModal('editRuleModal');
+    }
+
+    function saveEditedRule() {
+        const id = document.getElementById('editRuleId').value;
+        const from = document.getElementById('editRuleFrom').value.trim();
+        const to = document.getElementById('editRuleTo').value.trim();
+        if (!from) return showToast('原本的字不能留空喔！');
+
+        const r = getCurrentGroup().rules.find(item => item.id === id);
+        if (r) {
+            r.from = from;
+            r.to = to;
+            saveState();
+            renderRules();
+            closeModal('editRuleModal');
+            showToast('💾 修改完成！');
+        }
+    }
+
+    function deleteRule(ruleId) {
+        const g = getCurrentGroup();
+        g.rules = g.rules.filter(item => item.id !== ruleId);
+        saveState();
+        renderGroupsAndRules();
+        showToast('🗑️ 已移除');
+    }
+
+    function toggleBulkEdit() {
+        const box = document.getElementById('bulkEditBox');
+        const isHidden = box.classList.toggle('hidden');
+        if (!isHidden) {
+            document.getElementById('bulkRulesText').value = getCurrentGroup().rules
+                .map(r => `${r.from}->${r.to}`).join('\n');
+        }
+    }
+
+    function applyBulkRules() {
+        const lines = document.getElementById('bulkRulesText').value.split('\n');
+        const newRules = [];
+        lines.forEach((line, idx) => {
+            if (line.includes('->')) {
+                const [from, ...rest] = line.split('->');
+                if (from.trim()) {
+                    newRules.push({ id: 'rb_' + Date.now() + '_' + idx, from: from.trim(), to: rest.join('->').trim(), enabled: true });
+                }
+            }
+        });
+        getCurrentGroup().rules = newRules;
+        saveState();
+        renderGroupsAndRules();
+        showToast(`✅ 已更新 ${newRules.length} 組替換詞`);
+    }
+
+    function addPresetRules() {
+        const presets = [
+            ['信息', '訊息'], ['屏幕', '螢幕'], ['默認', '預設'],
+            ['網絡', '網路'], ['激活', '啟用'], ['程序', '程式']
+        ];
+        const g = getCurrentGroup();
+        let added = 0;
+        presets.forEach(([from, to], idx) => {
+            if (!g.rules.some(r => r.from === from)) {
+                g.rules.push({ id: 'rp_' + Date.now() + '_' + idx, from, to, enabled: true });
+                added++;
+            }
+        });
+        saveState();
+        renderGroupsAndRules();
+        showToast(added > 0 ? `⚡ 已加入 ${added} 組常用詞` : '這個分組已經都有這些詞囉！');
+    }
+
+    // ====== 情境咒語 (含搜尋、標籤、{{變數}}填空) ======
+    function extractVariables(content) {
+        const matches = [...content.matchAll(/\{\{([^}]+)\}\}/g)].map(m => m[1].trim());
+        return [...new Set(matches)];
+    }
+
+    function renderPromptTags() {
+        const allTags = new Set();
+        state.prompts.forEach(p => (p.tags || []).forEach(t => allTags.add(t)));
+        const chipsEl = document.getElementById('promptTagChips');
+
+        if (allTags.size === 0) {
+            chipsEl.innerHTML = '';
+            return;
+        }
+        if (selectedPromptTag !== 'ALL' && !allTags.has(selectedPromptTag)) {
+            selectedPromptTag = 'ALL';
+        }
+
+        chipsEl.innerHTML = `
+            <button class="chip ${selectedPromptTag === 'ALL' ? 'active' : ''}" onclick="selectPromptTag('ALL')">全部 (${state.prompts.length})</button>
+            ${[...allTags].map(tag => `
+                <button class="chip ${selectedPromptTag === tag ? 'active' : ''}" onclick="selectPromptTag('${escapeHtml(tag)}')">#${escapeHtml(tag)}</button>
+            `).join('')}
+        `;
+    }
+
+    function selectPromptTag(tag) {
+        selectedPromptTag = tag;
+        renderPrompts();
+    }
+
+    function renderPrompts() {
+        renderPromptTags();
+        const keyword = document.getElementById('promptSearchInput').value.trim().toLowerCase();
+        const list = document.getElementById('promptsList');
+
+        const filtered = state.prompts.filter(p => {
+            const matchTag = selectedPromptTag === 'ALL' || (p.tags || []).includes(selectedPromptTag);
+            const matchKw = !keyword ||
+                p.title.toLowerCase().includes(keyword) ||
+                p.content.toLowerCase().includes(keyword) ||
+                (p.tags || []).some(t => t.toLowerCase().includes(keyword));
+            return matchTag && matchKw;
+        });
+
+        if (filtered.length === 0) {
+            list.innerHTML = `<div class="empty-state">${keyword ? '找不到符合的咒語 🔎' : '🔮 這裡可以收藏你常玩的情境咒語<br>點上方按鈕新增，之後就能一鍵複製！'}</div>`;
+            return;
+        }
+
+        list.innerHTML = filtered.map(p => {
+            const vars = extractVariables(p.content);
+            const hasVars = vars.length > 0;
+            const tagsHtml = (p.tags && p.tags.length)
+                ? `<div class="tag-row">${p.tags.map(t => `<span class="tag-badge">#${escapeHtml(t)}</span>`).join('')}</div>`
+                : '';
+
+            return `
+                <div class="vault-card">
+                    <div class="row-between">
+                        <div class="vault-title">${escapeHtml(p.title)}</div>
+                        <span class="vault-meta">${p.updatedAt || ''}</span>
+                    </div>
+                    ${tagsHtml}
+                    <div class="vault-preview" onclick="this.classList.toggle('expanded')">${escapeHtml(p.content)}</div>
+                    <div class="row-between">
+                        ${hasVars
+                            ? `<button class="btn btn-primary btn-sm" style="flex:1;" onclick="openFillPromptModal('${p.id}')">✨ 填空複製</button>
+                               <button class="btn btn-outline btn-sm" onclick="copyPrompt('${p.id}')">📋 原版</button>`
+                            : `<button class="btn btn-primary btn-sm" style="flex:1;" onclick="copyPrompt('${p.id}')">📋 複製咒語</button>`
+                        }
+                        <button class="btn btn-soft btn-sm" onclick="openPromptModal('${p.id}')">✏️</button>
+                        <button class="btn btn-danger-soft btn-sm" onclick="deletePrompt('${p.id}')">🗑️</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function openPromptModal(editId = null) {
+        const titleEl = document.getElementById('promptTitleInput');
+        const tagsEl = document.getElementById('promptTagsInput');
+        const contentEl = document.getElementById('promptContentInput');
+        const idEl = document.getElementById('editPromptId');
+
+        if (editId) {
+            const p = state.prompts.find(item => item.id === editId);
+            if (!p) return;
+            document.getElementById('promptModalTitle').textContent = '✏️ 編輯情境咒語';
+            idEl.value = p.id;
+            titleEl.value = p.title;
+            tagsEl.value = (p.tags || []).join(' ');
+            contentEl.value = p.content;
+        } else {
+            document.getElementById('promptModalTitle').textContent = '🔮 新增情境咒語';
+            idEl.value = '';
+            titleEl.value = '';
+            tagsEl.value = '';
+            contentEl.value = '';
+        }
+        openModal('promptModal');
+    }
+
+    function savePrompt() {
+        const id = document.getElementById('editPromptId').value;
+        const title = document.getElementById('promptTitleInput').value.trim() || '未命名咒語';
+        const tags = document.getElementById('promptTagsInput').value
+            .replace(/#/g, '').split(/[\s,，]+/).map(t => t.trim()).filter(Boolean);
+        const content = document.getElementById('promptContentInput').value.trim();
+
+        if (!content) return showToast('請輸入咒語內容喔！');
+
+        const dateStr = new Date().toLocaleDateString('zh-TW');
+        if (id) {
+            const idx = state.prompts.findIndex(p => p.id === id);
+            if (idx !== -1) state.prompts[idx] = { ...state.prompts[idx], title, tags, content, updatedAt: dateStr };
+        } else {
+            state.prompts.unshift({ id: 'p_' + Date.now(), title, tags, content, updatedAt: dateStr });
+        }
+
+        saveState();
+        renderPrompts();
+        closeModal('promptModal');
+        showToast('💾 咒語已儲存！');
+    }
+
+    function openFillPromptModal(id) {
+        const p = state.prompts.find(item => item.id === id);
+        if (!p) return;
+        const vars = extractVariables(p.content);
+        document.getElementById('fillPromptId').value = id;
+        document.getElementById('fillVariablesContainer').innerHTML = vars.map((v, i) => `
+            <div style="margin-bottom: 10px;">
+                <label style="display:block; font-size:0.84rem; font-weight:700; margin-bottom:4px; color:var(--primary);">${escapeHtml(v)}</label>
+                <input type="text" class="var-fill-input" data-var="${escapeHtml(v)}" placeholder="請輸入「${escapeHtml(v)}」...">
+            </div>
+        `).join('');
+        openModal('fillPromptModal');
+    }
+
+    function confirmFillAndCopy() {
+        const id = document.getElementById('fillPromptId').value;
+        const p = state.prompts.find(item => item.id === id);
+        if (!p) return;
+        let finalContent = p.content;
+        document.querySelectorAll('.var-fill-input').forEach(inp => {
+            const varName = inp.getAttribute('data-var');
+            const val = inp.value.trim();
+            if (val) {
+                finalContent = finalContent.replace(new RegExp(`\\{\\{\\s*${escapeRegExp(varName)}\\s*\\}\\}`, 'g'), val);
+            }
+        });
+        copyPlainText(finalContent, '✨ 變數已填入並複製！');
+        closeModal('fillPromptModal');
+    }
+
+    function copyPrompt(id) {
+        const p = state.prompts.find(item => item.id === id);
+        if (p) copyPlainText(p.content, '🔮 已複製咒語！');
+    }
+
+    function deletePrompt(id) {
+        if (!confirm('確定要刪除這個咒語嗎？')) return;
+        state.prompts = state.prompts.filter(p => p.id !== id);
+        saveState();
+        renderPrompts();
+        showToast('🗑️ 已刪除咒語');
+    }
+
+    // ====== 輸出結果存檔 (含搜尋) ======
+    function openSaveOutputModal() {
+        if (!lastConvertedHtml) return showToast('先轉換文字再存檔喔！');
+        const firstLine = document.getElementById('richOutput').innerText.trim().split('\n')[0].slice(0, 24);
+        document.getElementById('saveTitleInput').value = firstLine;
+        openModal('saveOutputModal');
+    }
+
+    function confirmSaveOutput() {
+        const title = document.getElementById('saveTitleInput').value.trim() || '轉換存檔';
+        const plain = document.getElementById('richOutput').innerText;
+
+        state.saves.unshift({
+            id: 's_' + Date.now(),
+            title,
+            html: lastConvertedHtml,
+            plain,
+            createdAt: new Date().toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+        });
+        saveState();
+        renderSaves();
+        closeModal('saveOutputModal');
+        showToast('📚 已存進倉庫！');
+    }
+
+    function renderSaves() {
+        const keyword = document.getElementById('saveSearchInput').value.trim().toLowerCase();
+        const list = document.getElementById('savesList');
+
+        const filtered = state.saves.filter(s =>
+            !keyword || s.title.toLowerCase().includes(keyword) || s.plain.toLowerCase().includes(keyword)
+        );
+
+        if (filtered.length === 0) {
+            list.innerHTML = `<div class="empty-state">${keyword ? '找不到符合的存檔 🔎' : '📚 還沒有存檔的結果～<br>在「轉換結果」按下存檔，就會收在這裡！'}</div>`;
+            return;
+        }
+
+        list.innerHTML = filtered.map(s => `
+            <div class="vault-card">
+                <div class="row-between" style="margin-bottom: 6px;">
+                    <div class="vault-title">${escapeHtml(s.title)}</div>
+                    <span class="vault-meta">${s.createdAt || ''}</span>
+                </div>
+                <div class="vault-preview rich-output" style="min-height:auto; max-height: 110px; font-size:0.88rem;" onclick="this.style.maxHeight = this.style.maxHeight === 'none' ? '110px' : 'none'">
+                    ${s.html}
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted); margin:-4px 0 8px;">👆 點內容可展開 / 收合全文</div>
+                <div class="row-between">
+                    <button class="btn btn-primary btn-sm" style="flex:1;" onclick="copySavedRich('${s.id}')">📋 富文本</button>
+                    <button class="btn btn-outline btn-sm" style="flex:1;" onclick="copySavedPlain('${s.id}')">📄 純文字</button>
+                    <button class="btn btn-danger-soft btn-sm" onclick="deleteSave('${s.id}')">🗑️</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function copySavedRich(id) {
+        const item = state.saves.find(s => s.id === id);
+        if (item) copyRichHtml(item.html, item.plain);
+    }
+
+    function copySavedPlain(id) {
+        const item = state.saves.find(s => s.id === id);
+        if (item) copyPlainText(item.plain, '📄 已複製純文字！');
+    }
+
+    function deleteSave(id) {
+        if (!confirm('確定要刪除這筆存檔嗎？')) return;
+        state.saves = state.saves.filter(s => s.id !== id);
+        saveState();
+        renderSaves();
+        showToast('🗑️ 已刪除存檔');
+    }
+
+    // ====== 備份還原 ======
+    function openBackupModal() {
+        document.getElementById('backupDataArea').value = JSON.stringify(state);
+        openModal('backupModal');
+    }
+    function copyBackupData() {
+        copyPlainText(document.getElementById('backupDataArea').value, '✅ 已複製全部備份碼！');
+    }
+    function importBackupData() {
+        try {
+            const parsed = JSON.parse(document.getElementById('backupDataArea').value.trim());
+            if (!parsed || !Array.isArray(parsed.ruleGroups)) throw new Error();
+            state = { ...clone(DEFAULT_STATE), ...parsed };
+            saveState();
+            init();
+            closeModal('backupModal');
+            showToast('🎉 資料已成功還原！');
+        } catch (e) {
+            showToast('❌ 備份碼格式不正確喔');
+        }
+    }
+
+    // ====== 工具 ======
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+    function backdropClose(e, id) { if (e.target.id === id) closeModal(id); }
+    function escapeHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    init();
+</script>
+</body>
+  </html>
