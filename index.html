@@ -6,368 +6,372 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="文字魔法盒">
 <title>文字魔法盒 ✨</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
-:root,[data-theme="milk-tea"]{--bg:#FAF6F0;--card:#FFF;--surf:#F3ECE2;--pri:#A67B5B;--pri-t:#FFF;--txt:#3E3129;--mut:#8C7A6B;--bd:#E8DDD0;--err:#D96B6B;--sh:0 2px 10px rgba(107,81,59,.06);--fs:16.5px}
-[data-theme="sakura"]{--bg:#FFF5F7;--card:#FFF;--surf:#FCEAEF;--pri:#DE7392;--pri-t:#FFF;--txt:#452932;--mut:#997480;--bd:#F5D7E0;--err:#E05A5A}
-[data-theme="matcha"]{--bg:#F3F7F2;--card:#FFF;--surf:#E7EFE5;--pri:#668C63;--pri-t:#FFF;--txt:#2A3B29;--mut:#70856E;--bd:#D5E2D3;--err:#D66868}
-[data-theme="lavender"]{--bg:#F6F4FA;--card:#FFF;--surf:#ECE7F6;--pri:#896BB3;--pri-t:#FFF;--txt:#322742;--mut:#7E7094;--bd:#DFD7EC;--err:#DA6575}
-[data-theme="ocean"]{--bg:#F2F7FB;--card:#FFF;--surf:#E4EFF7;--pri:#4A89B8;--pri-t:#FFF;--txt:#1F3547;--mut:#6C8499;--bd:#D3E3EF;--err:#DC6464}
-[data-theme="butter"]{--bg:#FFFDF2;--card:#FFF;--surf:#FAF2D6;--pri:#D49A2A;--pri-t:#FFF;--txt:#42351C;--mut:#94825E;--bd:#EFE2B8;--err:#D96459}
-[data-theme="dark"]{--bg:#131317;--card:#1D1D24;--surf:#272731;--pri:#9381FF;--pri-t:#FFF;--txt:#ECECF2;--mut:#9898AA;--bd:#2F2F3C;--err:#EF6F6F;--sh:0 2px 12px rgba(0,0,0,.35)}
-[data-theme="black-gold"]{--bg:#111;--card:#1B1A18;--surf:#262420;--pri:#D4AF37;--pri-t:#14120E;--txt:#F2ECE1;--mut:#A39A88;--bd:#332E24;--err:#E06666;--sh:0 2px 12px rgba(0,0,0,.45)}
+:root,[data-theme="milk-tea"]{--bg:#FAF6F0;--card:#FFF;--surf:#F3ECE2;--pri:#A67B5B;--pri-t:#FFF;--txt:#3E3129;--mut:#8C7A6B;--bd:#E8DDD0;--err:#D96B6B;--sh:0 4px 14px rgba(107,81,59,.07)}
+[data-theme="sakura"]{--bg:#FFF5F7;--card:#FFF;--surf:#FCEAEF;--pri:#DE7392;--pri-t:#FFF;--txt:#452932;--mut:#997480;--bd:#F5D7E0;--err:#E05A5A;--sh:0 4px 14px rgba(222,115,146,.09)}
+[data-theme="matcha"]{--bg:#F3F7F2;--card:#FFF;--surf:#E7EFE5;--pri:#668C63;--pri-t:#FFF;--txt:#2A3B29;--mut:#70856E;--bd:#D5E2D3;--err:#D66868;--sh:0 4px 14px rgba(83,117,80,.08)}
+[data-theme="lavender"]{--bg:#F6F4FA;--card:#FFF;--surf:#ECE7F6;--pri:#896BB3;--pri-t:#FFF;--txt:#322742;--mut:#7E7094;--bd:#DFD7EC;--err:#DA6575;--sh:0 4px 14px rgba(115,85,158,.08)}
+[data-theme="ocean"]{--bg:#F2F7FB;--card:#FFF;--surf:#E4EFF7;--pri:#4A89B8;--pri-t:#FFF;--txt:#1F3547;--mut:#6C8499;--bd:#D3E3EF;--err:#DC6464;--sh:0 4px 14px rgba(74,137,184,.08)}
+[data-theme="butter"]{--bg:#FFFDF2;--card:#FFF;--surf:#FAF2D6;--pri:#D49A2A;--pri-t:#FFF;--txt:#42351C;--mut:#94825E;--bd:#EFE2B8;--err:#D96459;--sh:0 4px 14px rgba(212,154,42,.09)}
+[data-theme="dark"]{--bg:#131317;--card:#1D1D24;--surf:#272731;--pri:#9381FF;--pri-t:#FFF;--txt:#ECECF2;--mut:#9898AA;--bd:#2F2F3C;--err:#EF6F6F;--sh:0 4px 18px rgba(0,0,0,.35)}
+[data-theme="black-gold"]{--bg:#111;--card:#1B1A18;--surf:#262420;--pri:#D4AF37;--pri-t:#14120E;--txt:#F2ECE1;--mut:#A39A88;--bd:#332E24;--err:#E06666;--sh:0 4px 18px rgba(0,0,0,.45)}
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--txt);overscroll-behavior-y:none}
+body{margin:0;font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--txt);transition:background .2s,color .2s;overscroll-behavior-y:none}
 .shell{max-width:640px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column}
 .hdr{position:sticky;top:0;z-index:20;background:var(--bg);padding:12px 16px 8px;display:flex;align-items:center;justify-content:space-between}
-.hdr h1{font-size:1.15rem;font-weight:800;margin:0}
-.main{flex:1;padding:4px 16px calc(86px + env(safe-area-inset-bottom))}
-.panel{display:none}.panel.on{display:block}
-.hidden{display:none!important}
+.hdr h1{font-size:1.18rem;font-weight:800;margin:0}
+.main{flex:1;padding:4px 16px calc(84px + env(safe-area-inset-bottom))}
+.panel{display:none}.panel.active{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
 
-/* 卡片與表單 */
-.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:var(--sh)}
-textarea,input[type="text"],input[type="search"]{width:100%;font-size:16px;font-family:inherit;color:var(--txt);background:var(--surf);border:1.5px solid transparent;border-radius:12px;padding:10px 12px;outline:none}
-textarea:focus,input:focus{border-color:var(--pri);background:var(--card)}
-textarea{resize:vertical;line-height:1.7}
-
-/* 分段、膠囊、搜尋 */
-.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--surf);padding:4px;border-radius:13px;margin-bottom:12px;gap:4px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--surf);padding:4px;border-radius:14px;margin-bottom:12px;gap:4px}
 .seg button{border:0;background:0;color:var(--mut);padding:9px;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
-.seg button.on{background:var(--card);color:var(--pri);box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.seg button.active{background:var(--card);color:var(--pri);box-shadow:0 2px 6px rgba(0,0,0,.06)}
+
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:13px;margin-bottom:12px;box-shadow:var(--sh)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.gap{display:flex;align-items:center;gap:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+textarea,input[type=text],input[type=search]{width:100%;font-size:16px;font-family:inherit;color:var(--txt);background:var(--surf);border:1.5px solid transparent;border-radius:12px;padding:10px 12px;outline:0;transition:border-color .15s,background .15s}
+textarea:focus,input:focus{border-color:var(--pri);background:var(--card)}
+textarea{resize:vertical;line-height:1.6}
 
 .search{position:relative;margin-bottom:10px}
-.search input{padding:9px 34px 9px 36px;background:var(--card);border:1px solid var(--bd)}
+.search input{padding:9px 32px 9px 36px;background:var(--card);border:1px solid var(--bd);border-radius:13px;box-shadow:var(--sh)}
 .search span{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.6;pointer-events:none;font-size:.9rem}
-.search .clr{position:absolute;right:9px;top:50%;transform:translateY(-50%);border:0;background:var(--surf);color:var(--mut);width:22px;height:22px;border-radius:50%;font-size:11px;cursor:pointer;display:none;align-items:center;justify-content:center}
-.search .clr.on{display:flex}
+.search button{position:absolute;right:9px;top:50%;transform:translateY(-50%);background:var(--surf);border:0;color:var(--mut);width:22px;height:22px;border-radius:50%;font-size:12px;cursor:pointer;display:none;align-items:center;justify-content:center}
+.search button.show{display:flex}
 
 .chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:4px;margin-bottom:10px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;border:1.5px solid var(--bd);background:var(--card);color:var(--mut);padding:6px 12px;border-radius:99px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit}
-.chip.on{background:var(--pri);color:var(--pri-t);border-color:var(--pri)}
+.chip{flex-shrink:0;border:1.5px solid var(--bd);background:var(--card);color:var(--mut);padding:6px 12px;border-radius:99px;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:inherit}
+.chip.active{background:var(--pri);color:var(--pri-t);border-color:var(--pri)}
 .chip.add{border-style:dashed;color:var(--pri);background:0}
 
-.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
 .pill{padding:6px 11px;border-radius:99px;font-size:.8rem;font-weight:600;background:var(--surf);color:var(--mut);border:1.5px solid transparent;cursor:pointer;user-select:none}
 .pill.on{background:var(--card);color:var(--pri);border-color:var(--pri)}
 
-/* 按鈕與排版 */
-.btn{border:0;border-radius:12px;padding:11px 14px;font-size:.92rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-family:inherit}
+.btn{border:0;border-radius:13px;padding:12px 14px;font-size:.92rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-family:inherit;transition:transform .1s}
 .btn:active{transform:scale(.97)}
-.btn-p{background:var(--pri);color:var(--pri-t);width:100%}
-.btn-o{background:var(--card);color:var(--pri);border:1.5px solid var(--pri)}
+.btn-p{background:var(--pri);color:var(--pri-t);width:100%;box-shadow:0 3px 10px rgba(0,0,0,.1)}
 .btn-s{background:var(--surf);color:var(--txt)}
-.btn-d{background:rgba(217,107,107,.14);color:var(--err)}
-.sm{padding:6px 10px;font-size:.8rem;border-radius:9px}
-.xs{padding:5px 8px;font-size:.75rem;border-radius:8px}
-.ibtn{background:var(--card);border:1px solid var(--bd);color:var(--txt);border-radius:10px;padding:7px 11px;font-size:.82rem;font-weight:700;cursor:pointer}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.lbl{display:block;font-size:.8rem;font-weight:700;color:var(--mut);margin-bottom:5px}
+.btn-o{background:var(--card);color:var(--pri);border:1.5px solid var(--pri)}
+.btn-d{background:rgba(217,107,107,.13);color:var(--err)}
+.btn-h{background:var(--card);border:1px solid var(--bd);color:var(--txt);padding:7px 11px;font-size:.84rem;border-radius:11px;box-shadow:var(--sh)}
+.sm{padding:7px 10px;font-size:.8rem;border-radius:10px;width:auto}
+.xs{padding:5px 8px;font-size:.75rem;border-radius:8px;width:auto}
 
-/* 高可讀性閱讀區 */
-.read-box{font-size:var(--fs);line-height:1.9;letter-spacing:.03em;word-break:break-word;color:var(--txt);padding:16px;border-radius:12px;background:var(--card);border:1.5px solid var(--bd);min-height:220px;max-height:58dvh;overflow-y:auto;outline:none}
-.read-box.editing{border-color:var(--pri);background:var(--surf)}
-.read-box h1{font-size:1.35em;margin:.6em 0 .4em;line-height:1.4}
-.read-box h2{font-size:1.2em;margin:.6em 0 .35em;line-height:1.45}
-.read-box h3{font-size:1.08em;margin:.5em 0 .3em}
-.read-box p{margin:0 0 1em}
-.read-box p:last-child{margin-bottom:0}
-.read-box ul,.read-box ol{padding-left:1.35em;margin:0 0 1em}
-.read-box li{margin-bottom:.35em}
-.read-box blockquote{border-left:3.5px solid var(--pri);margin:.8em 0;padding:8px 12px;color:var(--mut);background:var(--surf);border-radius:0 10px 10px 0}
-.read-box hr{border:0;border-top:1px dashed var(--bd);margin:1.2em 0}
+.rich,.reader{line-height:1.82;font-size:16px;word-break:break-word}
+.rich{min-height:210px;max-height:54dvh;overflow-y:auto;padding:13px;background:var(--surf);border-radius:12px;border:1.5px solid transparent;outline:0}
+.rich:focus{border-color:var(--pri);background:var(--card)}
+.reader{max-height:60dvh;overflow-y:auto;padding:14px 15px;background:var(--surf);border-radius:14px}
+.rich h1,.reader h1{font-size:1.35em;margin:.4em 0}.rich h2,.reader h2{font-size:1.18em;margin:.4em 0}.rich h3,.reader h3{font-size:1.06em;margin:.4em 0}
+.rich p,.reader p{margin:0 0 .75em}.rich p:last-child,.reader p:last-child{margin-bottom:0}
+.rich ul,.rich ol,.reader ul,.reader ol{padding-left:1.35em;margin:0 0 .75em}
+.rich blockquote,.reader blockquote{border-left:3.5px solid var(--pri);margin:.6em 0;padding:4px 0 4px 11px;color:var(--mut);background:var(--card);border-radius:0 8px 8px 0}
 
-/* 詞庫列表與開關 */
-.rgrid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;margin-bottom:10px}
-.ritem{display:flex;align-items:center;gap:8px;padding:10px 11px;background:var(--card);border:1px solid var(--bd);border-radius:13px;margin-bottom:7px}
-.ritem.off{opacity:.45}
-.rwords{flex:1;display:flex;align-items:center;flex-wrap:wrap;gap:5px;font-size:.9rem;font-weight:600;word-break:break-all}
-.wb{background:var(--surf);padding:3px 8px;border-radius:7px}.wb.n{color:var(--pri)}
-.sw{position:relative;width:40px;height:22px;flex-shrink:0}
+.rule-grid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:7px;margin-bottom:10px}
+.rule-row{display:flex;align-items:center;gap:8px;padding:10px 11px;background:var(--card);border:1px solid var(--bd);border-radius:13px;margin-bottom:7px}
+.rule-row.off{opacity:.45}
+.rule-w{flex:1;display:flex;align-items:center;flex-wrap:wrap;gap:5px;font-size:.92rem;font-weight:600;word-break:break-all}
+.badge{background:var(--surf);padding:3px 8px;border-radius:7px}.badge.pri{color:var(--pri)}
+
+.sw{position:relative;width:40px;height:23px;flex-shrink:0;display:inline-block}
 .sw input{opacity:0;width:0;height:0}
-.sw span{position:absolute;inset:0;background:var(--bd);border-radius:22px;transition:.2s;cursor:pointer}
-.sw span:before{content:"";position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
-.sw input:checked+span{background:var(--pri)}.sw input:checked+span:before{transform:translateX(18px)}
+.sw i{position:absolute;inset:0;background:var(--bd);border-radius:23px;transition:.2s;cursor:pointer}
+.sw i:before{content:"";position:absolute;height:17px;width:17px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+.sw input:checked+i{background:var(--pri)}.sw input:checked+i:before{transform:translateX(17px)}
 
-/* 倉庫卡片與摘要 */
-.vtitle{font-weight:700;font-size:.98rem;line-height:1.4}
+.v-title{font-weight:700;font-size:.98rem;line-height:1.35}
 .meta{font-size:.74rem;color:var(--mut);flex-shrink:0}
-.tags{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 7px}
 .tag{font-size:.73rem;font-weight:700;color:var(--pri);background:var(--surf);padding:2px 8px;border-radius:6px}
-.snippet{font-size:.88rem;color:var(--mut);background:var(--surf);padding:10px 12px;border-radius:10px;margin:8px 0 10px;line-height:1.65;cursor:pointer;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
-.snippet.full{display:block;white-space:pre-wrap;color:var(--txt)}
-.nested{margin-top:12px;padding-top:12px;border-top:1.5px dashed var(--bd)}
-.ncard{background:var(--surf);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;margin-bottom:8px}
-.ncard .snippet{background:var(--card);margin:6px 0 8px;color:var(--txt)}
-.empty{text-align:center;padding:30px 16px;color:var(--mut);font-size:.9rem;line-height:1.6}
+.preview{font-size:.88rem;color:var(--mut);background:var(--surf);padding:9px 11px;border-radius:10px;margin:7px 0 9px;white-space:pre-wrap;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer;word-break:break-word}
+.preview.open{display:block;color:var(--txt)}
 
-/* 咒語選擇器（取代難用下拉選單） */
-.picker-list{max-height:210px;overflow-y:auto;border:1px solid var(--bd);border-radius:12px;background:var(--surf);padding:6px;display:flex;flex-direction:column;gap:6px}
-.pick-item{padding:10px 12px;border-radius:10px;background:var(--card);border:1.5px solid transparent;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;width:100%;font-family:inherit;color:var(--txt)}
-.pick-item.on{border-color:var(--pri);background:var(--card)}
-.pick-item .pt{font-weight:700;font-size:.88rem;line-height:1.35}
-.pick-item .ps{font-size:.74rem;color:var(--mut);margin-top:2px}
-.pick-check{color:var(--pri);font-weight:900;flex-shrink:0}
+/* 咒語底下的輸出結果：清爽清單＋點擊進閱讀器 */
+.nested{margin-top:12px;padding-top:11px;border-top:1.5px dashed var(--bd)}
+.out-item{background:var(--surf);border:1px solid var(--bd);border-radius:12px;padding:10px 11px;margin-bottom:8px;cursor:pointer;transition:border-color .15s}
+.out-item:active{border-color:var(--pri)}
+.out-snip{font-size:.84rem;color:var(--mut);margin:5px 0 0;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
 
-/* 底部導覽 */
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:640px;background:var(--card);border-top:1px solid var(--bd);display:grid;grid-template-columns:repeat(3,1fr);padding:6px 8px calc(6px + env(safe-area-inset-bottom));z-index:30}
-.nav button{background:0;border:0;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px;cursor:pointer;font-family:inherit}
-.nav button b{font-size:1.25rem;line-height:1;font-weight:400}
-.nav button small{font-size:.73rem;font-weight:700}
-.nav button.on{color:var(--pri)}
+/* 自訂咒語選擇器 */
+.picker-box{border:1px solid var(--bd);border-radius:12px;background:var(--surf);padding:8px;margin-bottom:12px}
+.picker-list{max-height:168px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;margin-top:7px}
+.pick-opt{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:10px;background:var(--card);border:1.5px solid transparent;cursor:pointer;text-align:left;width:100%;font-family:inherit;color:var(--txt)}
+.pick-opt.sel{border-color:var(--pri);background:var(--card)}
+.pick-opt .pt{font-size:.88rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pick-opt .ps{font-size:.73rem;color:var(--mut)}
 
-/* 彈窗 */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:50;display:none;align-items:flex-end;justify-content:center}
-.modal.on{display:flex}
-.sheet{width:100%;max-width:640px;background:var(--card);border-radius:22px 22px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));max-height:90dvh;overflow-y:auto}
-.sheet.tall{height:88dvh;display:flex;flex-direction:column}
-.sheet-hd{font-size:1.05rem;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.tcard{border:2px solid var(--bd);border-radius:12px;padding:10px;display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--surf);font-weight:700;font-size:.86rem}
-.tcard.on{border-color:var(--pri);background:var(--card)}
-.dot{width:22px;height:22px;border-radius:50%;flex-shrink:0;border:2px solid rgba(255,255,255,.7)}
+.empty{text-align:center;padding:28px 16px;color:var(--mut);font-size:.88rem;line-height:1.6}
+.lbl{display:block;font-size:.8rem;font-weight:700;color:var(--mut);margin:0 0 5px}
 
-.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-12px);background:var(--txt);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:.85rem;font-weight:700;z-index:100;opacity:0;pointer-events:none;transition:.2s;white-space:nowrap}
-.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:640px;background:var(--card);border-top:1px solid var(--bd);display:grid;grid-template-columns:repeat(3,1fr);padding:6px 8px calc(7px + env(safe-area-inset-bottom));z-index:30}
+.nav button{background:0;border:0;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px;cursor:pointer;font-family:inherit;font-size:.74rem;font-weight:700}
+.nav button span{font-size:1.25rem;line-height:1}
+.nav button.active{color:var(--pri)}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
+.modal.open{display:flex}
+.sheet{width:100%;max-width:640px;background:var(--card);border-radius:22px 22px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom));max-height:90dvh;overflow-y:auto;animation:up .2s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.m-hdr{font-size:1.05rem;font-weight:800;margin:0 0 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+
+.t-card{border:2px solid var(--bd);border-radius:13px;padding:10px;display:flex;align-items:center;gap:9px;cursor:pointer;background:var(--surf);font-weight:700;font-size:.86rem}
+.t-card.active{border-color:var(--pri);background:var(--card)}
+.dot{width:24px;height:24px;border-radius:50%;flex-shrink:0;border:2px solid rgba(255,255,255,.65);box-shadow:0 2px 5px rgba(0,0,0,.15)}
+
+.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-14px);background:var(--txt);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:.85rem;font-weight:700;z-index:100;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 6px 18px rgba(0,0,0,.22);white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
 <div class="shell">
-    <header class="hdr">
-        <h1>✨ 文字魔法盒</h1>
-        <div style="display:flex;gap:7px">
-            <button class="ibtn" onclick="openM('themeM')">🎨 配色</button>
-            <button class="ibtn" onclick="openBackup()">💾 備份</button>
+<header class="hdr">
+    <h1>✨ 文字魔法盒</h1>
+    <div class="gap">
+        <button class="btn btn-h" onclick="openModal('themeModal')">🎨 配色</button>
+        <button class="btn btn-h" onclick="openBackupModal()">💾 備份</button>
+    </div>
+</header>
+
+<main class="main">
+<!-- ====== 1. 轉換 ====== -->
+<section id="tab-work" class="panel active">
+    <div class="seg">
+        <button id="seg-in" class="active" onclick="setWorkView(1)">📝 輸入原文</button>
+        <button id="seg-out" onclick="setWorkView(0)">🎉 轉換結果</button>
+    </div>
+
+    <div id="work-in">
+        <div class="card">
+            <div class="row" style="margin-bottom:9px">
+                <b style="font-size:.88rem">⚡ 轉換開關</b>
+                <span class="meta" id="activeRuleCount"></span>
+            </div>
+            <div class="pills" id="optPills"></div>
+            <div class="row" style="margin-bottom:7px">
+                <span class="meta" id="inCount">0 字</span>
+                <div class="gap">
+                    <button class="btn btn-s sm" onclick="pasteClip()">📋 貼上</button>
+                    <button class="btn btn-d sm" onclick="clearIn()">🗑️ 清空</button>
+                </div>
+            </div>
+            <textarea id="inputText" rows="9" placeholder="貼上 AI 輸出或文章，支援 Markdown，自動暫存不遺失..."></textarea>
         </div>
-    </header>
+        <button class="btn btn-p" onclick="runConvert()">✨ 一鍵轉換並預覽結果</button>
+    </div>
 
-    <main class="main">
-        <!-- 分頁 1：轉換 -->
-        <section id="tab-work" class="panel on">
-            <div class="seg">
-                <button id="seg-in" class="on" onclick="setWork('in')">📝 輸入原文</button>
-                <button id="seg-out" onclick="setWork('out')">📖 轉換結果</button>
-            </div>
-
-            <div id="work-in">
-                <div class="card">
-                    <div class="row" style="margin-bottom:8px">
-                        <b style="font-size:.88rem">⚡ 轉換開關</b>
-                        <span class="meta" id="actRuleCnt"></span>
-                    </div>
-                    <div class="pills" id="optPills"></div>
-                    <div class="row" style="margin-bottom:8px">
-                        <span class="meta" id="inCnt">0 字</span>
-                        <div style="display:flex;gap:6px">
-                            <button class="btn btn-s sm" onclick="pasteIn()">📋 貼上</button>
-                            <button class="btn btn-d sm" onclick="clearIn()">🗑️ 清空</button>
-                        </div>
-                    </div>
-                    <textarea id="inTxt" rows="9" placeholder="貼上 AI 輸出或文章（支援 Markdown，會自動暫存）..."></textarea>
-                </div>
-                <button class="btn btn-p" onclick="runConvert()">✨ 一鍵轉換並閱讀結果</button>
-            </div>
-
-            <div id="work-out" class="hidden">
-                <div class="card" style="padding:12px">
-                    <div class="row" style="margin-bottom:10px;flex-wrap:wrap">
-                        <span style="font-weight:700;font-size:.88rem">📖 轉換結果 <small class="meta" id="outCnt"></small></span>
-                        <div style="display:flex;gap:5px">
-                            <button class="btn btn-s xs" onclick="cycleFont()" id="fsBtn">字：中</button>
-                            <button class="btn btn-s xs" id="editBtn" onclick="toggleOutEdit()">✏️ 微調</button>
-                            <button class="btn btn-s xs" onclick="runConvert(false);toast('🔄 已重新轉換')">🔄</button>
-                            <button class="btn btn-s xs" onclick="setWork('in')">↩️ 原文</button>
-                        </div>
-                    </div>
-                    <div id="richOut" class="read-box" contenteditable="false" spellcheck="false"></div>
-                </div>
-                <div class="g2" style="margin-bottom:8px">
-                    <button class="btn btn-p" onclick="copyOut(true)">📋 複製富文本</button>
-                    <button class="btn btn-o" onclick="copyOut(false)">📄 複製純文字</button>
-                </div>
-                <button class="btn btn-s" style="width:100%" onclick="openSaveM()">💾 存進倉庫（可收進咒語底下）</button>
-            </div>
-        </section>
-
-        <!-- 分頁 2：詞庫 -->
-        <section id="tab-rules" class="panel">
-            <div class="chips" id="grpChips"></div>
-            <div class="card">
-                <div class="row" style="margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--bd)">
-                    <div style="display:flex;align-items:center;gap:8px">
-                        <label class="sw"><input type="checkbox" id="grpSw" onchange="toggleGrp()"><span></span></label>
-                        <b id="grpName">預設詞庫</b>
-                    </div>
-                    <div style="display:flex;gap:6px">
-                        <button class="btn btn-s sm" onclick="toggleBulk()">📝 批次</button>
-                        <button class="btn btn-d sm" id="delGrpBtn" onclick="delGrp()">🗑️</button>
-                    </div>
-                </div>
-                <div class="rgrid">
-                    <input type="text" id="rFrom" placeholder="原本的字">
-                    <b style="color:var(--pri)">➔</b>
-                    <input type="text" id="rTo" placeholder="換成(留空=刪)">
-                </div>
-                <button class="btn btn-p" onclick="addRule()">＋ 加入這一組</button>
-                <div id="bulkBox" class="hidden" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--bd)">
-                    <span class="lbl">一行一組，用「->」分隔</span>
-                    <textarea id="bulkTxt" rows="5"></textarea>
-                    <button class="btn btn-o sm" style="width:100%;margin-top:7px" onclick="applyBulk()">套用到目前分組</button>
+    <div id="work-out" class="hidden">
+        <div class="card">
+            <div class="row" style="margin-bottom:9px">
+                <b style="font-size:.88rem">✨ 轉換結果 <span class="meta" id="outCount"></span></b>
+                <div class="gap">
+                    <button class="btn btn-s sm" onclick="runConvert(0);toast('🔄 已重新轉換')">🔄 重轉</button>
+                    <button class="btn btn-s sm" onclick="setWorkView(1)">✏️ 回原文</button>
                 </div>
             </div>
-            <div class="search">
-                <span>🔍</span>
-                <input type="search" id="ruleQ" placeholder="搜尋這個分組的替換詞..." oninput="onQ('rule')">
-                <button class="clr" id="ruleQC" onclick="clrQ('rule')">✕</button>
-            </div>
-            <div class="row" style="margin-bottom:8px;padding:0 2px">
-                <span class="meta" id="ruleLbl"></span>
-                <button class="btn btn-s xs" onclick="addPresets()">⚡ 加常用詞</button>
-            </div>
-            <div id="rulesList"></div>
-        </section>
-
-        <!-- 分頁 3：倉庫 -->
-        <section id="tab-vault" class="panel">
-            <div class="seg">
-                <button id="seg-p" class="on" onclick="setVault('p')">🔮 情境咒語</button>
-                <button id="seg-s" onclick="setVault('s')">📚 全部存檔</button>
-            </div>
-            <div id="vault-p">
-                <button class="btn btn-p" style="margin-bottom:10px" onclick="openPromptM()">➕ 新增情境咒語</button>
-                <div class="search">
-                    <span>🔍</span>
-                    <input type="search" id="promptQ" placeholder="搜尋咒語、標籤或底下結果..." oninput="onQ('prompt')">
-                    <button class="clr" id="promptQC" onclick="clrQ('prompt')">✕</button>
-                </div>
-                <div class="chips" id="tagChips"></div>
-                <div id="promptsList"></div>
-            </div>
-            <div id="vault-s" class="hidden">
-                <div class="search">
-                    <span>🔍</span>
-                    <input type="search" id="saveQ" placeholder="搜尋存檔標題或內文..." oninput="onQ('save')">
-                    <button class="clr" id="saveQC" onclick="clrQ('save')">✕</button>
-                </div>
-                <div id="savesList"></div>
-            </div>
-        </section>
-    </main>
-
-    <nav class="nav">
-        <button id="nav-work" class="on" onclick="setTab('work')"><b>✨</b><small>轉換</small></button>
-        <button id="nav-rules" onclick="setTab('rules')"><b>🔄</b><small>詞庫</small></button>
-        <button id="nav-vault" onclick="setTab('vault')"><b>📦</b><small>倉庫</small></button>
-    </nav>
-</div>
-
-<!-- 專注閱讀器彈窗（解決輸出結果不好讀的問題！） -->
-<div class="modal" id="readerM" onclick="bgClose(event,'readerM')">
-    <div class="sheet tall">
-        <div class="sheet-hd" style="margin-bottom:6px">
-            <span id="rdTitle" style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
-            <button class="btn btn-s xs" onclick="cycleFont()" id="rdFsBtn">字：中</button>
-            <button class="btn btn-s xs" onclick="closeM('readerM')">✕</button>
+            <div id="richOutput" class="rich" contenteditable="true" spellcheck="false"></div>
+            <div class="meta" style="color:var(--pri);margin-top:6px;font-weight:600">💡 點上方文字可直接編輯微調</div>
         </div>
-        <div id="rdMeta" style="margin-bottom:8px"></div>
-        <div id="rdBody" class="read-box" style="flex:1;max-height:none;min-height:0"></div>
-        <div class="row" style="margin-top:10px;gap:6px">
-            <button class="btn btn-p sm" style="flex:1" onclick="copySaved(readingId,true)">📋 富文本</button>
-            <button class="btn btn-o sm" style="flex:1" onclick="copySaved(readingId,false)">📄 純文字</button>
-            <button class="btn btn-s sm" onclick="closeM('readerM');openEditSaveM(readingId)">✏️</button>
-            <button class="btn btn-d sm" onclick="delSave(readingId)">🗑️</button>
+        <div class="grid2" style="margin-bottom:9px">
+            <button class="btn btn-p" onclick="copyOut(1)">📋 複製富文本</button>
+            <button class="btn btn-o" onclick="copyOut(0)">📄 複製純文字</button>
+        </div>
+        <button class="btn btn-s" style="width:100%" onclick="openSaveModal({fromWork:1})">💾 存進倉庫（可指定收進咒語）</button>
+    </div>
+</section>
+
+<!-- ====== 2. 詞庫 ====== -->
+<section id="tab-rules" class="panel">
+    <div class="chips" id="groupChips"></div>
+    <div class="card">
+        <div class="row" style="margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--bd)">
+            <div class="gap">
+                <label class="sw"><input type="checkbox" id="grpToggle" onchange="toggleGrp()"><i></i></label>
+                <b id="grpName" style="font-size:.94rem"></b>
+            </div>
+            <div class="gap">
+                <button class="btn btn-s sm" onclick="toggleBulk()">📝 批次</button>
+                <button class="btn btn-d sm" id="delGrpBtn" onclick="delGrp()">🗑️</button>
+            </div>
+        </div>
+        <div class="rule-grid">
+            <input type="text" id="rFrom" placeholder="原本的字">
+            <b style="color:var(--pri)">➔</b>
+            <input type="text" id="rTo" placeholder="換成(留空=刪)">
+        </div>
+        <button class="btn btn-p" onclick="addRule()">＋ 加入這組替換詞</button>
+        <div id="bulkBox" class="hidden" style="margin-top:11px;padding-top:11px;border-top:1px dashed var(--bd)">
+            <span class="lbl">一行一組，用「->」分隔</span>
+            <textarea id="bulkTxt" rows="5"></textarea>
+            <button class="btn btn-o sm" style="margin-top:7px;width:100%" onclick="applyBulk()">套用到目前分組</button>
         </div>
     </div>
+    <div class="search">
+        <span>🔍</span>
+        <input type="search" id="ruleQ" placeholder="搜尋這個分組的替換詞..." oninput="onQ('rule')">
+        <button id="ruleQc" onclick="clrQ('rule')">✕</button>
+    </div>
+    <div class="row" style="padding:0 3px 7px">
+        <span class="meta" id="ruleLbl" style="font-weight:700"></span>
+        <button class="btn btn-s sm" onclick="addPresets()">⚡ 一鍵加常用詞</button>
+    </div>
+    <div id="rulesList"></div>
+</section>
+
+<!-- ====== 3. 倉庫 ====== -->
+<section id="tab-vault" class="panel">
+    <div class="seg">
+        <button id="seg-p" class="active" onclick="setVaultView(1)">🔮 情境咒語</button>
+        <button id="seg-s" onclick="setVaultView(0)">📚 全部存檔</button>
+    </div>
+
+    <div id="v-prompts">
+        <button class="btn btn-p" style="margin-bottom:10px" onclick="openPromptModal()">➕ 新增情境咒語</button>
+        <div class="search">
+            <span>🔍</span>
+            <input type="search" id="promptQ" placeholder="搜尋咒語、標籤或底下輸出標題..." oninput="onQ('prompt')">
+            <button id="promptQc" onclick="clrQ('prompt')">✕</button>
+        </div>
+        <div class="chips" id="promptTags"></div>
+        <div id="promptsList"></div>
+    </div>
+
+    <div id="v-saves" class="hidden">
+        <div class="search">
+            <span>🔍</span>
+            <input type="search" id="saveQ" placeholder="搜尋存檔標題或內文..." oninput="onQ('save')">
+            <button id="saveQc" onclick="clrQ('save')">✕</button>
+        </div>
+        <div class="chips" id="saveFilterChips"></div>
+        <div id="savesList"></div>
+    </div>
+</section>
+</main>
+
+<nav class="nav">
+    <button id="nav-work" class="active" onclick="switchTab('work')"><span>✨</span>轉換</button>
+    <button id="nav-rules" onclick="switchTab('rules')"><span>🔄</span>詞庫</button>
+    <button id="nav-vault" onclick="switchTab('vault')"><span>📦</span>倉庫</button>
+</nav>
 </div>
 
-<!-- 配色彈窗 -->
-<div class="modal" id="themeM" onclick="bgClose(event,'themeM')">
+<!-- 配色 -->
+<div class="modal" id="themeModal" onclick="bgClose(event,'themeModal')">
     <div class="sheet">
-        <div class="sheet-hd"><span>🎨 挑選配色</span><button class="btn btn-s sm" onclick="closeM('themeM')">關閉</button></div>
-        <div class="tgrid" id="themeGrid"></div>
+        <div class="m-hdr"><span>🎨 挑選喜歡的配色</span><button class="btn btn-s sm" onclick="closeModal('themeModal')">關閉</button></div>
+        <div class="grid2" id="themeGrid"></div>
     </div>
 </div>
 
 <!-- 新增分組 -->
-<div class="modal" id="grpM" onclick="bgClose(event,'grpM')">
+<div class="modal" id="groupModal" onclick="bgClose(event,'groupModal')">
     <div class="sheet">
-        <div class="sheet-hd"><span>📂 新增詞庫分組</span><button class="btn btn-s sm" onclick="closeM('grpM')">取消</button></div>
-        <input type="text" id="newGrpName" placeholder="分組名稱（如：角色改名）" style="margin-bottom:12px">
+        <div class="m-hdr"><span>📂 新增詞庫分組</span><button class="btn btn-s sm" onclick="closeModal('groupModal')">取消</button></div>
+        <input type="text" id="newGrpIn" placeholder="例如：角色改名用..." style="margin-bottom:12px">
         <button class="btn btn-p" onclick="saveNewGrp()">✅ 建立分組</button>
     </div>
 </div>
 
 <!-- 編輯替換詞 -->
-<div class="modal" id="editRuleM" onclick="bgClose(event,'editRuleM')">
+<div class="modal" id="editRuleModal" onclick="bgClose(event,'editRuleModal')">
     <div class="sheet">
-        <div class="sheet-hd"><span>✏️ 修改替換詞</span><button class="btn btn-s sm" onclick="closeM('editRuleM')">取消</button></div>
+        <div class="m-hdr"><span>✏️ 修改替換詞</span><button class="btn btn-s sm" onclick="closeModal('editRuleModal')">取消</button></div>
         <input type="hidden" id="erId">
-        <div class="rgrid"><input type="text" id="erFrom"><b style="color:var(--pri)">➔</b><input type="text" id="erTo"></div>
+        <div class="rule-grid" style="margin-bottom:12px">
+            <input type="text" id="erFrom" placeholder="原本的字"><b style="color:var(--pri)">➔</b><input type="text" id="erTo" placeholder="換成這個字">
+        </div>
         <button class="btn btn-p" onclick="saveEditRule()">💾 儲存修改</button>
     </div>
 </div>
 
 <!-- 新增/編輯咒語 -->
-<div class="modal" id="promptM" onclick="bgClose(event,'promptM')">
+<div class="modal" id="promptModal" onclick="bgClose(event,'promptModal')">
     <div class="sheet">
-        <div class="sheet-hd"><span id="pmTitle">🔮 新增咒語</span><button class="btn btn-s sm" onclick="closeM('promptM')">取消</button></div>
+        <div class="m-hdr"><span id="pmTitle">🔮 新增情境咒語</span><button class="btn btn-s sm" onclick="closeModal('promptModal')">取消</button></div>
         <input type="hidden" id="pmId">
-        <input type="text" id="pmName" placeholder="咒語標題" style="margin-bottom:8px">
-        <input type="text" id="pmTags" placeholder="標籤（空白隔開，如：現代 浪漫）" style="margin-bottom:8px">
-        <textarea id="pmBody" rows="6" placeholder="咒語內容... 用 {{變數}} 可自動填空複製" style="margin-bottom:10px"></textarea>
+        <input type="text" id="pmName" placeholder="咒語標題（例如：雨夜咖啡廳重逢）" style="margin-bottom:9px">
+        <input type="text" id="pmTags" placeholder="標籤，空白隔開（例如：現代 浪漫）" style="margin-bottom:9px">
+        <textarea id="pmBody" rows="6" placeholder="輸入咒語內容...&#10;💡 用 {{角色}} 包起來可自動填空複製" style="margin-bottom:10px"></textarea>
         <button class="btn btn-p" onclick="savePrompt()">💾 儲存咒語</button>
     </div>
 </div>
 
 <!-- 變數填空 -->
-<div class="modal" id="fillM" onclick="bgClose(event,'fillM')">
+<div class="modal" id="fillModal" onclick="bgClose(event,'fillModal')">
     <div class="sheet">
-        <div class="sheet-hd"><span>✨ 填入變數並複製</span><button class="btn btn-s sm" onclick="closeM('fillM')">取消</button></div>
+        <div class="m-hdr"><span>✨ 填入變數並複製</span><button class="btn btn-s sm" onclick="closeModal('fillModal')">取消</button></div>
         <input type="hidden" id="fillId">
-        <div id="fillBox" style="margin-bottom:12px"></div>
-        <button class="btn btn-p" onclick="doFillCopy()">📋 套用並複製</button>
+        <div id="fillVars" style="margin-bottom:12px"></div>
+        <button class="btn btn-p" onclick="doFillCopy()">📋 套用並一鍵複製</button>
     </div>
 </div>
 
-<!-- 存檔 / 編輯輸出結果（共用好選的咒語搜尋選擇器！） -->
-<div class="modal" id="saveM" onclick="bgClose(event,'saveM')">
+<!-- 閱讀輸出結果（舒適大畫面） -->
+<div class="modal" id="readModal" onclick="bgClose(event,'readModal')">
     <div class="sheet">
-        <div class="sheet-hd"><span id="smTitle">📚 存進倉庫</span><button class="btn btn-s sm" onclick="closeM('saveM')">取消</button></div>
+        <div class="m-hdr">
+            <span id="rdTitle" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
+            <button class="btn btn-s sm" onclick="closeModal('readModal')">關閉</button>
+        </div>
+        <div class="row" style="margin-bottom:9px">
+            <div id="rdBadge"></div>
+            <span class="meta" id="rdMeta"></span>
+        </div>
+        <div id="rdBody" class="reader" style="margin-bottom:12px"></div>
+        <div class="grid2" style="margin-bottom:8px">
+            <button class="btn btn-p" onclick="copySaved(readingId,1)">📋 複製富文本</button>
+            <button class="btn btn-o" onclick="copySaved(readingId,0)">📄 複製純文字</button>
+        </div>
+        <div class="grid2">
+            <button class="btn btn-s" onclick="closeModal('readModal');openSaveModal({saveId:readingId})">✏️ 編輯內容 / 換咒語</button>
+            <button class="btn btn-d" onclick="delSave(readingId)">🗑️ 刪除存檔</button>
+        </div>
+    </div>
+</div>
+
+<!-- 統一的存檔 / 編輯存檔視窗（含可搜尋咒語選擇器） -->
+<div class="modal" id="saveModal" onclick="bgClose(event,'saveModal')">
+    <div class="sheet">
+        <div class="m-hdr"><span id="smTitle">📚 存檔輸出結果</span><button class="btn btn-s sm" onclick="closeModal('saveModal')">取消</button></div>
         <input type="hidden" id="smId">
         <label class="lbl">📌 結果標題</label>
-        <input type="text" id="smName" placeholder="幫這段輸出取個好找的標題..." style="margin-bottom:10px">
-        <label class="lbl">🔮 收在哪個咒語底下（點一下選取）</label>
-        <input type="search" id="pickQ" placeholder="🔍 搜尋咒語名稱或標籤..." oninput="renderPicker()" style="margin-bottom:7px;padding:8px 11px;font-size:15px">
-        <div id="pickerList" class="picker-list" style="margin-bottom:12px"></div>
-        <div id="smBodyWrap" class="hidden" style="margin-bottom:12px">
-            <label class="lbl">✨ 內容（可直接編輯）</label>
-            <div id="smBody" class="read-box editing" contenteditable="true" spellcheck="false" style="min-height:130px;max-height:30dvh"></div>
+        <input type="text" id="smName" placeholder="幫這段結果取個標題..." style="margin-bottom:11px">
+
+        <label class="lbl">🔮 歸屬咒語（點擊選擇，可搜尋）</label>
+        <div class="picker-box">
+            <input type="search" id="pickerQ" placeholder="🔍 篩選咒語或標籤..." oninput="renderPicker()" style="background:var(--card);padding:8px 10px;font-size:15px">
+            <div class="picker-list" id="pickerList"></div>
         </div>
-        <button class="btn btn-p" onclick="confirmSave()">✅ 確認儲存</button>
+
+        <label class="lbl">✨ 結果內容（可直接貼上或修改）</label>
+        <div id="smBody" class="rich" contenteditable="true" spellcheck="false" style="min-height:120px;max-height:28dvh;margin-bottom:12px"></div>
+        <button class="btn btn-p" onclick="confirmSave()">💾 確認儲存</button>
     </div>
 </div>
 
-<!-- 備份與還原（支援檔案下載＋Gzip 精簡備份碼） -->
-<div class="modal" id="backupM" onclick="bgClose(event,'backupM')">
+<!-- 精簡備份 & 檔案匯出/匯入 -->
+<div class="modal" id="backupModal" onclick="bgClose(event,'backupModal')">
     <div class="sheet">
-        <div class="sheet-hd"><span>💾 備份與搬家</span><button class="btn btn-s sm" onclick="closeM('backupM')">關閉</button></div>
-        <div class="g2" style="margin-bottom:12px">
-            <button class="btn btn-p sm" onclick="exportFile()">⬇️ 下載備份檔</button>
-            <button class="btn btn-o sm" onclick="$('fileInp').click()">⬆️ 選檔還原</button>
+        <div class="m-hdr"><span>💾 資料備份與搬家</span><button class="btn btn-s sm" onclick="closeModal('backupModal')">關閉</button></div>
+        <label class="lbl">📂 推薦：檔案備份（免複製長文字）</label>
+        <div class="grid2" style="margin-bottom:14px">
+            <button class="btn btn-p" onclick="exportFile()">⬇️ 下載備份檔</button>
+            <button class="btn btn-o" onclick="$('bkFile').click()">⬆️ 匯入備份檔</button>
+            <input type="file" id="bkFile" accept=".json,.txt,application/json,text/plain" class="hidden" onchange="importFile(this)">
         </div>
-        <input type="file" id="fileInp" accept=".json,application/json,text/plain" class="hidden" onchange="importFile(event)">
-        <div class="row" style="margin-bottom:5px">
-            <span class="lbl" style="margin:0">或使用壓縮備份碼（已縮減體積）</span>
-            <span class="meta" id="bkLen">計算中...</span>
-        </div>
-        <textarea id="bkArea" rows="4" style="font-size:12px;margin-bottom:10px" placeholder="備份碼..."></textarea>
-        <div class="g2">
-            <button class="btn btn-s sm" onclick="copyTxt($('bkArea').value,'✅ 已複製精簡備份碼！')">📋 複製備份碼</button>
-            <button class="btn btn-o sm" onclick="importBackup($('bkArea').value)">📥 貼上並還原</button>
+        <label class="lbl" id="bkInfo">🔗 或使用精簡壓縮備份碼</label>
+        <textarea id="bkArea" rows="4" style="font-size:13px;margin-bottom:9px" placeholder="點下方「複製精簡碼」，或直接貼上備份碼點還原（相容舊版 JSON）..."></textarea>
+        <div class="grid2">
+            <button class="btn btn-s" onclick="copyCompactBackup()">📋 複製精簡碼</button>
+            <button class="btn btn-o" onclick="importBackupText()">📥 貼上並還原</button>
         </div>
     </div>
 </div>
@@ -375,528 +379,572 @@ textarea{resize:vertical;line-height:1.7}
 <div id="toast" class="toast"></div>
 
 <script>
-const $=id=>document.getElementById(id),
-KEY='text_magic_box_v4',
-THEMES=[
+const $ = id => document.getElementById(id);
+const KEY = 'text_magic_box_v4';
+const THEMES = [
     ['milk-tea','🧋 燕麥奶茶','#A67B5B'],['sakura','🌸 櫻花莓果','#DE7392'],
     ['matcha','🍵 宇治抹茶','#668C63'],['lavender','💜 夢幻芋泥','#896BB3'],
     ['ocean','🌊 晴空海鹽','#4A89B8'],['butter','🧈 奶油起司','#D49A2A'],
     ['dark','🌙 深夜護眼','#272731'],['black-gold','🖤 黑金質感','#D4AF37']
-],
-OPTS=[
+];
+const OPTS = [
     ['kaomoji','(ฅ́˘ฅ̀) 保護顏文字'],['rules','🔄 套用詞庫'],['punct','，全形標點'],
-    ['quotes','「」中文引號'],['ellipsis','……刪節號'],['cleanLines','🧹 清空行'],['space','␣ 中英空白']
-],
-FONTS=[{s:'15px',n:'字：小'},{s:'16.5px',n:'字：中'},{s:'18.5px',n:'字：大'}],
-DEF={
-    theme:'milk-tea',fontIdx:1,lastPromptId:'',
+    ['quotes','「」中文引號'],['ellipsis','……刪節號'],['cleanLines','🧹 清多餘空行'],['space','␣ 中英加空白']
+];
+const DEF = {
+    theme:'milk-tea',
     options:{kaomoji:true,rules:true,punct:true,quotes:true,ellipsis:true,cleanLines:true,space:false},
-    draft:'# 測試顏文字與閱讀體驗\n\n他笑著摸了摸我的頭(ฅ́˘ฅ̀),溫柔地說:"這個視頻我幫你存好了喔(*ˊᵕˋ*)!"\n\n* 轉換結果現在預設為**舒適閱讀模式**,點微調就能編輯!\n* 存進倉庫支援**搜尋咒語**快速歸類.',
+    draft:'# 測試顏文字與編輯\n\n他笑著摸了摸我的頭(ฅ́˘ฅ̀),溫柔地說:"這個視頻我幫你存好了喔(*ˊᵕˋ*)!"\n\n* 轉換後的結果可以直接**點進去編輯**!\n* 存檔時可以輕鬆選**歸屬咒語**.',
     selectedGroupId:'g_default',
     ruleGroups:[
         {id:'g_default',name:'常用替換',enabled:true,rules:[
-            {id:'r1',from:'視頻',to:'影片',enabled:true},
-            {id:'r2',from:'軟件',to:'軟體',enabled:true},
-            {id:'r3',from:'質量',to:'品質',enabled:true}
+            {id:'r1',from:'視頻',to:'影片',enabled:true},{id:'r2',from:'軟件',to:'軟體',enabled:true},{id:'r3',from:'質量',to:'品質',enabled:true}
         ]},
         {id:'g_story',name:'角色改名範例',enabled:false,rules:[{id:'r4',from:'小明',to:'顧景深',enabled:true}]}
     ],
     prompts:[{
         id:'p1',title:'範例：溫柔重逢情境',tags:['現代','浪漫'],
-        content:'請扮演溫柔細心的{{角色名}}。我們現在在{{地點}}意外重逢，外面正下著細雨。請用繁體中文、自然口語回覆。',
+        content:'請扮演溫柔細心的{{角色名}}。我們現在在{{地點}}意外重逢，外面正下著細雨。請用繁體中文、自然口語的風格回覆，多描寫細微的表情與動作。',
         updatedAt:new Date().toLocaleDateString('zh-TW')
     }],
     saves:[{
         id:'s_demo',promptId:'p1',title:'第 1 次輸出：雨夜咖啡廳片段',
         html:'<p>推開玻璃門時，風鈴輕響了一聲。他抬起頭，眼裡閃過一絲驚訝，隨即彎起嘴角(ฅ́˘ฅ̀)：「好久不見，外面雨很大吧？」</p>',
+        plain:'推開玻璃門時，風鈴輕響了一聲。他抬起頭，眼裡閃過一絲驚訝，隨即彎起嘴角(ฅ́˘ฅ̀)：「好久不見，外面雨很大吧？」',
         createdAt:'範例存檔'
     }]
 };
 
-let S=loadS(), selTag='ALL', expP=new Set(), converted=false, pickedPId='', saveMode='fromOut', readingId='', saveT, qT, toastT;
+const clone = o => JSON.parse(JSON.stringify(o));
+const esc = s => String(s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const escRe = s => s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 
-function clone(o){return JSON.parse(JSON.stringify(o))}
-function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
-function html2txt(h){
-    return String(h||'').replace(/<\/(p|div|h[1-6]|li|blockquote)>/gi,'\n').replace(/<br\s*\/?>/gi,'\n')
-        .replace(/<[^>]+>/g,'').replace(/&nbsp;/g,' ').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
-        .replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/\n{3,}/g,'\n\n').trim();
-}
-function savePlain(s){return s.plain||html2txt(s.html)}
+let state = loadState();
+let selTag = 'ALL', saveFilter = 'ALL', pickerPid = '', readingId = '', converted = false;
+const expandedP = new Set();
+let saveTimer, toastTimer;
 
-function loadS(){
+function loadState(){
     try{
-        const raw=localStorage.getItem(KEY)||localStorage.getItem('text_magic_box_v3');
+        const raw = localStorage.getItem(KEY) || localStorage.getItem('text_magic_box_v3');
         if(raw){
-            const p=JSON.parse(raw);
-            return {...clone(DEF),...p,options:{...DEF.options,...(p.options||{})},
-                saves:(p.saves||[]).map(({plain,...s})=>({promptId:null,...s}))};
+            const p = JSON.parse(raw);
+            return {...clone(DEF),...p,options:{...DEF.options,...(p.options||{})},saves:(p.saves||[]).map(s=>({promptId:null,...s}))};
         }
-        const v2=localStorage.getItem('text_magic_box_v2');
+        const v2 = localStorage.getItem('text_magic_box_v2');
         if(v2){
-            const o=JSON.parse(v2), m=clone(DEF);
+            const o = JSON.parse(v2), m = clone(DEF);
             m.theme=o.theme||'milk-tea'; m.draft=o.draft||'';
             m.prompts=(o.prompts||[]).map(p=>({...p,tags:p.tags||[]}));
-            m.saves=(o.saves||[]).map(({plain,...s})=>({promptId:null,...s}));
+            m.saves=(o.saves||[]).map(s=>({promptId:null,...s}));
             if(Array.isArray(o.rules)) m.ruleGroups[0].rules=o.rules;
             return m;
         }
-    }catch(e){}
+    }catch{}
     return clone(DEF);
 }
-
-// 防抖動存檔（解決輸入卡頓！）
-function persistNow(){
-    clearTimeout(saveT);
-    try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('⚠️ 儲存空間不足')}
-}
-function persist(delay=0){
-    clearTimeout(saveT);
-    delay? (saveT=setTimeout(persistNow,delay)) : persistNow();
-}
-addEventListener('visibilitychange',()=>{if(document.hidden&&saveT)persistNow()});
-addEventListener('beforeunload',()=>{if(saveT)persistNow()});
+function saveState(){ try{localStorage.setItem(KEY,JSON.stringify(state))}catch{toast('⚠️ 儲存空間不足')} }
+function saveDebounced(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveState, 400); }
 
 function init(){
-    applyTheme(S.theme,false);
-    applyFont();
-    $('inTxt').value=S.draft||'';
-    updInCnt();
-    $('inTxt').oninput=e=>{S.draft=e.target.value;updInCnt();persist(450)};
-    $('richOut').oninput=updOutCnt;
-    renderOpts(); renderThemes(); renderGrpAll(); renderPrompts(); renderSaves();
+    document.documentElement.dataset.theme = state.theme;
+    $('inputText').value = state.draft || '';
+    updCounts();
+    renderThemes(); renderOpts(); renderGroups(); renderPrompts(); renderSaves();
+}
+$('inputText').addEventListener('input', e=>{ state.draft = e.target.value; updCounts(); saveDebounced(); });
+$('inputText').addEventListener('blur', saveState);
+$('richOutput').addEventListener('input', updCounts);
+window.addEventListener('pagehide', saveState);
+
+function updCounts(){
+    $('inCount').textContent = `目前 ${$('inputText').value.replace(/\s/g,'').length} 字`;
+    $('outCount').textContent = `(${$('richOutput').innerText.replace(/\s/g,'').length} 字)`;
 }
 
-function updInCnt(){$('inCnt').textContent=`目前 ${$('inTxt').value.replace(/\s/g,'').length} 字`}
-function updOutCnt(){$('outCnt').textContent=`(${$('richOut').innerText.replace(/\s/g,'').length} 字)`}
-
-// 分頁切換
-function setTab(t){
-    ['work','rules','vault'].forEach(k=>{
-        $('tab-'+k).classList.toggle('on',k===t);
-        $('nav-'+k).classList.toggle('on',k===t);
-    });
+/* ====== 分頁 & 搜尋 ====== */
+function switchTab(t){
+    document.querySelectorAll('.panel,.nav button').forEach(el=>el.classList.remove('active'));
+    $('tab-'+t).classList.add('active'); $('nav-'+t).classList.add('active');
     scrollTo(0,0);
 }
-function setWork(v){
-    const isIn=v==='in';
-    $('work-in').classList.toggle('hidden',!isIn);
-    $('work-out').classList.toggle('hidden',isIn);
-    $('seg-in').classList.toggle('on',isIn);
-    $('seg-out').classList.toggle('on',!isIn);
-    if(!isIn&&!converted) runConvert(false);
+function setWorkView(isIn){
+    $('work-in').classList.toggle('hidden',!isIn); $('work-out').classList.toggle('hidden',isIn);
+    $('seg-in').classList.toggle('active',isIn); $('seg-out').classList.toggle('active',!isIn);
+    if(!isIn && !converted) runConvert(0);
 }
-function setVault(v){
-    const isP=v==='p';
-    $('vault-p').classList.toggle('hidden',!isP);
-    $('vault-s').classList.toggle('hidden',isP);
-    $('seg-p').classList.toggle('on',isP);
-    $('seg-s').classList.toggle('on',!isP);
+function setVaultView(isP){
+    $('v-prompts').classList.toggle('hidden',!isP); $('v-saves').classList.toggle('hidden',isP);
+    $('seg-p').classList.toggle('active',isP); $('seg-s').classList.toggle('active',!isP);
 }
+function onQ(t){
+    $(t+'Qc').classList.toggle('show', $(t+'Q').value.length>0);
+    if(t==='rule') renderRules(); else if(t==='prompt') renderPrompts(); else renderSaves();
+}
+function clrQ(t){ $(t+'Q').value=''; onQ(t); }
 
-// 搜尋（加 120ms 防抖動）
-function onQ(k){
-    $(k+'QC').classList.toggle('on',$(k+'Q').value.length>0);
-    clearTimeout(qT);
-    qT=setTimeout(()=>k==='rule'?renderRules():k==='prompt'?renderPrompts():renderSaves(),120);
-}
-function clrQ(k){$(k+'Q').value='';onQ(k)}
-
-// 主題與字體大小
-function applyTheme(id,save=true){
-    S.theme=id; document.documentElement.dataset.theme=id;
-    if(save)persist(); renderThemes();
-}
+/* ====== 主題 ====== */
 function renderThemes(){
-    $('themeGrid').innerHTML=THEMES.map(([id,name,col])=>
-        `<div class="tcard ${S.theme===id?'on':''}" onclick="applyTheme('${id}');toast('已切換：${name}')"><span class="dot" style="background:${col}"></span>${name}</div>`
+    $('themeGrid').innerHTML = THEMES.map(([id,name,c])=>
+        `<div class="t-card ${state.theme===id?'active':''}" onclick="setTheme('${id}','${name}')"><span class="dot" style="background:${c}"></span>${name}</div>`
     ).join('');
 }
-function applyFont(){
-    const f=FONTS[S.fontIdx||1]||FONTS[1];
-    document.documentElement.style.setProperty('--fs',f.s);
-    $('fsBtn').textContent=f.n; $('rdFsBtn').textContent=f.n;
-}
-function cycleFont(){
-    S.fontIdx=((S.fontIdx??1)+1)%FONTS.length;
-    applyFont(); persist();
+function setTheme(id,name){
+    state.theme=id; document.documentElement.dataset.theme=id;
+    saveState(); renderThemes(); toast('已切換：'+name);
 }
 
-// 轉換開關與核心引擎
+/* ====== 轉換引擎 ====== */
 function activeRules(){
-    const a=[]; S.ruleGroups.forEach(g=>{if(g.enabled)g.rules.forEach(r=>{if(r.enabled&&r.from)a.push(r)})});
-    return a;
+    const out=[];
+    state.ruleGroups.forEach(g=>{ if(g.enabled) g.rules.forEach(r=>{ if(r.enabled&&r.from) out.push(r); }); });
+    return out;
 }
 function renderOpts(){
-    $('optPills').innerHTML=OPTS.map(([k,l])=>
-        `<div class="pill ${S.options[k]?'on':''}" onclick="S.options.${k}=!S.options.${k};persist();renderOpts()">${l}</div>`
+    $('optPills').innerHTML = OPTS.map(([k,lbl])=>
+        `<div class="pill ${state.options[k]?'on':''}" onclick="toggleOpt('${k}')">${lbl}</div>`
     ).join('');
-    $('actRuleCnt').textContent=`啟用 ${S.ruleGroups.filter(g=>g.enabled).length} 組 (${activeRules().length} 詞)`;
+    $('activeRuleCount').textContent = `啟用 ${state.ruleGroups.filter(g=>g.enabled).length} 組 (${activeRules().length} 詞)`;
 }
+function toggleOpt(k){ state.options[k]=!state.options[k]; saveState(); renderOpts(); }
+
 function isKaomoji(s){
-    if(!s||/https?:\/\//i.test(s)||/[\u4e00-\u9fff]{2,}/.test(s)||/^[\d\s.,/-]+$/.test(s))return false;
-    if(/^\s*(?:[QTUOqtuo][wWvVuUaA._-][QTUOqtuo]|Orz|orz|OTZ|otz)\s*$/.test(s))return true;
-    if(/[A-Za-z]{3,}/.test(s))return false;
+    if(!s || /https?:\/\//i.test(s) || /[\u4e00-\u9fff]{2,}/.test(s)) return false;
+    if(/^\s*(?:[QTUOqtuo][wWvVuUaA._-][QTUOqtuo]|Orz|orz|OTZ|otz)\s*$/.test(s)) return true;
+    if(/[A-Za-z]{3,}/.test(s) || /^[\d\s.,/-]+$/.test(s)) return false;
     return /[\u0300-\u036f\u02b0-\u02ff\u0e00-\u0e7f\u0370-\u03ff\u0400-\u04ff\u3040-\u30ff\uff61-\uff9f\u2000-\u2bff\u3000-\u303f\ufe00-\ufe6f*^_~<>`´ˋˊ=;:]/.test(s);
 }
 function convertHtml(raw){
-    let t=raw, km=[], pr=[];
-    if(S.options.kaomoji){
-        t=t.replace(/([٩ヾ╰ヽლฅ\/＼\\]*)([\(（ʕ])([^()（）ʕʔ\n]{1,28})([\)）ʔ])([وﾉ╯ノ✧♡♥★☆♪♫ฅ✿❀❁彡\/／\\]*)/g,(m,a,o,i)=>{
-            if(isKaomoji(i)||o==='ʕ'){km.push(m);return `\uE000${km.length-1}\uE001`}
-            return m;
-        });
+    let t = raw, kao = [], chunks = [];
+    const o = state.options;
+    if(o.kaomoji){
+        t = t.replace(/([٩ヾ╰ヽლฅ\/＼\\]*)([\(（ʕ])([^()（）ʕʔ\n]{1,28})([\)）ʔ])([وﾉ╯ノ✧♡♥★☆♪♫ฅ✿❀❁彡\/／\\]*)/g,
+            (f,a,ob,inn)=> (isKaomoji(inn)||ob==='ʕ') ? `\uE000${kao.push(f)-1}\uE001` : f);
     }
-    if(S.options.rules) activeRules().forEach(r=>{t=t.replace(new RegExp(escRe(r.from),'g'),r.to||'')});
-    const keep=m=>(pr.push(m),`\uE002${pr.length-1}\uE003`);
-    t=t.replace(/```[\s\S]*?```|`[^`\n]+`|\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s]+/g,keep);
-    if(S.options.cleanLines) t=t.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
-    if(S.options.ellipsis) t=t.replace(/\.{3,}|。{3,}/g,'……');
-    if(S.options.quotes) t=t.replace(/[“"]([^“”"\n]+)[”"]/g,'「$1」').replace(/[‘']([^‘’'\n]+)[’']/g,'『$1』');
-    if(S.options.punct){
+    if(o.rules) activeRules().forEach(r=>{ t = t.replace(new RegExp(escRe(r.from),'g'), r.to||''); });
+    const hold = m => `\uE002${chunks.push(m)-1}\uE003`;
+    t = t.replace(/```[\s\S]*?```|`[^`\n]+`|\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s]+/g, hold);
+    if(o.cleanLines) t = t.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
+    if(o.ellipsis) t = t.replace(/\.{3,}|。{3,}/g,'……');
+    if(o.quotes) t = t.replace(/[“"]([^“”"\n]+)[”"]/g,'「$1」').replace(/[‘']([^‘’'\n]+)[’']/g,'『$1』');
+    if(o.punct){
         for(const [h,f] of [[',','，'],['!','！'],['\\?','？'],[';','；'],[':','：'],['\\(','（'],['\\)','）']])
-            t=t.replace(new RegExp(h+'[ \\t]*','g'),f);
-        t=t.replace(/([^\d.])\.([ \t]*(\n|$))/g,'$1。$2');
+            t = t.replace(new RegExp(h+'[ \\t]*','g'), f);
+        t = t.replace(/([^\d.])\.([ \t]*(\n|$))/g,'$1。$2');
     }
-    if(S.options.space) t=t.replace(/([\u4e00-\u9fff])([A-Za-z0-9])/g,'$1 $2').replace(/([A-Za-z0-9])([\u4e00-\u9fff])/g,'$1 $2');
-    t=t.replace(/\uE002(\d+)\uE003/g,(_,i)=>pr[i]);
-    let html=typeof marked!=='undefined'?(marked.setOptions({breaks:true,gfm:true}),marked.parse(t)):`<p>${esc(t).replace(/\n/g,'<br>')}</p>`;
-    return html.replace(/\uE000(\d+)\uE001/g,(_,i)=>esc(km[i]));
+    if(o.space) t = t.replace(/([\u4e00-\u9fff])([A-Za-z0-9])/g,'$1 $2').replace(/([A-Za-z0-9])([\u4e00-\u9fff])/g,'$1 $2');
+    t = t.replace(/\uE002(\d+)\uE003/g, (_,i)=>chunks[i]);
+    let html = typeof marked!=='undefined' ? (marked.setOptions({breaks:true,gfm:true}), marked.parse(t)) : `<p>${esc(t).replace(/\n/g,'<br>')}</p>`;
+    return html.replace(/\uE000(\d+)\uE001/g, (_,i)=>esc(kao[i]));
 }
-function runConvert(go=true){
-    const raw=$('inTxt').value;
-    if(!raw.trim())return toast('請先輸入或貼上文字喔！');
-    $('richOut').innerHTML=convertHtml(raw);
-    setOutEdit(false); converted=true; updOutCnt();
-    if(go){setWork('out');toast('✨ 轉換完成！')}
+function runConvert(go=1){
+    const raw = $('inputText').value;
+    if(!raw.trim()) return toast('請先輸入或貼上文字喔！');
+    $('richOutput').innerHTML = convertHtml(raw);
+    converted = true; updCounts();
+    if(go){ setWorkView(0); toast('✨ 轉換完成！點文字可直接微調'); }
 }
-function setOutEdit(on){
-    const el=$('richOut');
-    el.contentEditable=on?'true':'false';
-    el.classList.toggle('editing',on);
-    $('editBtn').textContent=on?'✅ 完成':'✏️ 微調';
-    if(on) el.focus();
-}
-function toggleOutEdit(){setOutEdit($('richOut').contentEditable!=='true')}
-async function pasteIn(){
-    try{const t=await navigator.clipboard.readText();if(!t)return toast('剪貼簿是空的');$('inTxt').value=S.draft=t;updInCnt();persist();toast('📋 已貼上')}
-    catch{toast('請長按輸入框貼上')}
-}
-function clearIn(){$('inTxt').value=S.draft='';$('richOut').innerHTML='';converted=false;updInCnt();persist();toast('🗑️ 已清空')}
-
-// 複製
-async function copyRich(html,plain){
+async function pasteClip(){
     try{
-        if(navigator.clipboard&&window.ClipboardItem){
+        const s = await navigator.clipboard.readText();
+        if(!s) return toast('剪貼簿是空的喔');
+        $('inputText').value = state.draft = s; updCounts(); saveState(); toast('📋 已貼上');
+    }catch{ toast('請長按輸入框手動貼上喔'); }
+}
+function clearIn(){
+    $('inputText').value = state.draft = ''; $('richOutput').innerHTML = '';
+    converted = false; updCounts(); saveState(); toast('🗑️ 已清空');
+}
+
+/* ====== 複製 ====== */
+async function copyRich(html, plain){
+    try{
+        if(navigator.clipboard && window.ClipboardItem){
             await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]);
             return toast('✅ 已複製富文本！');
         }
     }catch{}
-    const d=document.createElement('div'); d.innerHTML=html; d.style.cssText='position:fixed;left:-9999px;background:#fff;color:#000';
-    document.body.appendChild(d);
-    const r=document.createRange(), s=getSelection(); r.selectNodeContents(d); s.removeAllRanges(); s.addRange(r);
-    try{document.execCommand('copy');toast('✅ 已複製富文本！')}catch{toast('複製失敗')}
+    const d = document.createElement('div'); d.innerHTML = html;
+    d.style.cssText='position:fixed;left:-9999px;background:#fff;color:#000'; document.body.appendChild(d);
+    const r = document.createRange(); r.selectNodeContents(d);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    try{ document.execCommand('copy'); toast('✅ 已複製富文本！'); }catch{ toast('複製失敗，請手動選取'); }
     s.removeAllRanges(); d.remove();
 }
-async function copyTxt(t,msg='✅ 已複製！'){
-    try{await navigator.clipboard.writeText(t);toast(msg)}
-    catch{const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();toast(msg)}
+async function copyText(txt, msg='✅ 已複製！'){
+    try{ await navigator.clipboard.writeText(txt); toast(msg); }
+    catch{
+        const a=document.createElement('textarea'); a.value=txt; a.style.cssText='position:fixed;opacity:0';
+        document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); toast(msg);
+    }
 }
 function copyOut(rich){
-    const el=$('richOut'), txt=el.innerText;
-    if(!txt.trim())return toast('目前沒有內容');
-    rich?copyRich(el.innerHTML,txt):copyTxt(txt,'📄 已複製純文字！');
+    const el=$('richOutput'); if(!el.innerText.trim()) return toast('目前沒有內容');
+    rich ? copyRich(el.innerHTML, el.innerText) : copyText(el.innerText,'📄 已複製純文字！');
 }
 
-// 詞庫管理
-function curGrp(){return S.ruleGroups.find(g=>g.id===S.selectedGroupId)||(S.selectedGroupId=S.ruleGroups[0].id,S.ruleGroups[0])}
-function renderGrpAll(){
-    const g=curGrp();
-    $('grpChips').innerHTML=S.ruleGroups.map(x=>
-        `<button class="chip ${x.id===g.id?'on':''}" onclick="S.selectedGroupId='${x.id}';persist();renderGrpAll()">${x.enabled?'🟢':'⚪'} ${esc(x.name)} (${x.rules.length})</button>`
-    ).join('')+`<button class="chip add" onclick="$('newGrpName').value='';openM('grpM')">＋ 分組</button>`;
-    $('grpName').textContent=g.name; $('grpSw').checked=g.enabled;
-    $('delGrpBtn').classList.toggle('hidden',S.ruleGroups.length<=1);
+/* ====== 分組詞庫 ====== */
+function curGrp(){
+    let g = state.ruleGroups.find(x=>x.id===state.selectedGroupId);
+    if(!g){ g = state.ruleGroups[0]; state.selectedGroupId = g.id; }
+    return g;
+}
+function renderGroups(){
+    const g = curGrp();
+    $('groupChips').innerHTML = state.ruleGroups.map(x=>
+        `<button class="chip ${x.id===g.id?'active':''}" onclick="selGrp('${x.id}')">${x.enabled?'🟢':'⚪'} ${esc(x.name)} (${x.rules.length})</button>`
+    ).join('') + `<button class="chip add" onclick="$('newGrpIn').value='';openModal('groupModal')">＋ 分組</button>`;
+    $('grpName').textContent = g.name;
+    $('grpToggle').checked = g.enabled;
+    $('delGrpBtn').classList.toggle('hidden', state.ruleGroups.length<=1);
     $('bulkBox').classList.add('hidden');
     renderRules(); renderOpts();
 }
+function selGrp(id){ state.selectedGroupId=id; saveState(); renderGroups(); }
 function saveNewGrp(){
-    const name=$('newGrpName').value.trim(); if(!name)return toast('請輸入分組名稱');
-    const id='g_'+Date.now(); S.ruleGroups.push({id,name,enabled:true,rules:[]});
-    S.selectedGroupId=id; persist(); closeM('grpM'); renderGrpAll(); toast(`📂 已建立「${name}」`);
+    const n = $('newGrpIn').value.trim(); if(!n) return toast('請輸入分組名稱！');
+    const id = 'g_'+Date.now(); state.ruleGroups.push({id,name:n,enabled:true,rules:[]});
+    state.selectedGroupId = id; saveState(); closeModal('groupModal'); renderGroups(); toast(`📂 已建立「${n}」`);
 }
-function toggleGrp(){const g=curGrp();g.enabled=$('grpSw').checked;persist();renderGrpAll();toast(g.enabled?'✅ 已啟用分組':'⏸️ 已暫停分組')}
+function toggleGrp(){
+    const g = curGrp(); g.enabled = $('grpToggle').checked;
+    saveState(); renderGroups(); toast(g.enabled?`✅ 啟用「${g.name}」`:`⏸️ 暫停「${g.name}」`);
+}
 function delGrp(){
-    const g=curGrp(); if(S.ruleGroups.length<=1||!confirm(`確定刪除「${g.name}」分組？`))return;
-    S.ruleGroups=S.ruleGroups.filter(x=>x.id!==g.id); S.selectedGroupId=S.ruleGroups[0].id;
-    persist(); renderGrpAll(); toast('🗑️ 已刪除分組');
+    const g = curGrp();
+    if(state.ruleGroups.length<=1 || !confirm(`刪除「${g.name}」及裡面的 ${g.rules.length} 組替換詞？`)) return;
+    state.ruleGroups = state.ruleGroups.filter(x=>x.id!==g.id);
+    state.selectedGroupId = state.ruleGroups[0].id; saveState(); renderGroups(); toast('🗑️ 已刪除分組');
 }
 function renderRules(){
-    const g=curGrp(), q=$('ruleQ').value.trim().toLowerCase();
-    const list=g.rules.filter(r=>!q||r.from.toLowerCase().includes(q)||r.to.toLowerCase().includes(q));
-    $('ruleLbl').textContent=q?`找到 ${list.length} 組`:`共 ${g.rules.length} 組替換詞`;
-    $('rulesList').innerHTML=list.length?list.map(r=>`
-        <div class="ritem ${r.enabled&&g.enabled?'':'off'}">
-            <label class="sw"><input type="checkbox" ${r.enabled?'checked':''} onchange="toggleRule('${r.id}')"><span></span></label>
-            <div class="rwords"><span class="wb">${esc(r.from)}</span><span class="meta">➔</span><span class="wb n">${r.to?esc(r.to):'(刪除)'}</span></div>
-            <button class="btn btn-s xs" onclick="openEditRule('${r.id}')">✏️</button>
-            <button class="btn btn-d xs" onclick="delRule('${r.id}')">✕</button>
-        </div>`).join(''):`<div class="empty">${q?'找不到符合的詞 🔎':'這個分組還是空的，在上方新增吧！'}</div>`;
+    const g = curGrp(), q = $('ruleQ').value.trim().toLowerCase();
+    const list = g.rules.filter(r=>!q || r.from.toLowerCase().includes(q) || r.to.toLowerCase().includes(q));
+    $('ruleLbl').textContent = q ? `搜尋結果：${list.length} 組` : `「${g.name}」共 ${g.rules.length} 組`;
+    $('rulesList').innerHTML = list.length ? list.map(r=>`
+        <div class="rule-row ${r.enabled&&g.enabled?'':'off'}">
+            <label class="sw"><input type="checkbox" ${r.enabled?'checked':''} onchange="togRule('${r.id}')"><i></i></label>
+            <div class="rule-w"><span class="badge">${esc(r.from)}</span><span class="meta">➔</span><span class="badge pri">${r.to?esc(r.to):'(刪除)'}</span></div>
+            <button class="btn btn-s sm" onclick="openEditRule('${r.id}')">✏️</button>
+            <button class="btn btn-d sm" onclick="delRule('${r.id}')">✕</button>
+        </div>`).join('')
+        : `<div class="empty">${q?'找不到符合的替換詞 🔎':'這個分組還是空的，在上面加入字詞吧！'}</div>`;
 }
 function addRule(){
-    const f=$('rFrom').value.trim(), t=$('rTo').value.trim(); if(!f)return toast('請輸入原本的字');
-    curGrp().rules.unshift({id:'r_'+Date.now(),from:f,to:t,enabled:true});
-    $('rFrom').value=$('rTo').value=''; persist(); renderGrpAll(); toast(`✅ 已加入：${f} ➔ ${t||'(刪)'}`);
+    const from=$('rFrom').value.trim(), to=$('rTo').value.trim();
+    if(!from) return toast('請輸入「原本的字」');
+    curGrp().rules.unshift({id:'r_'+Date.now(),from,to,enabled:true});
+    $('rFrom').value=$('rTo').value=''; saveState(); renderGroups(); toast(`✅ 已加入：${from} ➔ ${to||'(刪除)'}`);
 }
-function toggleRule(id){const r=curGrp().rules.find(x=>x.id===id);if(r){r.enabled=!r.enabled;persist();renderRules();renderOpts()}}
-function openEditRule(id){const r=curGrp().rules.find(x=>x.id===id);if(!r)return;$('erId').value=r.id;$('erFrom').value=r.from;$('erTo').value=r.to;openM('editRuleM')}
+function togRule(id){ const r=curGrp().rules.find(x=>x.id===id); if(r){r.enabled=!r.enabled;saveState();renderRules();renderOpts();} }
+function openEditRule(id){
+    const r=curGrp().rules.find(x=>x.id===id); if(!r) return;
+    $('erId').value=r.id; $('erFrom').value=r.from; $('erTo').value=r.to; openModal('editRuleModal');
+}
 function saveEditRule(){
-    const f=$('erFrom').value.trim(); if(!f)return toast('原本的字不能留空');
+    const from=$('erFrom').value.trim(), to=$('erTo').value.trim(); if(!from) return toast('原本的字不能留空');
     const r=curGrp().rules.find(x=>x.id===$('erId').value);
-    if(r){r.from=f;r.to=$('erTo').value.trim();persist();renderRules();closeM('editRuleM');toast('💾 已修改')}
+    if(r){ r.from=from; r.to=to; saveState(); renderRules(); closeModal('editRuleModal'); toast('💾 修改完成'); }
 }
-function delRule(id){curGrp().rules=curGrp().rules.filter(x=>x.id!==id);persist();renderGrpAll()}
+function delRule(id){ const g=curGrp(); g.rules=g.rules.filter(x=>x.id!==id); saveState(); renderGroups(); toast('🗑️ 已移除'); }
 function toggleBulk(){
-    if(!$('bulkBox').classList.toggle('hidden')) $('bulkTxt').value=curGrp().rules.map(r=>`${r.from}->${r.to}`).join('\n');
+    const hide = $('bulkBox').classList.toggle('hidden');
+    if(!hide) $('bulkTxt').value = curGrp().rules.map(r=>`${r.from}->${r.to}`).join('\n');
 }
 function applyBulk(){
-    const arr=[]; $('bulkTxt').value.split('\n').forEach((l,i)=>{
-        if(l.includes('->')){const [f,...r]=l.split('->');if(f.trim())arr.push({id:'rb_'+Date.now()+i,from:f.trim(),to:r.join('->').trim(),enabled:true})}
+    const arr=[];
+    $('bulkTxt').value.split('\n').forEach((l,i)=>{
+        if(l.includes('->')){ const [f,...rest]=l.split('->'); if(f.trim()) arr.push({id:`rb_${Date.now()}_${i}`,from:f.trim(),to:rest.join('->').trim(),enabled:true}); }
     });
-    curGrp().rules=arr; persist(); renderGrpAll(); toast(`✅ 已更新 ${arr.length} 組`);
+    curGrp().rules=arr; saveState(); renderGroups(); toast(`✅ 已更新 ${arr.length} 組`);
 }
 function addPresets(){
     const g=curGrp(); let n=0;
     [['信息','訊息'],['屏幕','螢幕'],['默認','預設'],['網絡','網路'],['激活','啟用'],['程序','程式']].forEach(([f,t],i)=>{
-        if(!g.rules.some(r=>r.from===f)){g.rules.push({id:'rp_'+Date.now()+i,from:f,to:t,enabled:true});n++}
+        if(!g.rules.some(r=>r.from===f)){ g.rules.push({id:`rp_${Date.now()}_${i}`,from:f,to:t,enabled:true}); n++; }
     });
-    persist(); renderGrpAll(); toast(n?`⚡ 已加入 ${n} 組常用詞`:'這些詞都已經有了喔！');
+    saveState(); renderGroups(); toast(n?`⚡ 已加入 ${n} 組常用詞`:'已經都有這些常用詞囉！');
 }
 
-// 情境咒語
-const getVars=c=>[...new Set([...c.matchAll(/\{\{([^}]+)\}\}/g)].map(m=>m[1].trim()))];
+/* ====== 情境咒語 ====== */
+const getVars = s => [...new Set([...s.matchAll(/\{\{([^}]+)\}\}/g)].map(m=>m[1].trim()))];
 function renderPrompts(){
-    const tags=new Set(); S.prompts.forEach(p=>(p.tags||[]).forEach(t=>tags.add(t)));
-    if(selTag!=='ALL'&&!tags.has(selTag)) selTag='ALL';
-    $('tagChips').innerHTML=tags.size?`<button class="chip ${selTag==='ALL'?'on':''}" onclick="selTag='ALL';renderPrompts()">全部 (${S.prompts.length})</button>`+
-        [...tags].map(t=>`<button class="chip ${selTag===t?'on':''}" onclick="selTag='${esc(t)}';renderPrompts()">#${esc(t)}</button>`).join(''):'';
+    const allTags = new Set(); state.prompts.forEach(p=>(p.tags||[]).forEach(t=>allTags.add(t)));
+    if(selTag!=='ALL' && !allTags.has(selTag)) selTag='ALL';
+    $('promptTags').innerHTML = allTags.size ?
+        `<button class="chip ${selTag==='ALL'?'active':''}" data-t="ALL" onclick="selPTag(this.dataset.t)">全部 (${state.prompts.length})</button>` +
+        [...allTags].map(t=>`<button class="chip ${selTag===t?'active':''}" data-t="${esc(t)}" onclick="selPTag(this.dataset.t)">#${esc(t)}</button>`).join('') : '';
 
-    const q=$('promptQ').value.trim().toLowerCase();
-    const list=S.prompts.filter(p=>{
-        if(selTag!=='ALL'&&!(p.tags||[]).includes(selTag))return false;
-        if(!q)return true;
-        const kids=S.saves.filter(s=>s.promptId===p.id);
-        return p.title.toLowerCase().includes(q)||p.content.toLowerCase().includes(q)||
-            (p.tags||[]).some(t=>t.toLowerCase().includes(q))||
-            kids.some(s=>s.title.toLowerCase().includes(q)||savePlain(s).toLowerCase().includes(q));
+    const q = $('promptQ').value.trim().toLowerCase();
+    const list = state.prompts.filter(p=>{
+        if(selTag!=='ALL' && !(p.tags||[]).includes(selTag)) return false;
+        if(!q) return true;
+        const kids = state.saves.filter(s=>s.promptId===p.id);
+        return p.title.toLowerCase().includes(q) || p.content.toLowerCase().includes(q) ||
+            (p.tags||[]).some(t=>t.toLowerCase().includes(q)) ||
+            kids.some(s=>s.title.toLowerCase().includes(q)||s.plain.toLowerCase().includes(q));
     });
-    if(!list.length) return $('promptsList').innerHTML=`<div class="empty">${q?'找不到符合的咒語 🔎':'🔮 點上方新增你的第一個情境咒語吧！'}</div>`;
 
-    $('promptsList').innerHTML=list.map(p=>{
-        const vars=getVars(p.content), open=expP.has(p.id), kids=S.saves.filter(s=>s.promptId===p.id);
-        const nested=open?`<div class="nested">
+    $('promptsList').innerHTML = list.length ? list.map(p=>{
+        const hasV = getVars(p.content).length>0, open = expandedP.has(p.id);
+        const kids = state.saves.filter(s=>s.promptId===p.id);
+        const kidsHtml = open ? `<div class="nested">
             <div class="row" style="margin-bottom:8px">
                 <b style="font-size:.86rem;color:var(--pri)">📚 輸出結果 (${kids.length})</b>
-                <button class="btn btn-o xs" onclick="openNewSaveFor('${p.id}')">＋ 記錄結果</button>
+                <button class="btn btn-o xs" onclick="openSaveModal({promptId:'${p.id}'})">＋ 記錄結果</button>
             </div>
-            ${kids.length?kids.map(s=>`<div class="ncard">
-                <div class="row"><b style="font-size:.9rem">📌 ${esc(s.title)}</b><span class="meta">${s.createdAt||''}</span></div>
-                <div class="snippet" onclick="openReader('${s.id}')">${esc(savePlain(s))}</div>
-                <div class="row" style="gap:5px">
-                    <button class="btn btn-p xs" style="flex:1" onclick="openReader('${s.id}')">📖 閱讀全文</button>
-                    <button class="btn btn-o xs" onclick="copySaved('${s.id}',true)">📋</button>
-                    <button class="btn btn-s xs" onclick="openEditSaveM('${s.id}')">✏️</button>
-                    <button class="btn btn-d xs" onclick="delSave('${s.id}')">🗑️</button>
-                </div>
-            </div>`).join(''):`<div class="empty" style="padding:14px">尚無輸出結果，轉完文章存檔時可收在這裡！</div>`}
-        </div>`:'';
+            ${kids.length ? kids.map(s=>`
+                <div class="out-item" onclick="openRead('${s.id}')">
+                    <div class="row">
+                        <b style="font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📌 ${esc(s.title)}</b>
+                        <div class="gap" onclick="event.stopPropagation()">
+                            <span class="meta">${esc(s.createdAt)}</span>
+                            <button class="btn btn-p xs" onclick="copySaved('${s.id}',1)">📋</button>
+                        </div>
+                    </div>
+                    <div class="out-snip">${esc(s.plain)}</div>
+                </div>`).join('') : `<div class="empty" style="padding:12px">還沒有輸出結果～點右上角「＋ 記錄結果」或轉換後存進來</div>`}
+        </div>` : '';
 
         return `<div class="card">
-            <div class="row" style="cursor:pointer" onclick="togExp('${p.id}')">
-                <div class="vtitle">${esc(p.title)}</div><span class="meta">${p.updatedAt||''}</span>
+            <div class="row" style="cursor:pointer" onclick="togP('${p.id}')">
+                <div class="v-title">${esc(p.title)}</div>
+                <span class="meta">${esc(p.updatedAt)}</span>
             </div>
             ${p.tags?.length?`<div class="tags">${p.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>`:''}
-            <div class="snippet ${open?'full':''}" onclick="togExp('${p.id}')">${esc(p.content)}</div>
+            <div class="preview ${open?'open':''}" onclick="togP('${p.id}')">${esc(p.content)}</div>
             <div class="row" style="flex-wrap:wrap;gap:6px">
-                ${vars.length?`<button class="btn btn-p sm" style="flex:1" onclick="openFill('${p.id}')">✨ 填空複製</button><button class="btn btn-o sm" onclick="copyPrompt('${p.id}')">📋</button>`
-                :`<button class="btn btn-p sm" style="flex:1" onclick="copyPrompt('${p.id}')">📋 複製咒語</button>`}
-                <button class="btn btn-s sm" onclick="togExp('${p.id}')">${open?'▲ 收合':`📂 結果 (${kids.length})`}</button>
-                <button class="btn btn-s sm" onclick="openPromptM('${p.id}')">✏️</button>
+                ${hasV ? `<button class="btn btn-p sm" style="flex:1" onclick="openFill('${p.id}')">✨ 填空複製</button>
+                          <button class="btn btn-o sm" onclick="copyPrompt('${p.id}')">📋</button>`
+                       : `<button class="btn btn-p sm" style="flex:1" onclick="copyPrompt('${p.id}')">📋 複製咒語</button>`}
+                <button class="btn btn-s sm" onclick="togP('${p.id}')">${open?'▲ 收合':`📖 結果 (${kids.length})`}</button>
+                <button class="btn btn-s sm" onclick="openPromptModal('${p.id}')">✏️</button>
                 <button class="btn btn-d sm" onclick="delPrompt('${p.id}')">🗑️</button>
-            </div>${nested}
+            </div>${kidsHtml}
         </div>`;
-    }).join('');
+    }).join('') : `<div class="empty">${q?'找不到符合的咒語或結果 🔎':'🔮 這裡可以收藏常玩的情境咒語，並把每次 AI 輸出收在底下！'}</div>`;
 }
-function togExp(id){expP.has(id)?expP.delete(id):expP.add(id);renderPrompts()}
-function openPromptM(id=''){
-    const p=S.prompts.find(x=>x.id===id);
-    $('pmTitle').textContent=p?'✏️ 編輯咒語':'🔮 新增咒語';
-    $('pmId').value=p?p.id:''; $('pmName').value=p?p.title:'';
-    $('pmTags').value=p?(p.tags||[]).join(' '):''; $('pmBody').value=p?p.content:'';
-    openM('promptM');
+function selPTag(t){ selTag=t; renderPrompts(); }
+function togP(id){ expandedP.has(id)?expandedP.delete(id):expandedP.add(id); renderPrompts(); }
+
+function openPromptModal(id=''){
+    const p = id ? state.prompts.find(x=>x.id===id) : null;
+    $('pmTitle').textContent = p ? '✏️ 編輯情境咒語' : '🔮 新增情境咒語';
+    $('pmId').value = p ? p.id : '';
+    $('pmName').value = p ? p.title : '';
+    $('pmTags').value = p ? (p.tags||[]).join(' ') : '';
+    $('pmBody').value = p ? p.content : '';
+    openModal('promptModal');
 }
 function savePrompt(){
-    const id=$('pmId').value, title=$('pmName').value.trim()||'未命名咒語',
-          tags=$('pmTags').value.replace(/#/g,'').split(/[\s,，]+/).filter(Boolean),
-          content=$('pmBody').value.trim();
-    if(!content)return toast('請輸入咒語內容');
-    const updatedAt=new Date().toLocaleDateString('zh-TW');
-    if(id){const i=S.prompts.findIndex(x=>x.id===id);if(i>-1)S.prompts[i]={...S.prompts[i],title,tags,content,updatedAt}}
-    else{const nid='p_'+Date.now();S.prompts.unshift({id:nid,title,tags,content,updatedAt});expP.add(nid)}
-    persist(); renderPrompts(); renderSaves(); closeM('promptM'); toast('💾 咒語已儲存');
+    const id=$('pmId').value, title=$('pmName').value.trim()||'未命名咒語', content=$('pmBody').value.trim();
+    const tags=$('pmTags').value.replace(/#/g,'').split(/[\s,，]+/).map(x=>x.trim()).filter(Boolean);
+    if(!content) return toast('請輸入咒語內容！');
+    const updatedAt = new Date().toLocaleDateString('zh-TW');
+    if(id){
+        const i = state.prompts.findIndex(x=>x.id===id);
+        if(i>-1) state.prompts[i] = {...state.prompts[i],title,tags,content,updatedAt};
+    }else{
+        const nid='p_'+Date.now();
+        state.prompts.unshift({id:nid,title,tags,content,updatedAt});
+        expandedP.add(nid);
+    }
+    saveState(); renderPrompts(); renderSaves(); closeModal('promptModal'); toast('💾 咒語已儲存');
 }
 function openFill(id){
-    const p=S.prompts.find(x=>x.id===id); if(!p)return;
-    $('fillId').value=id;
-    $('fillBox').innerHTML=getVars(p.content).map(v=>`<div style="margin-bottom:9px"><label class="lbl" style="color:var(--pri)">${esc(v)}</label><input type="text" class="fv" data-v="${esc(v)}" placeholder="輸入「${esc(v)}」..."></div>`).join('');
-    openM('fillM');
+    const p = state.prompts.find(x=>x.id===id); if(!p) return;
+    $('fillId').value = id;
+    $('fillVars').innerHTML = getVars(p.content).map(v=>
+        `<div style="margin-bottom:9px"><label class="lbl" style="color:var(--pri)">${esc(v)}</label><input type="text" class="vf" data-v="${esc(v)}" placeholder="輸入「${esc(v)}」..."></div>`
+    ).join('');
+    openModal('fillModal');
 }
 function doFillCopy(){
-    const p=S.prompts.find(x=>x.id===$('fillId').value); if(!p)return;
-    let c=p.content;
-    document.querySelectorAll('.fv').forEach(i=>{if(i.value.trim())c=c.replace(new RegExp(`\\{\\{\\s*${escRe(i.dataset.v)}\\s*\\}\\}`,'g'),i.value.trim())});
-    copyTxt(c,'✨ 已填入並複製！'); closeM('fillM');
+    const p = state.prompts.find(x=>x.id===$('fillId').value); if(!p) return;
+    let s = p.content;
+    document.querySelectorAll('.vf').forEach(i=>{
+        if(i.value.trim()) s = s.replace(new RegExp(`\\{\\{\\s*${escRe(i.dataset.v)}\\s*\\}\\}`,'g'), i.value.trim());
+    });
+    copyText(s,'✨ 變數已填入並複製！'); closeModal('fillModal');
 }
-function copyPrompt(id){const p=S.prompts.find(x=>x.id===id);if(p)copyTxt(p.content,'🔮 已複製咒語！')}
+function copyPrompt(id){ const p=state.prompts.find(x=>x.id===id); if(p) copyText(p.content,'🔮 已複製咒語！'); }
 function delPrompt(id){
-    const n=S.saves.filter(s=>s.promptId===id).length;
-    if(!confirm(n?`確定刪除咒語？（底下的 ${n} 筆結果會保留在「全部存檔」）`:'確定刪除這個咒語？'))return;
-    S.prompts=S.prompts.filter(x=>x.id!==id);
-    S.saves.forEach(s=>{if(s.promptId===id)s.promptId=null});
-    expP.delete(id); persist(); renderPrompts(); renderSaves(); toast('🗑️ 已刪除');
+    const n = state.saves.filter(s=>s.promptId===id).length;
+    if(!confirm(n?`刪除此咒語？（底下的 ${n} 筆結果會移到「全部存檔」保留）`:'確定要刪除這個咒語嗎？')) return;
+    state.prompts = state.prompts.filter(x=>x.id!==id);
+    state.saves.forEach(s=>{ if(s.promptId===id) s.promptId=null; });
+    expandedP.delete(id); saveState(); renderPrompts(); renderSaves(); toast('🗑️ 已刪除咒語');
 }
 
-// 咒語卡片式選擇器 + 存檔 + 專注閱讀器
+/* ====== 存檔倉庫 & 閱讀器 & 自訂咒語選擇器 ====== */
 function renderPicker(){
-    const q=$('pickQ').value.trim().toLowerCase();
-    const matched=S.prompts.filter(p=>!q||p.title.toLowerCase().includes(q)||(p.tags||[]).some(t=>t.toLowerCase().includes(q)));
-    let html=`<button type="button" class="pick-item ${!pickedPId?'on':''}" onclick="pickedPId='';renderPicker()">
-        <div><div class="pt">📂 不歸屬（放在全部存檔）</div></div>
-        ${!pickedPId?'<span class="pick-check">✓</span>':''}
-    </button>`;
-    html+=matched.map(p=>{
-        const cnt=S.saves.filter(s=>s.promptId===p.id).length, on=pickedPId===p.id;
-        return `<button type="button" class="pick-item ${on?'on':''}" onclick="pickedPId='${p.id}';renderPicker()">
-            <div><div class="pt">🔮 ${esc(p.title)}</div>
-            <div class="ps">${(p.tags||[]).map(t=>'#'+esc(t)).join(' ')}${p.tags?.length?' · ':''}${cnt} 筆結果</div></div>
-            ${on?'<span class="pick-check">✓</span>':''}
-        </button>`;
-    }).join('');
-    $('pickerList').innerHTML=html;
+    const q = $('pickerQ').value.trim().toLowerCase();
+    const opts = [];
+    if(!q || '獨立存放不歸屬'.includes(q)){
+        opts.push(`<button type="button" class="pick-opt ${pickerPid===''?'sel':''}" onclick="pickP('')">
+            <div style="min-width:0"><div class="pt">📂 獨立存放（不歸屬咒語）</div></div>
+            <span>${pickerPid===''?'✅':''}</span></button>`);
+    }
+    state.prompts.filter(p=>!q || p.title.toLowerCase().includes(q) || (p.tags||[]).some(t=>t.toLowerCase().includes(q))).forEach(p=>{
+        const sel = pickerPid===p.id;
+        opts.push(`<button type="button" class="pick-opt ${sel?'sel':''}" onclick="pickP('${p.id}')">
+            <div style="min-width:0"><div class="pt">🔮 ${esc(p.title)}</div>
+            ${p.tags?.length?`<div class="ps">${p.tags.map(t=>'#'+esc(t)).join(' ')}</div>`:''}</div>
+            <span>${sel?'✅':''}</span></button>`);
+    });
+    $('pickerList').innerHTML = opts.length ? opts.join('') : `<div class="empty" style="padding:12px">找不到符合的咒語</div>`;
 }
-function openSaveM(){
-    const txt=$('richOut').innerText.trim(); if(!txt)return toast('先轉換文字再存檔喔！');
-    saveMode='fromOut'; $('smTitle').textContent='📚 存檔這次的轉換結果';
-    $('smId').value=''; $('smName').value=txt.split('\n')[0].slice(0,24);
-    $('smBodyWrap').classList.add('hidden');
-    pickedPId=S.prompts.some(p=>p.id===S.lastPromptId)?S.lastPromptId:'';
-    $('pickQ').value=''; renderPicker(); openM('saveM');
-}
-function openNewSaveFor(pid){
-    saveMode='manual'; $('smTitle').textContent='📝 記錄輸出結果';
-    $('smId').value=''; $('smName').value=''; $('smBody').innerHTML='';
-    $('smBodyWrap').classList.remove('hidden');
-    pickedPId=pid||''; $('pickQ').value=''; renderPicker(); openM('saveM');
-}
-function openEditSaveM(id){
-    const s=S.saves.find(x=>x.id===id); if(!s)return;
-    saveMode='manual'; $('smTitle').textContent='✏️ 編輯輸出結果';
-    $('smId').value=s.id; $('smName').value=s.title; $('smBody').innerHTML=s.html;
-    $('smBodyWrap').classList.remove('hidden');
-    pickedPId=s.promptId||''; $('pickQ').value=''; renderPicker(); openM('saveM');
+function pickP(id){ pickerPid=id; renderPicker(); }
+
+function openSaveModal({fromWork, promptId, saveId}={}){
+    let title='', html='', pid=promptId||'';
+    if(fromWork){
+        const el=$('richOutput'); if(!el.innerText.trim()) return toast('先轉換文字再存檔喔！');
+        title = el.innerText.trim().split('\n')[0].slice(0,26);
+        html = el.innerHTML;
+    }else if(saveId){
+        const s = state.saves.find(x=>x.id===saveId); if(!s) return;
+        title = s.title; html = s.html; pid = s.promptId||'';
+    }
+    $('smTitle').textContent = saveId ? '✏️ 編輯輸出結果' : (fromWork ? '📚 存檔這次轉換結果' : '📝 新增輸出結果');
+    $('smId').value = saveId||'';
+    $('smName').value = title;
+    $('smBody').innerHTML = html;
+    $('pickerQ').value = '';
+    pickerPid = pid;
+    renderPicker();
+    openModal('saveModal');
 }
 function confirmSave(){
-    const id=$('smId').value, title=$('smName').value.trim()||'未命名輸出結果', promptId=pickedPId||null;
-    const srcEl=saveMode==='fromOut'?$('richOut'):$('smBody');
-    if(!srcEl.innerText.trim())return toast('請輸入內容喔！');
-    const html=srcEl.innerHTML, createdAt=new Date().toLocaleString('zh-TW',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
-    if(id){const i=S.saves.findIndex(x=>x.id===id);if(i>-1)S.saves[i]={...S.saves[i],title,promptId,html}}
-    else S.saves.unshift({id:'s_'+Date.now(),promptId,title,html,createdAt});
-    S.lastPromptId=promptId||'';
-    if(promptId) expP.add(promptId);
-    persist(); renderPrompts(); renderSaves(); closeM('saveM');
-    toast(promptId?'🔮 已收進咒語底下！':'📚 已存進全部存檔！');
+    const id=$('smId').value, title=$('smName').value.trim()||'未命名輸出結果';
+    const el=$('smBody'), plain=el.innerText.trim();
+    if(!plain) return toast('請輸入結果內容喔！');
+    const html=el.innerHTML, promptId=pickerPid||null;
+    const now=new Date().toLocaleString('zh-TW',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    if(id){
+        const i=state.saves.findIndex(x=>x.id===id);
+        if(i>-1) state.saves[i]={...state.saves[i],title,promptId,html,plain};
+    }else{
+        state.saves.unshift({id:'s_'+Date.now(),promptId,title,html,plain,createdAt:now});
+    }
+    if(promptId) expandedP.add(promptId);
+    saveState(); renderPrompts(); renderSaves(); closeModal('saveModal');
+    toast(promptId?'🔮 已存進指定咒語！':'📚 已存進全部存檔！');
 }
-function openReader(id){
-    const s=S.saves.find(x=>x.id===id); if(!s)return;
-    readingId=id;
-    const p=s.promptId?S.prompts.find(x=>x.id===s.promptId):null;
-    $('rdTitle').textContent=s.title;
-    $('rdMeta').innerHTML=`<div class="row">${p?`<span class="tag">🔮 ${esc(p.title)}</span>`:'<span></span>'}<span class="meta">${s.createdAt||''} · ${savePlain(s).replace(/\s/g,'').length} 字</span></div>`;
-    $('rdBody').innerHTML=s.html; $('rdBody').scrollTop=0;
-    openM('readerM');
+
+function openRead(id){
+    const s = state.saves.find(x=>x.id===id); if(!s) return;
+    readingId = id;
+    const p = s.promptId ? state.prompts.find(x=>x.id===s.promptId) : null;
+    $('rdTitle').textContent = '📌 ' + s.title;
+    $('rdMeta').textContent = s.createdAt || '';
+    $('rdBadge').innerHTML = p ? `<span class="tag">🔮 ${esc(p.title)}</span>` : `<span class="tag" style="color:var(--mut)">📂 獨立存檔</span>`;
+    $('rdBody').innerHTML = s.html;
+    openModal('readModal');
 }
+
 function renderSaves(){
-    const q=$('saveQ').value.trim().toLowerCase();
-    const list=S.saves.filter(s=>!q||s.title.toLowerCase().includes(q)||savePlain(s).toLowerCase().includes(q));
-    if(!list.length) return $('savesList').innerHTML=`<div class="empty">${q?'找不到符合的存檔 🔎':'📚 還沒有任何存檔喔！'}</div>`;
-    $('savesList').innerHTML=list.map(s=>{
-        const p=s.promptId?S.prompts.find(x=>x.id===s.promptId):null;
-        return `<div class="card">
-            <div class="row"><div class="vtitle">📌 ${esc(s.title)}</div><span class="meta">${s.createdAt||''}</span></div>
+    const linked = state.saves.filter(s=>s.promptId).length;
+    $('saveFilterChips').innerHTML = [['ALL',`全部 (${state.saves.length})`],['LINKED',`已歸屬 (${linked})`],['FREE',`獨立 (${state.saves.length-linked})`]]
+        .map(([k,lbl])=>`<button class="chip ${saveFilter===k?'active':''}" onclick="saveFilter='${k}';renderSaves()">${lbl}</button>`).join('');
+
+    const q = $('saveQ').value.trim().toLowerCase();
+    const list = state.saves.filter(s=>{
+        if(saveFilter==='LINKED' && !s.promptId) return false;
+        if(saveFilter==='FREE' && s.promptId) return false;
+        return !q || s.title.toLowerCase().includes(q) || s.plain.toLowerCase().includes(q);
+    });
+
+    $('savesList').innerHTML = list.length ? list.map(s=>{
+        const p = s.promptId ? state.prompts.find(x=>x.id===s.promptId) : null;
+        return `<div class="card" style="cursor:pointer" onclick="openRead('${s.id}')">
+            <div class="row"><div class="v-title">📌 ${esc(s.title)}</div><span class="meta">${esc(s.createdAt)}</span></div>
             ${p?`<div class="tags"><span class="tag">🔮 ${esc(p.title)}</span></div>`:''}
-            <div class="snippet" onclick="openReader('${s.id}')">${esc(savePlain(s))}</div>
-            <div class="row" style="gap:6px">
-                <button class="btn btn-p sm" style="flex:1" onclick="openReader('${s.id}')">📖 閱讀全文</button>
-                <button class="btn btn-o sm" onclick="copySaved('${s.id}',true)">📋 富文本</button>
-                <button class="btn btn-s sm" onclick="openEditSaveM('${s.id}')">✏️</button>
+            <div class="out-snip" style="margin:6px 0 9px;-webkit-line-clamp:3">${esc(s.plain)}</div>
+            <div class="row" onclick="event.stopPropagation()">
+                <button class="btn btn-p sm" style="flex:1" onclick="copySaved('${s.id}',1)">📋 富文本</button>
+                <button class="btn btn-o sm" style="flex:1" onclick="copySaved('${s.id}',0)">📄 純文字</button>
+                <button class="btn btn-s sm" onclick="openSaveModal({saveId:'${s.id}'})">✏️</button>
                 <button class="btn btn-d sm" onclick="delSave('${s.id}')">🗑️</button>
             </div>
         </div>`;
-    }).join('');
+    }).join('') : `<div class="empty">${q?'找不到符合的存檔 🔎':'📚 還沒有輸出存檔～轉完文章按「存進倉庫」就會收在這裡！'}</div>`;
 }
-function copySaved(id,rich){const s=S.saves.find(x=>x.id===id);if(s)rich?copyRich(s.html,savePlain(s)):copyTxt(savePlain(s),'📄 已複製純文字！')}
+function copySaved(id,rich){
+    const s=state.saves.find(x=>x.id===id);
+    if(s) rich ? copyRich(s.html,s.plain) : copyText(s.plain,'📄 已複製純文字！');
+}
 function delSave(id){
-    if(!confirm('確定刪除這筆結果？'))return;
-    S.saves=S.saves.filter(x=>x.id!==id);
-    if(readingId===id) closeM('readerM');
-    persist(); renderPrompts(); renderSaves(); toast('🗑️ 已刪除');
+    if(!confirm('確定要刪除這筆輸出結果嗎？')) return;
+    state.saves = state.saves.filter(x=>x.id!==id);
+    saveState(); closeModal('readModal'); renderPrompts(); renderSaves(); toast('🗑️ 已刪除結果');
 }
 
-// 備份：支援檔案下載＋原生 Gzip 壓縮碼（向下相容舊 JSON）
-async function compress(str){
-    if(typeof CompressionStream==='undefined')return str;
-    const buf=new Uint8Array(await new Response(new Blob([str]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer());
-    let bin=''; for(let i=0;i<buf.length;i+=0x8000) bin+=String.fromCharCode(...buf.subarray(i,i+0x8000));
-    return 'TMBZ:'+btoa(bin);
+/* ====== 壓縮備份 & 檔案匯出/匯入 ====== */
+async function packState(){
+    const json = JSON.stringify(state);
+    if(typeof CompressionStream==='undefined') return {code:json,raw:json.length};
+    const cs = new CompressionStream('gzip'), w = cs.writable.getWriter();
+    w.write(new TextEncoder().encode(json)); w.close();
+    const bytes = new Uint8Array(await new Response(cs.readable).arrayBuffer());
+    let bin=''; for(let i=0;i<bytes.length;i+=8192) bin+=String.fromCharCode(...bytes.subarray(i,i+8192));
+    return {code:'TMB1:'+btoa(bin), raw:json.length};
 }
-async function decompress(str){
-    str=str.trim(); if(!str.startsWith('TMBZ:'))return str;
-    const bin=atob(str.slice(5)), buf=Uint8Array.from(bin,c=>c.charCodeAt(0));
-    return await new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+async function unpackState(str){
+    const s = str.trim();
+    if(s.startsWith('TMB1:')){
+        const bin = atob(s.slice(5)), bytes = Uint8Array.from(bin, c=>c.charCodeAt(0));
+        const ds = new DecompressionStream('gzip'), w = ds.writable.getWriter();
+        w.write(bytes); w.close();
+        return JSON.parse(await new Response(ds.readable).text());
+    }
+    return JSON.parse(s);
 }
-async function openBackup(){
-    openM('backupM'); $('bkLen').textContent='壓縮中...';
-    const raw=JSON.stringify(S), code=await compress(raw);
-    $('bkArea').value=code;
-    const pct=Math.max(0,Math.round((1-code.length/raw.length)*100));
-    $('bkLen').textContent=`${code.length} 字（省 ${pct}%）`;
+function openBackupModal(){
+    $('bkArea').value = '';
+    $('bkInfo').textContent = '🔗 或使用精簡壓縮備份碼（自動壓縮省空間）';
+    openModal('backupModal');
+}
+async function copyCompactBackup(){
+    const {code, raw} = await packState();
+    $('bkArea').value = code;
+    const pct = Math.max(0, Math.round((1 - code.length/raw)*100));
+    $('bkInfo').textContent = `🔗 已壓縮：${raw} → ${code.length} 字（省 ${pct}%）`;
+    copyText(code, `✅ 已複製精簡備份碼（省 ${pct}% 字數）`);
+}
+async function applyBackup(rawText){
+    try{
+        const p = await unpackState(rawText);
+        if(!p || !Array.isArray(p.ruleGroups)) throw 0;
+        state = {...clone(DEF),...p,options:{...DEF.options,...(p.options||{})}};
+        saveState(); init(); closeModal('backupModal'); toast('🎉 資料已完整還原！');
+    }catch{ toast('❌ 備份格式不正確喔'); }
+}
+function importBackupText(){
+    const v = $('bkArea').value.trim();
+    if(!v) return toast('請先貼上備份碼喔！');
+    applyBackup(v);
 }
 function exportFile(){
-    const a=document.createElement('a'), d=new Date().toISOString().slice(0,10).replace(/-/g,'');
-    a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));
-    a.download=`文字魔法盒_${d}.json`; a.click(); URL.revokeObjectURL(a.href);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(state)],{type:'application/json'}));
+    a.download = `文字魔法盒備份_${new Date().toISOString().slice(0,10)}.json`;
+    a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
     toast('⬇️ 已下載備份檔！');
 }
-function importFile(e){
-    const f=e.target.files[0]; if(!f)return;
-    const r=new FileReader(); r.onload=()=>importBackup(r.result); r.readAsText(f); e.target.value='';
-}
-async function importBackup(text){
-    try{
-        const p=JSON.parse(await decompress(text));
-        if(!p||!Array.isArray(p.ruleGroups))throw 0;
-        S={...clone(DEF),...p,saves:(p.saves||[]).map(({plain,...s})=>({promptId:null,...s}))};
-        persist(); init(); closeM('backupM'); toast('🎉 資料還原成功！');
-    }catch{toast('❌ 備份格式不正確喔')}
+function importFile(inp){
+    const f = inp.files[0]; if(!f) return;
+    const r = new FileReader(); r.onload = ()=>applyBackup(r.result); r.readAsText(f);
+    inp.value = '';
 }
 
-// 彈窗與提示
-function openM(id){$(id).classList.add('on')}
-function closeM(id){$(id).classList.remove('on')}
-function bgClose(e,id){if(e.target.id===id)closeM(id)}
-function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2000)}
+/* ====== 彈窗 & Toast ====== */
+const openModal = id => $(id).classList.add('open');
+const closeModal = id => $(id).classList.remove('open');
+const bgClose = (e,id) => { if(e.target.id===id) closeModal(id); };
+function toast(msg){
+    const el=$('toast'); el.textContent=msg; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2100);
+}
 
 init();
 </script>
