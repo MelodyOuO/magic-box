@@ -65,7 +65,7 @@
 
         body {
             margin: 0; padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
             background-color: var(--bg);
             color: var(--text);
             transition: background-color 0.25s, color 0.25s;
@@ -137,22 +137,20 @@
             box-shadow: var(--shadow);
         }
 
-        /* 輸入框 (16px 防 iOS 自動放大) */
-        textarea, input[type="text"], input[type="search"] {
+        /* 輸入框與下拉選單 (16px 防 iOS 自動放大) */
+        textarea, input[type="text"], input[type="search"], select {
             width: 100%; font-size: 16px; font-family: inherit;
             color: var(--text); background: var(--surface);
             border: 1.5px solid transparent; border-radius: 12px;
             padding: 11px 12px; outline: none; transition: border-color 0.2s, background 0.2s;
         }
-        textarea:focus, input[type="text"]:focus, input[type="search"]:focus {
+        textarea:focus, input[type="text"]:focus, input[type="search"]:focus, select:focus {
             border-color: var(--primary); background: var(--card);
         }
         textarea { resize: vertical; line-height: 1.6; }
 
         /* 搜尋欄 */
-        .search-bar {
-            position: relative; margin-bottom: 12px;
-        }
+        .search-bar { position: relative; margin-bottom: 12px; }
         .search-bar input {
             padding-left: 38px; padding-right: 34px;
             background: var(--card); border: 1px solid var(--border);
@@ -170,7 +168,7 @@
         }
         .search-clear.show { display: flex; }
 
-        /* 橫向捲動標籤列 (分組 / 標籤用) */
+        /* 橫向捲動標籤列 */
         .chips-scroll {
             display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
             margin-bottom: 12px; scrollbar-width: none;
@@ -189,15 +187,13 @@
             background: var(--primary); color: var(--primary-text);
             border-color: var(--primary);
         }
-        .chip.add-chip {
-            border-style: dashed; color: var(--primary); background: transparent;
-        }
+        .chip.add-chip { border-style: dashed; color: var(--primary); background: transparent; }
 
         /* 選項膠囊 */
         .pills-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
         .pill-toggle {
             display: inline-flex; align-items: center; gap: 5px;
-            padding: 7px 12px; border-radius: 99px; font-size: 0.83rem; font-weight: 600;
+            padding: 7px 12px; border-radius: 99px; font-size: 0.82rem; font-weight: 600;
             background: var(--surface); color: var(--text-muted);
             border: 1.5px solid transparent; cursor: pointer; user-select: none;
         }
@@ -219,21 +215,28 @@
         }
         .btn-soft { background: var(--surface); color: var(--text); }
         .btn-outline { background: var(--card); color: var(--primary); border: 1.5px solid var(--primary); }
-        .btn-sm { padding: 7px 11px; font-size: 0.82rem; border-radius: 10px; }
+        .btn-sm { padding: 7px 11px; font-size: 0.81rem; border-radius: 10px; }
+        .btn-xs { padding: 5px 9px; font-size: 0.76rem; border-radius: 8px; }
         .btn-danger-soft { background: rgba(217, 107, 107, 0.13); color: var(--danger); }
 
         .row-between { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
         .btn-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-        /* 富文本輸出 */
+        /* 可編輯富文本輸出區 */
         .rich-output {
-            min-height: 230px; max-height: 55dvh; overflow-y: auto;
+            min-height: 220px; max-height: 55dvh; overflow-y: auto;
             padding: 14px; background: var(--surface); border-radius: 12px;
-            line-height: 1.75; font-size: 0.98rem; word-break: break-word;
+            border: 1.5px solid transparent;
+            line-height: 1.78; font-size: 16px; word-break: break-word;
+            outline: none; transition: border-color 0.2s, background 0.2s;
         }
-        .rich-output h1 { font-size: 1.45em; margin: 0.4em 0; }
-        .rich-output h2 { font-size: 1.25em; margin: 0.4em 0; }
-        .rich-output h3 { font-size: 1.1em; margin: 0.4em 0; }
+        .rich-output[contenteditable="true"]:focus {
+            border-color: var(--primary);
+            background: var(--card);
+        }
+        .rich-output h1 { font-size: 1.4em; margin: 0.4em 0; }
+        .rich-output h2 { font-size: 1.22em; margin: 0.4em 0; }
+        .rich-output h3 { font-size: 1.08em; margin: 0.4em 0; }
         .rich-output p { margin: 0 0 0.75em; }
         .rich-output p:last-child { margin-bottom: 0; }
         .rich-output ul, .rich-output ol { padding-left: 1.4em; margin: 0 0 0.75em; }
@@ -241,6 +244,11 @@
             border-left: 3.5px solid var(--primary); margin: 0.6em 0;
             padding: 4px 0 4px 12px; color: var(--text-muted);
             background: var(--card); border-radius: 0 8px 8px 0;
+        }
+
+        .edit-hint {
+            font-size: 0.76rem; color: var(--primary); font-weight: 600;
+            margin-top: 7px; display: flex; justify-content: space-between; align-items: center;
         }
 
         /* 詞庫列表 */
@@ -282,24 +290,70 @@
             border-radius: 16px; padding: 14px; margin-bottom: 12px;
             box-shadow: var(--shadow);
         }
-        .vault-title { font-weight: 700; font-size: 1rem; margin: 0 0 4px; }
-        .vault-meta { font-size: 0.76rem; color: var(--text-muted); }
+        .vault-title { font-weight: 700; font-size: 1rem; margin: 0 0 2px; }
+        .vault-meta { font-size: 0.75rem; color: var(--text-muted); flex-shrink: 0; }
         .tag-row { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0 8px; }
         .tag-badge {
             font-size: 0.74rem; font-weight: 700; color: var(--primary);
             background: var(--surface); padding: 3px 8px; border-radius: 6px;
         }
         .vault-preview {
-            font-size: 0.88rem; color: var(--text-muted); background: var(--surface);
+            font-size: 0.89rem; color: var(--text-muted); background: var(--surface);
             padding: 10px 12px; border-radius: 10px; margin-bottom: 10px;
-            white-space: pre-wrap; max-height: 86px; overflow: hidden; line-height: 1.55;
-            cursor: pointer;
+            white-space: pre-wrap; max-height: 76px; overflow: hidden; line-height: 1.55;
+            cursor: pointer; word-break: break-word;
         }
         .vault-preview.expanded { max-height: none; color: var(--text); }
+
+        /* 咒語展開後的底下輸出結果區 */
+        .nested-outputs {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1.5px dashed var(--border);
+        }
+        .nested-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .nested-title {
+            font-size: 0.88rem; font-weight: 800; color: var(--primary);
+            display: flex; align-items: center; gap: 5px;
+        }
+        .nested-output-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 11px 12px;
+            margin-bottom: 9px;
+        }
+        .nested-output-card:last-child { margin-bottom: 0; }
+        .nested-output-title {
+            font-weight: 700; font-size: 0.92rem; color: var(--text);
+            margin-bottom: 4px;
+        }
+        .nested-output-body {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 9px 11px;
+            margin: 6px 0 8px;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            max-height: 92px;
+            overflow: hidden;
+            cursor: pointer;
+            word-break: break-word;
+        }
+        .nested-output-body.open { max-height: none; }
+        .nested-output-body p { margin: 0 0 0.5em; }
+        .nested-output-body p:last-child { margin-bottom: 0; }
 
         .empty-state {
             text-align: center; padding: 34px 20px; color: var(--text-muted);
             font-size: 0.92rem; line-height: 1.6;
+        }
+        .empty-mini {
+            text-align: center; padding: 14px 10px; color: var(--text-muted);
+            font-size: 0.82rem; background: var(--surface); border-radius: 10px;
         }
 
         /* 底部導覽列 */
@@ -331,13 +385,17 @@
             width: 100%; max-width: 640px; background: var(--card);
             border-radius: 24px 24px 0 0;
             padding: 20px 18px calc(24px + env(safe-area-inset-bottom));
-            max-height: 86dvh; overflow-y: auto;
+            max-height: 88dvh; overflow-y: auto;
             animation: slideUp 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         .modal-title {
             font-size: 1.08rem; font-weight: 800; margin: 0 0 14px;
             display: flex; justify-content: space-between; align-items: center;
+        }
+        .field-label {
+            display: block; font-size: 0.82rem; font-weight: 700;
+            color: var(--text-muted); margin-bottom: 5px;
         }
 
         /* 主題色票 */
@@ -398,6 +456,7 @@
                         <span style="font-size: 0.78rem; color: var(--text-muted);" id="activeRuleCount">已啟用 0 組詞庫</span>
                     </div>
                     <div class="pills-wrap">
+                        <div class="pill-toggle" id="opt-kaomoji" onclick="toggleOption('kaomoji')">(ฅ́˘ฅ̀) 保護顏文字</div>
                         <div class="pill-toggle" id="opt-rules" onclick="toggleOption('rules')">🔄 套用詞庫</div>
                         <div class="pill-toggle" id="opt-punct" onclick="toggleOption('punct')">，全形標點</div>
                         <div class="pill-toggle" id="opt-quotes" onclick="toggleOption('quotes')">「」中文引號</div>
@@ -422,14 +481,23 @@
                 </button>
             </div>
 
-            <!-- 子畫面：轉換結果 -->
+            <!-- 子畫面：轉換結果（可直接編輯！） -->
             <div id="work-result-view" class="hidden">
                 <div class="card">
                     <div class="row-between" style="margin-bottom: 10px;">
-                        <span style="font-weight: 700; font-size: 0.9rem;">✨ 富文本預覽 <small style="color:var(--text-muted); font-weight:600;" id="outputWordCount"></small></span>
-                        <button class="btn btn-soft btn-sm" onclick="switchWorkView('input')">✏️ 修改原文</button>
+                        <span style="font-weight: 700; font-size: 0.9rem;">✨ 轉換結果 <small style="color:var(--text-muted); font-weight:600;" id="outputWordCount"></small></span>
+                        <div style="display:flex; gap:6px;">
+                            <button class="btn btn-soft btn-sm" onclick="runConvert(false); showToast('🔄 已重新轉換')">🔄 重轉</button>
+                            <button class="btn btn-soft btn-sm" onclick="switchWorkView('input')">✏️ 回原文</button>
+                        </div>
                     </div>
-                    <div id="richOutput" class="rich-output"></div>
+
+                    <!-- contenteditable 讓轉換後的富文本可以直接修改 -->
+                    <div id="richOutput" class="rich-output" contenteditable="true" spellcheck="false"></div>
+
+                    <div class="edit-hint">
+                        <span>💡 點擊上方文字可以直接編輯修改喔！</span>
+                    </div>
                 </div>
 
                 <div class="btn-grid-2" style="margin-bottom: 10px;">
@@ -437,17 +505,15 @@
                     <button class="btn btn-outline" onclick="copyCurrentPlainText()">📄 複製純文字</button>
                 </div>
                 <button class="btn btn-soft" style="width: 100%;" onclick="openSaveOutputModal()">
-                    💾 存進倉庫（保留這段結果）
+                    💾 存進倉庫（可收進指定咒語底下）
                 </button>
             </div>
         </section>
 
         <!-- ====== 分頁 2：分組詞庫管理 ====== -->
         <section id="tab-rules" class="tab-panel">
-            <!-- 詞庫分組切換列 -->
             <div class="chips-scroll" id="groupChips"></div>
 
-            <!-- 當前分組控制卡 + 一組一組新增 -->
             <div class="card">
                 <div class="row-between" style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
                     <div style="display:flex; align-items:center; gap:8px;">
@@ -473,7 +539,6 @@
                 </div>
                 <button class="btn btn-primary" onclick="addRule()">＋ 加入這一組</button>
 
-                <!-- 批次編輯摺疊區 -->
                 <div id="bulkEditBox" class="hidden" style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border);">
                     <p style="font-size: 0.8rem; color: var(--text-muted); margin: 0 0 6px;">批次輸入（一行一組，用「->」分隔）</p>
                     <textarea id="bulkRulesText" rows="5"></textarea>
@@ -481,7 +546,6 @@
                 </div>
             </div>
 
-            <!-- 搜尋詞庫 -->
             <div class="search-bar">
                 <span class="search-icon">🔍</span>
                 <input type="search" id="ruleSearchInput" placeholder="搜尋這個分組的替換詞..." oninput="handleSearch('rule')">
@@ -500,31 +564,28 @@
         <section id="tab-vault" class="tab-panel">
             <div class="segmented">
                 <button class="seg-btn active" id="seg-prompts" onclick="switchVaultView('prompts')">🔮 情境咒語</button>
-                <button class="seg-btn" id="seg-saves" onclick="switchVaultView('saves')">📚 輸出存檔</button>
+                <button class="seg-btn" id="seg-saves" onclick="switchVaultView('saves')">📚 全部存檔</button>
             </div>
 
-            <!-- 子畫面：情境咒語 -->
+            <!-- 子畫面：情境咒語（展開後底下就是輸出結果！） -->
             <div id="vault-prompts-view">
                 <button class="btn btn-primary" style="margin-bottom: 12px;" onclick="openPromptModal()">
                     ➕ 新增情境咒語
                 </button>
 
-                <!-- 搜尋咒語 -->
                 <div class="search-bar">
                     <span class="search-icon">🔍</span>
-                    <input type="search" id="promptSearchInput" placeholder="搜尋咒語標題、內容或標籤..." oninput="handleSearch('prompt')">
+                    <input type="search" id="promptSearchInput" placeholder="搜尋咒語、標籤或底下的結果標題..." oninput="handleSearch('prompt')">
                     <button class="search-clear" id="promptSearchClear" onclick="clearSearch('prompt')">✕</button>
                 </div>
 
-                <!-- 標籤篩選列 -->
                 <div class="chips-scroll" id="promptTagChips"></div>
 
                 <div id="promptsList"></div>
             </div>
 
-            <!-- 子畫面：輸出存檔 -->
+            <!-- 子畫面：全部存檔總覽 -->
             <div id="vault-saves-view" class="hidden">
-                <!-- 搜尋存檔 -->
                 <div class="search-bar">
                     <span class="search-icon">🔍</span>
                     <input type="search" id="saveSearchInput" placeholder="搜尋存檔標題或內文關鍵字..." oninput="handleSearch('save')">
@@ -572,10 +633,7 @@
             <span>📂 新增詞庫分組</span>
             <button class="btn btn-soft btn-sm" onclick="closeModal('groupModal')">取消</button>
         </div>
-        <p style="font-size: 0.84rem; color: var(--text-muted); margin: 0 0 10px;">
-            可以依不同故事或用途建立分組（例如：角色改名用、古風用語），不用時一鍵關閉整組！
-        </p>
-        <input type="text" id="newGroupNameInput" placeholder="輸入分組名稱..." style="margin-bottom: 14px;">
+        <input type="text" id="newGroupNameInput" placeholder="輸入分組名稱（例如：角色改名用）..." style="margin-bottom: 14px;">
         <button class="btn btn-primary" onclick="saveNewGroup()">✅ 建立分組</button>
     </div>
 </div>
@@ -609,13 +667,13 @@
             <input type="text" id="promptTitleInput" placeholder="咒語標題（例如：雨夜咖啡廳重逢）">
         </div>
         <div style="margin-bottom: 10px;">
-            <input type="text" id="promptTagsInput" placeholder="分類標籤，用空白隔開（例如：現代 浪漫 萬用）">
+            <input type="text" id="promptTagsInput" placeholder="分類標籤，用空白隔開（例如：現代 浪漫）">
         </div>
         <div style="margin-bottom: 6px;">
-            <textarea id="promptContentInput" rows="6" placeholder="輸入咒語內容...&#10;💡小秘訣：用 {{名字}} 或 {{地點}} 包起來，複製時就會自動跳出填空框喔！"></textarea>
+            <textarea id="promptContentInput" rows="6" placeholder="輸入咒語內容...&#10;💡 用 {{名字}} 包起來就能自動填空複製！"></textarea>
         </div>
         <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0 0 12px;">
-            💡 支援變數填空：寫成 <b>{{角色}}</b>，之後點一下就能快速代換複製！
+            💡 支援變數填空：寫成 <b>{{角色}}</b>，複製時就能快速填入不同名字！
         </p>
         <button class="btn btn-primary" onclick="savePrompt()">💾 儲存咒語</button>
     </div>
@@ -634,15 +692,46 @@
     </div>
 </div>
 
-<!-- ====== 彈窗：儲存轉換結果 ====== -->
+<!-- ====== 彈窗：存檔轉換結果（可選擇要收在哪個咒語底下！） ====== -->
 <div class="modal-backdrop" id="saveOutputModal" onclick="backdropClose(event, 'saveOutputModal')">
     <div class="modal-sheet">
         <div class="modal-title">
             <span>📚 存檔這次的轉換結果</span>
             <button class="btn btn-soft btn-sm" onclick="closeModal('saveOutputModal')">取消</button>
         </div>
-        <input type="text" id="saveTitleInput" placeholder="輸入存檔標題（留空會自動抓取第一行）" style="margin-bottom: 14px;">
+        <div style="margin-bottom: 12px;">
+            <label class="field-label">📝 輸出結果標題</label>
+            <input type="text" id="saveTitleInput" placeholder="幫這段結果取個標題...">
+        </div>
+        <div style="margin-bottom: 16px;">
+            <label class="field-label">🔮 收在指定咒語底下（可不選）</label>
+            <select id="savePromptSelect"></select>
+        </div>
         <button class="btn btn-primary" onclick="confirmSaveOutput()">✅ 確認存檔</button>
+    </div>
+</div>
+
+<!-- ====== 彈窗：在咒語底下直接新增 / 編輯輸出結果 ====== -->
+<div class="modal-backdrop" id="editSaveModal" onclick="backdropClose(event, 'editSaveModal')">
+    <div class="modal-sheet">
+        <div class="modal-title">
+            <span id="editSaveModalTitle">📝 記錄輸出結果</span>
+            <button class="btn btn-soft btn-sm" onclick="closeModal('editSaveModal')">取消</button>
+        </div>
+        <input type="hidden" id="editSaveId">
+        <div style="margin-bottom: 10px;">
+            <label class="field-label">📌 結果標題</label>
+            <input type="text" id="editSaveTitleInput" placeholder="輸入這個輸出結果的標題...">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label class="field-label">🔮 歸屬咒語</label>
+            <select id="editSavePromptSelect"></select>
+        </div>
+        <div style="margin-bottom: 14px;">
+            <label class="field-label">✨ 結果內容（可直接貼上或編輯）</label>
+            <div id="editSaveContent" class="rich-output" contenteditable="true" spellcheck="false" style="min-height: 150px; max-height: 36dvh;"></div>
+        </div>
+        <button class="btn btn-primary" onclick="confirmEditSave()">💾 儲存結果</button>
     </div>
 </div>
 
@@ -654,7 +743,7 @@
             <button class="btn btn-soft btn-sm" onclick="closeModal('backupModal')">關閉</button>
         </div>
         <p style="font-size: 0.84rem; color: var(--text-muted); margin: 0 0 10px;">
-            換手機或清除瀏覽器資料前，可以把這段備份碼存到備忘錄，之後貼回來就能完整還原所有詞庫與咒語！
+            換手機或清除瀏覽器資料前，可以把這段備份碼存到備忘錄，之後貼回來就能完整還原！
         </p>
         <textarea id="backupDataArea" rows="5" style="font-size: 13px; margin-bottom: 10px;"></textarea>
         <div class="btn-grid-2">
@@ -667,8 +756,9 @@
 <div id="toast" class="toast"></div>
 
 <script>
-    const STORAGE_KEY = 'text_magic_box_v3';
-    const OLD_V2_KEY = 'text_magic_box_v2';
+    const STORAGE_KEY = 'text_magic_box_v4';
+    const OLD_V3_KEY  = 'text_magic_box_v3';
+    const OLD_V2_KEY  = 'text_magic_box_v2';
 
     const THEMES = [
         { id: 'milk-tea',   name: '🧋 燕麥奶茶', color: '#A67B5B' },
@@ -683,8 +773,8 @@
 
     const DEFAULT_STATE = {
         theme: 'milk-tea',
-        options: { rules: true, punct: true, quotes: true, ellipsis: true, cleanLines: true, space: false },
-        draft: '# 測試故事片段\n\n他輕輕嘆了口氣,嘴角露出一抹溫柔的笑:"沒事的,這個視頻和軟件我都幫你處理好了..."\n\n\n* **重點一**: 標點和引號都會自動變好看!\n* **重點二**: 可以複製富文本直接貼上.',
+        options: { kaomoji: true, rules: true, punct: true, quotes: true, ellipsis: true, cleanLines: true, space: false },
+        draft: '# 測試顏文字與編輯\n\n他笑著摸了摸我的頭(ฅ́˘ฅ̀),溫柔地說:"這個視頻我幫你存好了喔(*ˊᵕˋ*)!"\n\n* 轉換後的結果可以直接**點進去編輯**!\n* 存檔時可以收進對應的**咒語底下**.',
         selectedGroupId: 'g_default',
         ruleGroups: [
             {
@@ -709,45 +799,52 @@
         prompts: [
             {
                 id: 'p1',
-                title: '範例：溫柔重逢情境（可填空）',
+                title: '範例：溫柔重逢情境（點開看底下結果）',
                 tags: ['現代', '浪漫'],
-                content: '請扮演溫柔細心的{{角色名}}。我們現在在{{地點}}意外重逢，外面正下著細雨。請用繁體中文、自然口語的風格回覆，多描寫細微的表情與動作，不要條列式回答。',
+                content: '請扮演溫柔細心的{{角色名}}。我們現在在{{地點}}意外重逢，外面正下著細雨。請用繁體中文、自然口語的風格回覆，多描寫細微的表情與動作。',
                 updatedAt: new Date().toLocaleDateString('zh-TW')
             }
         ],
-        saves: []
+        saves: [
+            {
+                id: 's_demo',
+                promptId: 'p1',
+                title: '第 1 次輸出：雨夜咖啡廳片段',
+                html: '<p>推開玻璃門時，風鈴輕響了一聲。他抬起頭，眼裡閃過一絲驚訝，隨即彎起嘴角(ฅ́˘ฅ̀)：「好久不見，外面雨很大吧？」</p>',
+                plain: '推開玻璃門時，風鈴輕響了一聲。他抬起頭，眼裡閃過一絲驚訝，隨即彎起嘴角(ฅ́˘ฅ̀)：「好久不見，外面雨很大吧？」',
+                createdAt: '範例存檔'
+            }
+        ]
     };
 
     function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
     let state = loadState();
     let selectedPromptTag = 'ALL';
-    let lastConvertedPlain = '';
-    let lastConvertedHtml = '';
+    const expandedPromptIds = new Set();
+    let hasConvertedOnce = false;
 
     function loadState() {
         try {
-            const raw = localStorage.getItem(STORAGE_KEY);
+            const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(OLD_V3_KEY);
             if (raw) {
                 const parsed = JSON.parse(raw);
                 return {
                     ...clone(DEFAULT_STATE),
                     ...parsed,
-                    options: { ...DEFAULT_STATE.options, ...(parsed.options || {}) }
+                    options: { ...DEFAULT_STATE.options, ...(parsed.options || {}) },
+                    saves: (parsed.saves || []).map(s => ({ promptId: null, ...s }))
                 };
             }
-            // 若有舊版 v2 資料，自動無痛升級
-            const oldRaw = localStorage.getItem(OLD_V2_KEY);
-            if (oldRaw) {
-                const old = JSON.parse(oldRaw);
+            const oldV2 = localStorage.getItem(OLD_V2_KEY);
+            if (oldV2) {
+                const old = JSON.parse(oldV2);
                 const migrated = clone(DEFAULT_STATE);
                 migrated.theme = old.theme || 'milk-tea';
                 migrated.draft = old.draft || '';
                 migrated.prompts = (old.prompts || []).map(p => ({ ...p, tags: p.tags || [] }));
-                migrated.saves = old.saves || [];
-                if (Array.isArray(old.rules)) {
-                    migrated.ruleGroups[0].rules = old.rules;
-                }
+                migrated.saves = (old.saves || []).map(s => ({ promptId: null, ...s }));
+                if (Array.isArray(old.rules)) migrated.ruleGroups[0].rules = old.rules;
                 return migrated;
             }
             return clone(DEFAULT_STATE);
@@ -766,6 +863,7 @@
 
     function init() {
         applyTheme(state.theme);
+
         const inputEl = document.getElementById('inputText');
         inputEl.value = state.draft || '';
         updateInputWordCount();
@@ -773,6 +871,12 @@
             state.draft = e.target.value;
             updateInputWordCount();
             saveState();
+        });
+
+        // 監聽轉換結果直接編輯，即時更新字數
+        const outEl = document.getElementById('richOutput');
+        outEl.addEventListener('input', () => {
+            updateOutputWordCount();
         });
 
         renderOptions();
@@ -785,6 +889,11 @@
     function updateInputWordCount() {
         const len = document.getElementById('inputText').value.replace(/\s/g, '').length;
         document.getElementById('inputWordCount').textContent = `目前 ${len} 字`;
+    }
+
+    function updateOutputWordCount() {
+        const len = document.getElementById('richOutput').innerText.replace(/\s/g, '').length;
+        document.getElementById('outputWordCount').textContent = `(${len} 字)`;
     }
 
     // ====== 分頁切換 ======
@@ -802,7 +911,7 @@
         document.getElementById('work-result-view').classList.toggle('hidden', isInput);
         document.getElementById('seg-input').classList.toggle('active', isInput);
         document.getElementById('seg-result').classList.toggle('active', !isInput);
-        if (!isInput && !lastConvertedHtml) runConvert(false);
+        if (!isInput && !hasConvertedOnce) runConvert(false);
     }
 
     function switchVaultView(view) {
@@ -872,13 +981,49 @@
         document.getElementById('activeRuleCount').textContent = `啟用 ${activeGroups} 分組 (${activeCount} 詞)`;
     }
 
+    // ====== 顏文字智慧保護（防止括號/星號/底線/重音符號被吃掉） ======
+    function isKaomojiInner(inner) {
+        if (!inner || /https?:\/\//i.test(inner)) return false;
+        // 排除正常的中文括號說明（連續 2 個以上中文字）
+        if (/[\u4e00-\u9fff]{2,}/.test(inner)) return false;
+        // 常見 3 字母顏文字白名單
+        if (/^\s*(?:[QTUOqtuo][wWvVuUaA._-][QTUOqtuo]|Orz|orz|OTZ|otz)\s*$/.test(inner)) return true;
+        // 排除正常的英文單字括號說明（連續 3 個以上英文字母）
+        if (/[A-Za-z]{3,}/.test(inner)) return false;
+        // 排除純數字編號，例如 (1) (2026)
+        if (/^[\d\s.,/-]+$/.test(inner)) return false;
+
+        // 只要包含常見顏文字特徵（組合重音符號、泰文如ฅ、希臘/俄文、假名、符號、特殊ASCII組合）就視為顏文字！
+        return /[\u0300-\u036f\u02b0-\u02ff\u0e00-\u0e7f\u0370-\u03ff\u0400-\u04ff\u3040-\u30ff\uff61-\uff9f\u2000-\u2bff\u3000-\u303f\ufe00-\ufe6f*^_~<>`´ˋˊ=;:]/.test(inner);
+    }
+
+    function protectKaomoji(text, kaomojiList) {
+        // 匹配括號類顏文字（含左右手臂裝飾，如 (ฅ́˘ฅ̀), (*ˊᵕˋ*), ٩(ˊᗜˋ*)و, ʕ •ᴥ•ʔ, (>_<)）
+        const kaomojiRegex = /([٩ヾ╰ヽლฅ\/＼\\]*)([\(（ʕ])([^()（）ʕʔ\n]{1,28})([\)）ʔ])([وﾉ╯ノ✧♡♥★☆♪♫ฅ✿❀❁彡\/／\\]*)/g;
+        return text.replace(kaomojiRegex, (full, leftArm, openB, inner, closeB, rightArm) => {
+            if (isKaomojiInner(inner) || openB === 'ʕ') {
+                const idx = kaomojiList.length;
+                kaomojiList.push(full);
+                // 使用私用區字元包裹，保證不會被任何正規表達式、中英空白或 Markdown 碰到
+                return `\uE000${idx}\uE001`;
+            }
+            return full;
+        });
+    }
+
     // ====== 核心文字轉換 ======
     function escapeRegExp(str) {
         return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
-    function processTextContent(rawText) {
+    function convertToRichHtml(rawText) {
         let text = rawText;
+        const kaomojiList = [];
+
+        // 0. 優先保護顏文字（保留原樣直到 Markdown 轉完再放回！）
+        if (state.options.kaomoji) {
+            text = protectKaomoji(text, kaomojiList);
+        }
 
         // 1. 套用所有已啟用分組的替換詞
         if (state.options.rules) {
@@ -891,7 +1036,7 @@
         // 保護程式碼與網址
         const protectedChunks = [];
         const protect = (match) => {
-            const token = `___PROTECTED_${protectedChunks.length}___`;
+            const token = `\uE002${protectedChunks.length}\uE003`;
             protectedChunks.push(match);
             return token;
         };
@@ -931,35 +1076,37 @@
             text = text.replace(/([A-Za-z0-9])([\u4e00-\u9fff])/g, '$1 $2');
         }
 
-        protectedChunks.forEach((chunk, idx) => {
-            text = text.replace(`___PROTECTED_${idx}___`, chunk);
-        });
+        // 還原程式碼與網址（交給 Markdown 正常解析）
+        text = text.replace(/\uE002(\d+)\uE003/g, (_, idx) => protectedChunks[Number(idx)]);
 
-        return text;
+        // 7. Markdown 轉成富文本 HTML
+        let html;
+        if (typeof marked !== 'undefined') {
+            marked.setOptions({ breaks: true, gfm: true });
+            html = marked.parse(text);
+        } else {
+            html = '<p>' + escapeHtml(text).replace(/\n/g, '<br>') + '</p>';
+        }
+
+        // 8. 最後再把保護起來的顏文字原汁原味還原（避免 Markdown 吃掉 * _ < > ` 等字元）
+        html = html.replace(/\uE000(\d+)\uE001/g, (_, idx) => escapeHtml(kaomojiList[Number(idx)]));
+
+        return html;
     }
 
     function runConvert(switchToRes = true) {
         const raw = document.getElementById('inputText').value;
         if (!raw.trim()) return showToast('請先輸入或貼上文字喔！');
 
-        const processed = processTextContent(raw);
-        lastConvertedPlain = processed;
-
-        if (typeof marked !== 'undefined') {
-            marked.setOptions({ breaks: true, gfm: true });
-            lastConvertedHtml = marked.parse(processed);
-        } else {
-            lastConvertedHtml = '<p>' + escapeHtml(processed).replace(/\n/g, '<br>') + '</p>';
-        }
-
+        const html = convertToRichHtml(raw);
         const outEl = document.getElementById('richOutput');
-        outEl.innerHTML = lastConvertedHtml;
-        const count = outEl.innerText.replace(/\s/g, '').length;
-        document.getElementById('outputWordCount').textContent = `(${count} 字)`;
+        outEl.innerHTML = html;
+        hasConvertedOnce = true;
+        updateOutputWordCount();
 
         if (switchToRes) {
             switchWorkView('result');
-            showToast('✨ 轉換完成！');
+            showToast('✨ 轉換完成！點文字可直接微調');
         }
     }
 
@@ -983,8 +1130,8 @@
     function clearInput() {
         document.getElementById('inputText').value = '';
         state.draft = '';
-        lastConvertedPlain = '';
-        lastConvertedHtml = '';
+        hasConvertedOnce = false;
+        document.getElementById('richOutput').innerHTML = '';
         updateInputWordCount();
         saveState();
         showToast('🗑️ 已清空');
@@ -1037,13 +1184,15 @@
     }
 
     function copyCurrentRichText() {
-        if (!lastConvertedHtml) return showToast('目前沒有內容');
-        copyRichHtml(lastConvertedHtml, document.getElementById('richOutput').innerText);
+        const outEl = document.getElementById('richOutput');
+        if (!outEl.innerText.trim()) return showToast('目前沒有內容');
+        copyRichHtml(outEl.innerHTML, outEl.innerText);
     }
 
     function copyCurrentPlainText() {
-        if (!lastConvertedHtml) return showToast('目前沒有內容');
-        copyPlainText(document.getElementById('richOutput').innerText, '📄 已複製純文字！');
+        const outEl = document.getElementById('richOutput');
+        if (!outEl.innerText.trim()) return showToast('目前沒有內容');
+        copyPlainText(outEl.innerText, '📄 已複製純文字！');
     }
 
     // ====== 分組詞庫管理 ======
@@ -1256,7 +1405,7 @@
         showToast(added > 0 ? `⚡ 已加入 ${added} 組常用詞` : '這個分組已經都有這些詞囉！');
     }
 
-    // ====== 情境咒語 (含搜尋、標籤、{{變數}}填空) ======
+    // ====== 情境咒語（展開後底下就是專屬輸出結果！） ======
     function extractVariables(content) {
         const matches = [...content.matchAll(/\{\{([^}]+)\}\}/g)].map(m => m[1].trim());
         return [...new Set(matches)];
@@ -1288,6 +1437,12 @@
         renderPrompts();
     }
 
+    function togglePromptExpand(id) {
+        if (expandedPromptIds.has(id)) expandedPromptIds.delete(id);
+        else expandedPromptIds.add(id);
+        renderPrompts();
+    }
+
     function renderPrompts() {
         renderPromptTags();
         const keyword = document.getElementById('promptSearchInput').value.trim().toLowerCase();
@@ -1295,42 +1450,85 @@
 
         const filtered = state.prompts.filter(p => {
             const matchTag = selectedPromptTag === 'ALL' || (p.tags || []).includes(selectedPromptTag);
+            const linkedSaves = state.saves.filter(s => s.promptId === p.id);
             const matchKw = !keyword ||
                 p.title.toLowerCase().includes(keyword) ||
                 p.content.toLowerCase().includes(keyword) ||
-                (p.tags || []).some(t => t.toLowerCase().includes(keyword));
+                (p.tags || []).some(t => t.toLowerCase().includes(keyword)) ||
+                linkedSaves.some(s => s.title.toLowerCase().includes(keyword) || s.plain.toLowerCase().includes(keyword));
             return matchTag && matchKw;
         });
 
         if (filtered.length === 0) {
-            list.innerHTML = `<div class="empty-state">${keyword ? '找不到符合的咒語 🔎' : '🔮 這裡可以收藏你常玩的情境咒語<br>點上方按鈕新增，之後就能一鍵複製！'}</div>`;
+            list.innerHTML = `<div class="empty-state">${keyword ? '找不到符合的咒語或結果 🔎' : '🔮 這裡可以收藏你常玩的情境咒語<br>點上方按鈕新增，之後就能一鍵複製並記錄輸出結果！'}</div>`;
             return;
         }
 
         list.innerHTML = filtered.map(p => {
             const vars = extractVariables(p.content);
             const hasVars = vars.length > 0;
+            const isExpanded = expandedPromptIds.has(p.id);
+            const linkedSaves = state.saves.filter(s => s.promptId === p.id);
+
             const tagsHtml = (p.tags && p.tags.length)
                 ? `<div class="tag-row">${p.tags.map(t => `<span class="tag-badge">#${escapeHtml(t)}</span>`).join('')}</div>`
                 : '';
 
+            // 展開後顯示底下的輸出結果區
+            let nestedHtml = '';
+            if (isExpanded) {
+                const outputsCards = linkedSaves.length > 0
+                    ? linkedSaves.map(s => `
+                        <div class="nested-output-card">
+                            <div class="row-between">
+                                <div class="nested-output-title">📌 ${escapeHtml(s.title)}</div>
+                                <span class="vault-meta">${s.createdAt || ''}</span>
+                            </div>
+                            <div class="nested-output-body" onclick="this.classList.toggle('open')">${s.html}</div>
+                            <div class="row-between">
+                                <button class="btn btn-primary btn-xs" style="flex:1;" onclick="copySavedRich('${s.id}')">📋 富文本</button>
+                                <button class="btn btn-outline btn-xs" style="flex:1;" onclick="copySavedPlain('${s.id}')">📄 純文字</button>
+                                <button class="btn btn-soft btn-xs" onclick="openEditSaveModal('${s.id}')">✏️</button>
+                                <button class="btn btn-danger-soft btn-xs" onclick="deleteSave('${s.id}')">🗑️</button>
+                            </div>
+                        </div>
+                    `).join('')
+                    : `<div class="empty-mini">還沒有輸出結果喔～<br>可以點右上角「＋ 記錄結果」，或轉完文章按存檔收進來！</div>`;
+
+                nestedHtml = `
+                    <div class="nested-outputs">
+                        <div class="nested-header">
+                            <span class="nested-title">📚 輸出結果 (${linkedSaves.length})</span>
+                            <button class="btn btn-outline btn-xs" onclick="openNewSaveForPrompt('${p.id}')">＋ 記錄結果</button>
+                        </div>
+                        ${outputsCards}
+                    </div>
+                `;
+            }
+
             return `
                 <div class="vault-card">
-                    <div class="row-between">
+                    <div class="row-between" style="cursor:pointer;" onclick="togglePromptExpand('${p.id}')">
                         <div class="vault-title">${escapeHtml(p.title)}</div>
                         <span class="vault-meta">${p.updatedAt || ''}</span>
                     </div>
                     ${tagsHtml}
-                    <div class="vault-preview" onclick="this.classList.toggle('expanded')">${escapeHtml(p.content)}</div>
-                    <div class="row-between">
+                    <div class="vault-preview ${isExpanded ? 'expanded' : ''}" onclick="togglePromptExpand('${p.id}')">${escapeHtml(p.content)}</div>
+
+                    <div class="row-between" style="flex-wrap:wrap; gap:6px;">
                         ${hasVars
                             ? `<button class="btn btn-primary btn-sm" style="flex:1;" onclick="openFillPromptModal('${p.id}')">✨ 填空複製</button>
-                               <button class="btn btn-outline btn-sm" onclick="copyPrompt('${p.id}')">📋 原版</button>`
+                               <button class="btn btn-outline btn-sm" onclick="copyPrompt('${p.id}')">📋</button>`
                             : `<button class="btn btn-primary btn-sm" style="flex:1;" onclick="copyPrompt('${p.id}')">📋 複製咒語</button>`
                         }
+                        <button class="btn btn-soft btn-sm" onclick="togglePromptExpand('${p.id}')">
+                            ${isExpanded ? '▲ 收合' : `📂 結果 (${linkedSaves.length})`}
+                        </button>
                         <button class="btn btn-soft btn-sm" onclick="openPromptModal('${p.id}')">✏️</button>
                         <button class="btn btn-danger-soft btn-sm" onclick="deletePrompt('${p.id}')">🗑️</button>
                     </div>
+
+                    ${nestedHtml}
                 </div>
             `;
         }).join('');
@@ -1374,11 +1572,14 @@
             const idx = state.prompts.findIndex(p => p.id === id);
             if (idx !== -1) state.prompts[idx] = { ...state.prompts[idx], title, tags, content, updatedAt: dateStr };
         } else {
-            state.prompts.unshift({ id: 'p_' + Date.now(), title, tags, content, updatedAt: dateStr });
+            const newId = 'p_' + Date.now();
+            state.prompts.unshift({ id: newId, title, tags, content, updatedAt: dateStr });
+            expandedPromptIds.add(newId);
         }
 
         saveState();
         renderPrompts();
+        renderSaves();
         closeModal('promptModal');
         showToast('💾 咒語已儲存！');
     }
@@ -1388,9 +1589,9 @@
         if (!p) return;
         const vars = extractVariables(p.content);
         document.getElementById('fillPromptId').value = id;
-        document.getElementById('fillVariablesContainer').innerHTML = vars.map((v, i) => `
+        document.getElementById('fillVariablesContainer').innerHTML = vars.map(v => `
             <div style="margin-bottom: 10px;">
-                <label style="display:block; font-size:0.84rem; font-weight:700; margin-bottom:4px; color:var(--primary);">${escapeHtml(v)}</label>
+                <label class="field-label" style="color:var(--primary);">${escapeHtml(v)}</label>
                 <input type="text" class="var-fill-input" data-var="${escapeHtml(v)}" placeholder="請輸入「${escapeHtml(v)}」...">
             </div>
         `).join('');
@@ -1419,36 +1620,117 @@
     }
 
     function deletePrompt(id) {
-        if (!confirm('確定要刪除這個咒語嗎？')) return;
+        const linkedCount = state.saves.filter(s => s.promptId === id).length;
+        const msg = linkedCount > 0
+            ? `確定要刪除這個咒語嗎？（底下的 ${linkedCount} 筆輸出結果會移到「全部存檔」保留，不會消失）`
+            : '確定要刪除這個咒語嗎？';
+        if (!confirm(msg)) return;
+
         state.prompts = state.prompts.filter(p => p.id !== id);
+        state.saves.forEach(s => { if (s.promptId === id) s.promptId = null; });
+        expandedPromptIds.delete(id);
         saveState();
         renderPrompts();
+        renderSaves();
         showToast('🗑️ 已刪除咒語');
     }
 
-    // ====== 輸出結果存檔 (含搜尋) ======
+    // ====== 輸出結果存檔（支援綁定咒語 + 標題 + 編輯） ======
+    function buildPromptSelectOptions(selectedId = '') {
+        return `<option value="">📂 不歸屬（獨立放在全部存檔）</option>` +
+            state.prompts.map(p =>
+                `<option value="${p.id}" ${p.id === selectedId ? 'selected' : ''}>🔮 ${escapeHtml(p.title)}</option>`
+            ).join('');
+    }
+
     function openSaveOutputModal() {
-        if (!lastConvertedHtml) return showToast('先轉換文字再存檔喔！');
-        const firstLine = document.getElementById('richOutput').innerText.trim().split('\n')[0].slice(0, 24);
+        const outEl = document.getElementById('richOutput');
+        if (!outEl.innerText.trim()) return showToast('先轉換文字再存檔喔！');
+
+        const firstLine = outEl.innerText.trim().split('\n')[0].slice(0, 24);
         document.getElementById('saveTitleInput').value = firstLine;
+        document.getElementById('savePromptSelect').innerHTML = buildPromptSelectOptions('');
         openModal('saveOutputModal');
     }
 
     function confirmSaveOutput() {
-        const title = document.getElementById('saveTitleInput').value.trim() || '轉換存檔';
-        const plain = document.getElementById('richOutput').innerText;
+        const outEl = document.getElementById('richOutput');
+        const title = document.getElementById('saveTitleInput').value.trim() || '未命名輸出結果';
+        const promptId = document.getElementById('savePromptSelect').value || null;
 
         state.saves.unshift({
             id: 's_' + Date.now(),
+            promptId,
             title,
-            html: lastConvertedHtml,
-            plain,
+            html: outEl.innerHTML,
+            plain: outEl.innerText,
             createdAt: new Date().toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })
         });
+
+        if (promptId) expandedPromptIds.add(promptId);
         saveState();
+        renderPrompts();
         renderSaves();
         closeModal('saveOutputModal');
-        showToast('📚 已存進倉庫！');
+        showToast(promptId ? '🔮 已存進該咒語底下！' : '📚 已存進全部存檔！');
+    }
+
+    // 在咒語底下直接「＋ 記錄結果」
+    function openNewSaveForPrompt(promptId) {
+        document.getElementById('editSaveModalTitle').textContent = '📝 新增輸出結果';
+        document.getElementById('editSaveId').value = '';
+        document.getElementById('editSaveTitleInput').value = '';
+        document.getElementById('editSavePromptSelect').innerHTML = buildPromptSelectOptions(promptId);
+        document.getElementById('editSaveContent').innerHTML = '';
+        openModal('editSaveModal');
+    }
+
+    // 編輯既有的輸出結果（改標題、改內容、換歸屬咒語）
+    function openEditSaveModal(saveId) {
+        const item = state.saves.find(s => s.id === saveId);
+        if (!item) return;
+        document.getElementById('editSaveModalTitle').textContent = '✏️ 編輯輸出結果';
+        document.getElementById('editSaveId').value = item.id;
+        document.getElementById('editSaveTitleInput').value = item.title;
+        document.getElementById('editSavePromptSelect').innerHTML = buildPromptSelectOptions(item.promptId || '');
+        document.getElementById('editSaveContent').innerHTML = item.html;
+        openModal('editSaveModal');
+    }
+
+    function confirmEditSave() {
+        const id = document.getElementById('editSaveId').value;
+        const title = document.getElementById('editSaveTitleInput').value.trim() || '未命名輸出結果';
+        const promptId = document.getElementById('editSavePromptSelect').value || null;
+        const contentEl = document.getElementById('editSaveContent');
+        const plain = contentEl.innerText.trim();
+
+        if (!plain) return showToast('請輸入結果內容喔！');
+
+        const html = contentEl.innerHTML;
+        const nowStr = new Date().toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        if (id) {
+            const idx = state.saves.findIndex(s => s.id === id);
+            if (idx !== -1) {
+                state.saves[idx] = { ...state.saves[idx], title, promptId, html, plain };
+            }
+        } else {
+            state.saves.unshift({
+                id: 's_' + Date.now(),
+                promptId,
+                title,
+                html,
+                plain,
+                createdAt: nowStr
+            });
+        }
+
+        if (promptId) expandedPromptIds.add(promptId);
+        saveState();
+        renderPrompts();
+        renderSaves();
+        closeModal('editSaveModal');
+        showToast('💾 輸出結果已儲存！');
     }
 
     function renderSaves() {
@@ -1460,27 +1742,35 @@
         );
 
         if (filtered.length === 0) {
-            list.innerHTML = `<div class="empty-state">${keyword ? '找不到符合的存檔 🔎' : '📚 還沒有存檔的結果～<br>在「轉換結果」按下存檔，就會收在這裡！'}</div>`;
+            list.innerHTML = `<div class="empty-state">${keyword ? '找不到符合的存檔 🔎' : '📚 還沒有任何輸出存檔～<br>在「轉換結果」按下存檔，就會收在這裡！'}</div>`;
             return;
         }
 
-        list.innerHTML = filtered.map(s => `
-            <div class="vault-card">
-                <div class="row-between" style="margin-bottom: 6px;">
-                    <div class="vault-title">${escapeHtml(s.title)}</div>
-                    <span class="vault-meta">${s.createdAt || ''}</span>
+        list.innerHTML = filtered.map(s => {
+            const parentPrompt = s.promptId ? state.prompts.find(p => p.id === s.promptId) : null;
+            const badgeHtml = parentPrompt
+                ? `<div class="tag-row" style="margin-top:4px;"><span class="tag-badge">🔮 ${escapeHtml(parentPrompt.title)}</span></div>`
+                : '';
+
+            return `
+                <div class="vault-card">
+                    <div class="row-between">
+                        <div class="vault-title">📌 ${escapeHtml(s.title)}</div>
+                        <span class="vault-meta">${s.createdAt || ''}</span>
+                    </div>
+                    ${badgeHtml}
+                    <div class="nested-output-body" style="background:var(--surface); margin:8px 0 10px;" onclick="this.classList.toggle('open')">
+                        ${s.html}
+                    </div>
+                    <div class="row-between">
+                        <button class="btn btn-primary btn-sm" style="flex:1;" onclick="copySavedRich('${s.id}')">📋 富文本</button>
+                        <button class="btn btn-outline btn-sm" style="flex:1;" onclick="copySavedPlain('${s.id}')">📄 純文字</button>
+                        <button class="btn btn-soft btn-sm" onclick="openEditSaveModal('${s.id}')">✏️</button>
+                        <button class="btn btn-danger-soft btn-sm" onclick="deleteSave('${s.id}')">🗑️</button>
+                    </div>
                 </div>
-                <div class="vault-preview rich-output" style="min-height:auto; max-height: 110px; font-size:0.88rem;" onclick="this.style.maxHeight = this.style.maxHeight === 'none' ? '110px' : 'none'">
-                    ${s.html}
-                </div>
-                <div style="font-size:0.75rem; color:var(--text-muted); margin:-4px 0 8px;">👆 點內容可展開 / 收合全文</div>
-                <div class="row-between">
-                    <button class="btn btn-primary btn-sm" style="flex:1;" onclick="copySavedRich('${s.id}')">📋 富文本</button>
-                    <button class="btn btn-outline btn-sm" style="flex:1;" onclick="copySavedPlain('${s.id}')">📄 純文字</button>
-                    <button class="btn btn-danger-soft btn-sm" onclick="deleteSave('${s.id}')">🗑️</button>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     function copySavedRich(id) {
@@ -1494,11 +1784,12 @@
     }
 
     function deleteSave(id) {
-        if (!confirm('確定要刪除這筆存檔嗎？')) return;
+        if (!confirm('確定要刪除這筆輸出結果嗎？')) return;
         state.saves = state.saves.filter(s => s.id !== id);
         saveState();
+        renderPrompts();
         renderSaves();
-        showToast('🗑️ 已刪除存檔');
+        showToast('🗑️ 已刪除結果');
     }
 
     // ====== 備份還原 ======
@@ -1543,4 +1834,4 @@
     init();
 </script>
 </body>
-  </html>
+</html>
