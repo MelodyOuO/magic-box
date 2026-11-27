@@ -9,15 +9,14 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
-/* ====== 淺色主題 ====== */
-:root,[data-theme="milk-tea"]{--bg:#FAF6F0;--card:#FFF;--surf:#F3ECE2;--pri:#A67B5B;--pri-t:#FFF;--txt:#3E3129;--mut:#8C7A6B;--bd:#E8DDD0;--err:#D96B6B;--sh:0 4px 14px rgba(107,81,59,.07)}
+:root,[data-theme="milk-tea"]{--font:system-ui,-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;--bg:#FAF6F0;--card:#FFF;--surf:#F3ECE2;--pri:#A67B5B;--pri-t:#FFF;--txt:#3E3129;--mut:#8C7A6B;--bd:#E8DDD0;--err:#D96B6B;--sh:0 4px 14px rgba(107,81,59,.07)}
 [data-theme="sakura"]{--bg:#FFF5F7;--card:#FFF;--surf:#FCEAEF;--pri:#DE7392;--pri-t:#FFF;--txt:#452932;--mut:#997480;--bd:#F5D7E0;--err:#E05A5A;--sh:0 4px 14px rgba(222,115,146,.09)}
 [data-theme="matcha"]{--bg:#F3F7F2;--card:#FFF;--surf:#E7EFE5;--pri:#668C63;--pri-t:#FFF;--txt:#2A3B29;--mut:#70856E;--bd:#D5E2D3;--err:#D66868;--sh:0 4px 14px rgba(83,117,80,.08)}
 [data-theme="lavender"]{--bg:#F6F4FA;--card:#FFF;--surf:#ECE7F6;--pri:#896BB3;--pri-t:#FFF;--txt:#322742;--mut:#7E7094;--bd:#DFD7EC;--err:#DA6575;--sh:0 4px 14px rgba(115,85,158,.08)}
 [data-theme="ocean"]{--bg:#F2F7FB;--card:#FFF;--surf:#E4EFF7;--pri:#4A89B8;--pri-t:#FFF;--txt:#1F3547;--mut:#6C8499;--bd:#D3E3EF;--err:#DC6464;--sh:0 4px 14px rgba(74,137,184,.08)}
 [data-theme="butter"]{--bg:#FFFDF2;--card:#FFF;--surf:#FAF2D6;--pri:#D49A2A;--pri-t:#FFF;--txt:#42351C;--mut:#94825E;--bd:#EFE2B8;--err:#D96459;--sh:0 4px 14px rgba(212,154,42,.09)}
 
-/* ====== 非純黑質感深色主題 ====== */
+/* 非純黑質感深色主題 */
 [data-theme="cocoa-dark"]{color-scheme:dark;--bg:#26201D;--card:#312925;--surf:#3C322D;--pri:#D8A47F;--pri-t:#231B17;--txt:#F3EAE3;--mut:#B5A396;--bd:#483C36;--err:#E88383;--sh:0 4px 16px rgba(0,0,0,.22)}
 [data-theme="slate-dark"],[data-theme="dark"]{color-scheme:dark;--bg:#1E2530;--card:#27303F;--surf:#313C4E;--pri:#7CB4E8;--pri-t:#15202B;--txt:#EAF0F7;--mut:#9BAAC0;--bd:#3C485C;--err:#EB8181;--sh:0 4px 16px rgba(0,0,0,.24)}
 [data-theme="forest-dark"]{color-scheme:dark;--bg:#1F2823;--card:#28342E;--surf:#324039;--pri:#8EC49B;--pri-t:#17231C;--txt:#EAF2EC;--mut:#9BB0A2;--bd:#3D4E45;--err:#E88282;--sh:0 4px 16px rgba(0,0,0,.22)}
@@ -26,7 +25,7 @@
 [data-theme="nord-gray"],[data-theme="black-gold"]{color-scheme:dark;--bg:#25262B;--card:#2F3137;--surf:#393B43;--pri:#E0B973;--pri-t:#22201A;--txt:#ECEEF2;--mut:#A3A7B3;--bd:#454852;--err:#E88181;--sh:0 4px 16px rgba(0,0,0,.24)}
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--txt);transition:background .2s,color .2s;overscroll-behavior-y:none}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--txt);transition:background .2s,color .2s;overscroll-behavior-y:none}
 .shell{max-width:640px;margin:0 auto;min-height:100svh;display:flex;flex-direction:column}
 .hdr{position:sticky;top:0;z-index:20;background:var(--bg);padding:12px 16px 8px;display:flex;align-items:center;justify-content:space-between}
 .hdr h1{font-size:1.18rem;font-weight:800;margin:0}
@@ -35,7 +34,9 @@ body{margin:0;font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC","
 @keyframes fade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
 
 .seg{display:grid;grid-template-columns:1fr 1fr;background:var(--surf);padding:4px;border-radius:14px;margin-bottom:12px;gap:4px}
+.seg.mini{padding:3px;border-radius:11px;margin-bottom:8px}
 .seg button{border:0;background:0;color:var(--mut);padding:9px;border-radius:10px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit}
+.seg.mini button{padding:6px 8px;font-size:.8rem;border-radius:8px}
 .seg button.active{background:var(--card);color:var(--pri);box-shadow:0 2px 6px rgba(0,0,0,.08)}
 
 .card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:13px;margin-bottom:12px;box-shadow:var(--sh)}
@@ -45,7 +46,7 @@ body{margin:0;font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC","
 
 textarea,input[type=text],input[type=search]{width:100%;font-size:16px;font-family:inherit;color:var(--txt);background:var(--surf);border:1.5px solid transparent;border-radius:12px;padding:10px 12px;outline:0;transition:border-color .15s,background .15s}
 textarea:focus,input:focus{border-color:var(--pri);background:var(--card)}
-textarea{resize:vertical;line-height:1.6}
+textarea{resize:vertical;line-height:1.65}
 
 .search{position:relative;margin-bottom:10px}
 .search input{padding:9px 32px 9px 36px;background:var(--card);border:1px solid var(--bd);border-radius:13px;box-shadow:var(--sh)}
@@ -60,7 +61,7 @@ textarea{resize:vertical;line-height:1.6}
 .chip.add{border-style:dashed;color:var(--pri);background:0}
 
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
-.pill{padding:6px 11px;border-radius:99px;font-size:.8rem;font-weight:600;background:var(--surf);color:var(--mut);border:1.5px solid transparent;cursor:pointer;user-select:none}
+.pill{padding:6px 10px;border-radius:99px;font-size:.79rem;font-weight:600;background:var(--surf);color:var(--mut);border:1.5px solid transparent;cursor:pointer;user-select:none}
 .pill.on{background:var(--card);color:var(--pri);border-color:var(--pri)}
 
 .btn{border:0;border-radius:13px;padding:12px 14px;font-size:.92rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-family:inherit;transition:transform .1s}
@@ -74,8 +75,9 @@ textarea{resize:vertical;line-height:1.6}
 .xs{padding:5px 8px;font-size:.75rem;border-radius:8px;width:auto}
 
 .rich,.reader{line-height:1.82;font-size:16px;word-break:break-word}
-.rich{min-height:210px;max-height:54svh;overflow-y:auto;padding:13px;background:var(--surf);border-radius:12px;border:1.5px solid transparent;outline:0}
+.rich{min-height:200px;max-height:54svh;overflow-y:auto;padding:12px 13px;background:var(--surf);border-radius:12px;border:1.5px solid transparent;outline:0}
 .rich:focus{border-color:var(--pri);background:var(--card)}
+.rich:empty:before{content:attr(data-ph);color:var(--mut);pointer-events:none}
 .reader{max-height:60svh;overflow-y:auto;padding:14px 15px;background:var(--surf);border-radius:14px}
 .rich h1,.reader h1{font-size:1.35em;margin:.4em 0}.rich h2,.reader h2{font-size:1.18em;margin:.4em 0}.rich h3,.reader h3{font-size:1.06em;margin:.4em 0}
 .rich p,.reader p{margin:0 0 .75em}.rich p:last-child,.reader p:last-child{margin-bottom:0}
@@ -127,9 +129,11 @@ textarea{resize:vertical;line-height:1.6}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
 .m-hdr{font-size:1.05rem;font-weight:800;margin:0 0 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
 
-.t-card{border:2px solid var(--bd);border-radius:13px;padding:9px 10px;display:flex;align-items:center;gap:9px;cursor:pointer;background:var(--surf);font-weight:700;font-size:.85rem}
+.t-card{border:2px solid var(--bd);border-radius:13px;padding:9px 10px;display:flex;align-items:center;gap:9px;cursor:pointer;background:var(--surf);font-weight:700;font-size:.84rem}
 .t-card.active{border-color:var(--pri);background:var(--card)}
-.dot{width:24px;height:24px;border-radius:50%;flex-shrink:0;border:2px solid rgba(255,255,255,.45);box-shadow:0 2px 5px rgba(0,0,0,.18)}
+.f-card{border:2px solid var(--bd);border-radius:13px;padding:9px 11px;cursor:pointer;background:var(--surf);text-align:left;color:var(--txt)}
+.f-card.active{border-color:var(--pri);background:var(--card)}
+.dot{width:23px;height:23px;border-radius:50%;flex-shrink:0;border:2px solid rgba(255,255,255,.45);box-shadow:0 2px 5px rgba(0,0,0,.18)}
 
 .toast{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-14px);background:var(--txt);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:.85rem;font-weight:700;z-index:100;opacity:0;pointer-events:none;transition:.2s;box-shadow:0 6px 18px rgba(0,0,0,.22);white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -141,7 +145,7 @@ textarea{resize:vertical;line-height:1.6}
 <header class="hdr">
     <h1>✨ 文字魔法盒</h1>
     <div class="gap">
-        <button class="btn btn-h" onclick="openModal('themeModal')">🎨 配色</button>
+        <button class="btn btn-h" onclick="openModal('themeModal')">🎨 外觀</button>
         <button class="btn btn-h" onclick="openBackupModal()">💾 備份</button>
     </div>
 </header>
@@ -156,11 +160,21 @@ textarea{resize:vertical;line-height:1.6}
 
     <div id="work-in">
         <div class="card">
-            <div class="row" style="margin-bottom:9px">
-                <b style="font-size:.88rem">⚡ 轉換開關</b>
-                <span class="meta" id="activeRuleCount"></span>
+            <div class="row" style="margin-bottom:8px">
+                <div class="gap">
+                    <b style="font-size:.88rem">⚡ 轉換開關</b>
+                    <span class="meta" id="activeRuleCount"></span>
+                </div>
+                <button class="btn btn-s xs" id="onlyWordsBtn" onclick="toggleOnlyWords()">🎯 只改字</button>
             </div>
             <div class="pills" id="optPills"></div>
+
+            <!-- 輸入格式切換：純文字/MD vs 保留原格式 -->
+            <div class="seg mini">
+                <button id="mode-txt" class="active" onclick="setKeepRich(0)">📝 純文字 / MD</button>
+                <button id="mode-rich" onclick="setKeepRich(1)">🔒 保留原格式（富文本）</button>
+            </div>
+
             <div class="row" style="margin-bottom:7px">
                 <span class="meta" id="inCount">0 字</span>
                 <div class="gap">
@@ -168,7 +182,8 @@ textarea{resize:vertical;line-height:1.6}
                     <button class="btn btn-d sm" onclick="clearIn()">🗑️ 清空</button>
                 </div>
             </div>
-            <textarea id="inputText" rows="9" placeholder="貼上 AI 輸出或文章，支援 Markdown，自動暫存不遺失..."></textarea>
+            <textarea id="inputText" rows="8" placeholder="貼上 AI 輸出或文章，支援 Markdown，自動暫存..."></textarea>
+            <div id="richInput" class="rich hidden" contenteditable="true" spellcheck="false" data-ph="直接貼上已有粗體／斜體／標題／顏色的文字，轉換時只會替換字詞，完整保留原本格式..."></div>
         </div>
         <button class="btn btn-p" onclick="runConvert()">✨ 一鍵轉換並預覽結果</button>
     </div>
@@ -268,10 +283,12 @@ textarea{resize:vertical;line-height:1.6}
 </nav>
 </div>
 
-<!-- 配色（淺色 + 6款非純黑深色） -->
+<!-- 外觀（字體 + 配色） -->
 <div class="modal" id="themeModal" onclick="bgClose(event,'themeModal')">
     <div class="sheet">
-        <div class="m-hdr"><span>🎨 挑選喜歡的配色</span><button class="btn btn-s sm" onclick="closeModal('themeModal')">關閉</button></div>
+        <div class="m-hdr"><span>🎨 外觀與字體</span><button class="btn btn-s sm" onclick="closeModal('themeModal')">關閉</button></div>
+        <span class="lbl">🔤 挑選字體（選到才載入，不卡頓）</span>
+        <div class="grid2" id="fontGrid" style="margin-bottom:14px"></div>
         <span class="lbl">🌙 質感深色</span>
         <div class="grid2" id="darkThemes" style="margin-bottom:14px"></div>
         <span class="lbl">☀️ 柔和淺色</span>
@@ -389,30 +406,34 @@ textarea{resize:vertical;line-height:1.6}
 <script>
 const $ = id => document.getElementById(id);
 const KEY = 'text_magic_box_v4';
+const FONTS = [
+    ['system','系統黑體','清爽預設','system-ui,-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif',''],
+    ['huninn','🍬 粉圓體','圓潤可愛','"Huninn",sans-serif','Huninn'],
+    ['wenkai','📖 霞鶩文楷','溫潤書卷','"LXGW WenKai TC",serif','LXGW+WenKai+TC:wght@400;700'],
+    ['iansui','✍️ 芫荽體','自然手寫','"Iansui",sans-serif','Iansui'],
+    ['serif','📜 思源宋體','典雅明體','"Noto Serif TC","Songti TC",serif','Noto+Serif+TC:wght@400;700'],
+    ['goround','🫧 昭源圓體','俐落微圓','"Chiron GoRound TC",sans-serif','Chiron+GoRound+TC:wght@400;700']
+];
 const DARK_THEMES = [
-    ['slate-dark','🌌 靜謐海藍','#1E2530','#7CB4E8'],
-    ['cocoa-dark','☕ 烘焙可可','#26201D','#D8A47F'],
-    ['forest-dark','🌲 迷霧森林','#1F2823','#8EC49B'],
-    ['plum-dark','🍇 暮色葡萄','#241F2D','#C2A3E8'],
-    ['rose-dark','🍷 玫瑰微醺','#291F24','#E598AE'],
-    ['nord-gray','🪨 溫柔炭灰','#25262B','#E0B973']
+    ['slate-dark','🌌 靜謐海藍','#1E2530','#7CB4E8'],['cocoa-dark','☕ 烘焙可可','#26201D','#D8A47F'],
+    ['forest-dark','🌲 迷霧森林','#1F2823','#8EC49B'],['plum-dark','🍇 暮色葡萄','#241F2D','#C2A3E8'],
+    ['rose-dark','🍷 玫瑰微醺','#291F24','#E598AE'],['nord-gray','🪨 溫柔炭灰','#25262B','#E0B973']
 ];
 const LIGHT_THEMES = [
-    ['milk-tea','🧋 燕麥奶茶','#FAF6F0','#A67B5B'],
-    ['sakura','🌸 櫻花莓果','#FFF5F7','#DE7392'],
-    ['matcha','🍵 宇治抹茶','#F3F7F2','#668C63'],
-    ['lavender','💜 夢幻芋泥','#F6F4FA','#896BB3'],
-    ['ocean','🌊 晴空海鹽','#F2F7FB','#4A89B8'],
-    ['butter','🧈 奶油起司','#FFFDF2','#D49A2A']
+    ['milk-tea','🧋 燕麥奶茶','#FAF6F0','#A67B5B'],['sakura','🌸 櫻花莓果','#FFF5F7','#DE7392'],
+    ['matcha','🍵 宇治抹茶','#F3F7F2','#668C63'],['lavender','💜 夢幻芋泥','#F6F4FA','#896BB3'],
+    ['ocean','🌊 晴空海鹽','#F2F7FB','#4A89B8'],['butter','🧈 奶油起司','#FFFDF2','#D49A2A']
 ];
 const OPTS = [
-    ['kaomoji','(ฅ́˘ฅ̀) 保護顏文字'],['rules','🔄 套用詞庫'],['punct','，全形標點'],
-    ['quotes','「」中文引號'],['ellipsis','……刪節號'],['cleanLines','🧹 清多餘空行'],['space','␣ 中英加空白']
+    ['kaomoji','(ฅ́˘ฅ̀) 保護顏文字'],['rules','🔄 套用詞庫'],['md','📝 MD轉格式'],
+    ['punct','，全形標點'],['quotes','「」中文引號'],['ellipsis','……刪節號'],
+    ['cleanLines','🧹 清多餘空行'],['space','␣ 中英加空白']
 ];
 const DEF = {
-    theme:'slate-dark',
-    options:{kaomoji:true,rules:true,punct:true,quotes:true,ellipsis:true,cleanLines:true,space:false},
-    draft:'# 測試顏文字與深色主題\n\n他笑著摸了摸我的頭(ฅ́˘ฅ̀),溫柔地說:"這個視頻我幫你存好了喔(*ˊᵕˋ*)!"\n\n* 右上角「🎨 配色」有 **6 款非純黑深色主題**!\n* 存檔時可以輕鬆搜尋選**歸屬咒語**.',
+    theme:'slate-dark', font:'system', keepRich:false,
+    options:{kaomoji:true,rules:true,md:true,punct:true,quotes:true,ellipsis:true,cleanLines:true,space:false},
+    draft:'# 測試只改字與字體\n\n他笑著摸了摸我的頭(ฅ́˘ฅ̀),溫柔地說:"這個視頻我幫你存好了喔(*ˊᵕˋ*)!"\n\n* 點「🎯 只改字」或切「🔒 保留原格式」就能只改字不動原格式!',
+    richDraft:'',
     selectedGroupId:'g_default',
     ruleGroups:[
         {id:'g_default',name:'常用替換',enabled:true,rules:[
@@ -466,17 +487,31 @@ function saveDebounced(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveSt
 
 function init(){
     document.documentElement.dataset.theme = state.theme;
+    applyFont(state.font, false);
     $('inputText').value = state.draft || '';
+    $('richInput').innerHTML = state.richDraft || '';
+    setKeepRich(state.keepRich ? 1 : 0, false);
     updCounts();
-    renderThemes(); renderOpts(); renderGroups(); renderPrompts(); renderSaves();
+    renderAppearance(); renderOpts(); renderGroups(); renderPrompts(); renderSaves();
 }
 $('inputText').addEventListener('input', e=>{ state.draft = e.target.value; updCounts(); saveDebounced(); });
 $('inputText').addEventListener('blur', saveState);
+$('richInput').addEventListener('input', ()=>{ state.richDraft = $('richInput').innerHTML; updCounts(); saveDebounced(); });
+$('richInput').addEventListener('blur', saveState);
+$('richInput').addEventListener('paste', e=>{
+    const html = e.clipboardData?.getData('text/html');
+    if(html){
+        e.preventDefault();
+        document.execCommand('insertHTML', false, cleanRichHtml(html));
+        state.richDraft = $('richInput').innerHTML; updCounts(); saveDebounced();
+    }
+});
 $('richOutput').addEventListener('input', updCounts);
 window.addEventListener('pagehide', saveState);
 
 function updCounts(){
-    $('inCount').textContent = `目前 ${$('inputText').value.replace(/\s/g,'').length} 字`;
+    const inStr = state.keepRich ? $('richInput').innerText : $('inputText').value;
+    $('inCount').textContent = `目前 ${inStr.replace(/\s/g,'').length} 字`;
     $('outCount').textContent = `(${$('richOutput').innerText.replace(/\s/g,'').length} 字)`;
 }
 
@@ -491,6 +526,15 @@ function setWorkView(isIn){
     $('seg-in').classList.toggle('active',isIn); $('seg-out').classList.toggle('active',!isIn);
     if(!isIn && !converted) runConvert(0);
 }
+function setKeepRich(isRich, save=true){
+    state.keepRich = !!isRich;
+    $('mode-txt').classList.toggle('active', !isRich);
+    $('mode-rich').classList.toggle('active', !!isRich);
+    $('inputText').classList.toggle('hidden', !!isRich);
+    $('richInput').classList.toggle('hidden', !isRich);
+    updCounts();
+    if(save) saveState();
+}
 function setVaultView(isP){
     $('v-prompts').classList.toggle('hidden',!isP); $('v-saves').classList.toggle('hidden',isP);
     $('seg-p').classList.toggle('active',isP); $('seg-s').classList.toggle('active',!isP);
@@ -501,7 +545,19 @@ function onQ(t){
 }
 function clrQ(t){ $(t+'Q').value=''; onQ(t); }
 
-/* ====== 主題 ====== */
+/* ====== 外觀（字體 + 主題） ====== */
+function applyFont(id, notify=true){
+    const f = FONTS.find(x=>x[0]===id) || FONTS[0];
+    state.font = f[0];
+    if(f[4] && !$('gf-'+f[0])){
+        const l = document.createElement('link');
+        l.id = 'gf-'+f[0]; l.rel = 'stylesheet';
+        l.href = `https://fonts.googleapis.com/css2?family=${f[4]}&display=swap`;
+        document.head.appendChild(l);
+    }
+    document.documentElement.style.setProperty('--font', f[3]);
+    if(notify){ saveState(); renderAppearance(); toast('已套用字體：'+f[1]); }
+}
 function renderThemeList(arr){
     return arr.map(([id,name,bg,pri])=>
         `<div class="t-card ${state.theme===id?'active':''}" onclick="setTheme('${id}','${name}')">
@@ -509,28 +565,51 @@ function renderThemeList(arr){
         </div>`
     ).join('');
 }
-function renderThemes(){
+function renderAppearance(){
+    $('fontGrid').innerHTML = FONTS.map(([id,name,desc])=>
+        `<div class="f-card ${state.font===id?'active':''}" onclick="applyFont('${id}')">
+            <div style="font-size:.88rem;font-weight:700">${name}</div>
+            <div class="meta">${desc}</div>
+        </div>`
+    ).join('');
     $('darkThemes').innerHTML = renderThemeList(DARK_THEMES);
     $('lightThemes').innerHTML = renderThemeList(LIGHT_THEMES);
 }
 function setTheme(id,name){
     state.theme=id; document.documentElement.dataset.theme=id;
-    saveState(); renderThemes(); toast('已切換：'+name);
+    saveState(); renderAppearance(); toast('已切換：'+name);
 }
 
-/* ====== 轉換引擎 ====== */
+/* ====== 轉換引擎（支援只改字 & 保留原格式） ====== */
 function activeRules(){
     const out=[];
     state.ruleGroups.forEach(g=>{ if(g.enabled) g.rules.forEach(r=>{ if(r.enabled&&r.from) out.push(r); }); });
     return out;
 }
+function isOnlyWords(){
+    const o = state.options;
+    return o.rules && !o.md && !o.punct && !o.quotes && !o.ellipsis && !o.cleanLines && !o.space;
+}
 function renderOpts(){
     $('optPills').innerHTML = OPTS.map(([k,lbl])=>
         `<div class="pill ${state.options[k]?'on':''}" onclick="toggleOpt('${k}')">${lbl}</div>`
     ).join('');
-    $('activeRuleCount').textContent = `啟用 ${state.ruleGroups.filter(g=>g.enabled).length} 組 (${activeRules().length} 詞)`;
+    $('activeRuleCount').textContent = `(${activeRules().length} 詞)`;
+    const ow = isOnlyWords();
+    $('onlyWordsBtn').className = `btn ${ow?'btn-p':'btn-s'} xs`;
+    $('onlyWordsBtn').textContent = ow ? '🎯 只改字中' : '🎯 只改字';
 }
 function toggleOpt(k){ state.options[k]=!state.options[k]; saveState(); renderOpts(); }
+function toggleOnlyWords(){
+    if(isOnlyWords()){
+        state.options = {...state.options,kaomoji:true,rules:true,md:true,punct:true,quotes:true,ellipsis:true,cleanLines:true};
+        toast('✨ 已切回完整排版轉換');
+    }else{
+        state.options = {kaomoji:true,rules:true,md:false,punct:false,quotes:false,ellipsis:false,cleanLines:false,space:false};
+        toast('🎯 只改字模式：只換詞，保留原本格式與標點');
+    }
+    saveState(); renderOpts();
+}
 
 function isKaomoji(s){
     if(!s || /https?:\/\//i.test(s) || /[\u4e00-\u9fff]{2,}/.test(s)) return false;
@@ -538,7 +617,7 @@ function isKaomoji(s){
     if(/[A-Za-z]{3,}/.test(s) || /^[\d\s.,/-]+$/.test(s)) return false;
     return /[\u0300-\u036f\u02b0-\u02ff\u0e00-\u0e7f\u0370-\u03ff\u0400-\u04ff\u3040-\u30ff\uff61-\uff9f\u2000-\u2bff\u3000-\u303f\ufe00-\ufe6f*^_~<>`´ˋˊ=;:]/.test(s);
 }
-function convertHtml(raw){
+function transformStr(raw, isRichNode=false){
     let t = raw, kao = [], chunks = [];
     const o = state.options;
     if(o.kaomoji){
@@ -548,7 +627,7 @@ function convertHtml(raw){
     if(o.rules) activeRules().forEach(r=>{ t = t.replace(new RegExp(escRe(r.from),'g'), r.to||''); });
     const hold = m => `\uE002${chunks.push(m)-1}\uE003`;
     t = t.replace(/```[\s\S]*?```|`[^`\n]+`|\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s]+/g, hold);
-    if(o.cleanLines) t = t.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
+    if(o.cleanLines && !isRichNode) t = t.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
     if(o.ellipsis) t = t.replace(/\.{3,}|。{3,}/g,'……');
     if(o.quotes) t = t.replace(/[“"]([^“”"\n]+)[”"]/g,'「$1」').replace(/[‘']([^‘’'\n]+)[’']/g,'『$1』');
     if(o.punct){
@@ -558,26 +637,81 @@ function convertHtml(raw){
     }
     if(o.space) t = t.replace(/([\u4e00-\u9fff])([A-Za-z0-9])/g,'$1 $2').replace(/([A-Za-z0-9])([\u4e00-\u9fff])/g,'$1 $2');
     t = t.replace(/\uE002(\d+)\uE003/g, (_,i)=>chunks[i]);
-    let html = typeof marked!=='undefined' ? (marked.setOptions({breaks:true,gfm:true}), marked.parse(t)) : `<p>${esc(t).replace(/\n/g,'<br>')}</p>`;
+    return {t, kao};
+}
+function cleanRichHtml(html){
+    const d = document.createElement('div'); d.innerHTML = html;
+    d.querySelectorAll('script,style,meta,link,title').forEach(el=>el.remove());
+    d.querySelectorAll('*').forEach(el=>{
+        [...el.attributes].forEach(a=>{ if(a.name.startsWith('on')) el.removeAttribute(a.name); });
+        if(el.style){
+            el.style.background = ''; el.style.backgroundColor = ''; el.style.fontFamily = '';
+            const c = (el.style.color||'').replace(/\s/g,'').toLowerCase();
+            if(/^(rgb\((0,0,0|31,31,31|51,51,51|255,255,255)\)|#000|#000000|#fff|#ffffff|black|white)$/.test(c)) el.style.color = '';
+        }
+    });
+    return d.innerHTML;
+}
+function convertRichDom(html){
+    const d = document.createElement('div'); d.innerHTML = cleanRichHtml(html);
+    const w = document.createTreeWalker(d, NodeFilter.SHOW_TEXT), nodes = [];
+    for(let n; n=w.nextNode();) if(n.nodeValue) nodes.push(n);
+    nodes.forEach(n=>{
+        const {t, kao} = transformStr(n.nodeValue, true);
+        n.nodeValue = t.replace(/\uE000(\d+)\uE001/g, (_,i)=>kao[i]);
+    });
+    return d.innerHTML;
+}
+function convertHtml(raw){
+    const {t, kao} = transformStr(raw, false);
+    let html;
+    if(state.options.md && typeof marked!=='undefined'){
+        marked.setOptions({breaks:true,gfm:true});
+        html = marked.parse(t);
+    }else{
+        html = `<div style="white-space:pre-wrap">${esc(t)}</div>`;
+    }
     return html.replace(/\uE000(\d+)\uE001/g, (_,i)=>esc(kao[i]));
 }
 function runConvert(go=1){
-    const raw = $('inputText').value;
-    if(!raw.trim()) return toast('請先輸入或貼上文字喔！');
-    $('richOutput').innerHTML = convertHtml(raw);
+    if(state.keepRich){
+        const el = $('richInput');
+        if(!el.innerText.trim()) return toast('請先貼上文字喔！');
+        $('richOutput').innerHTML = convertRichDom(el.innerHTML);
+    }else{
+        const raw = $('inputText').value;
+        if(!raw.trim()) return toast('請先輸入或貼上文字喔！');
+        $('richOutput').innerHTML = convertHtml(raw);
+    }
     converted = true; updCounts();
-    if(go){ setWorkView(0); toast('✨ 轉換完成！點文字可直接微調'); }
+    if(go){ setWorkView(0); toast(state.keepRich?'🔒 已保留原格式完成替換！':'✨ 轉換完成！點文字可微調'); }
 }
 async function pasteClip(){
     try{
+        if(state.keepRich && navigator.clipboard.read){
+            const items = await navigator.clipboard.read();
+            for(const item of items){
+                if(item.types.includes('text/html')){
+                    const html = await (await item.getType('text/html')).text();
+                    $('richInput').innerHTML = state.richDraft = cleanRichHtml(html);
+                    updCounts(); saveState(); return toast('📋 已貼上原格式內容');
+                }
+            }
+        }
         const s = await navigator.clipboard.readText();
         if(!s) return toast('剪貼簿是空的喔');
-        $('inputText').value = state.draft = s; updCounts(); saveState(); toast('📋 已貼上');
+        if(state.keepRich){
+            $('richInput').innerText = s; state.richDraft = $('richInput').innerHTML;
+        }else{
+            $('inputText').value = state.draft = s;
+        }
+        updCounts(); saveState(); toast('📋 已貼上');
     }catch{ toast('請長按輸入框手動貼上喔'); }
 }
 function clearIn(){
-    $('inputText').value = state.draft = ''; $('richOutput').innerHTML = '';
-    converted = false; updCounts(); saveState(); toast('🗑️ 已清空');
+    if(state.keepRich){ $('richInput').innerHTML = state.richDraft = ''; }
+    else{ $('inputText').value = state.draft = ''; }
+    $('richOutput').innerHTML = ''; converted = false; updCounts(); saveState(); toast('🗑️ 已清空');
 }
 
 /* ====== 複製 ====== */
@@ -907,52 +1041,4 @@ function delSave(id){
 async function packState(){
     const json = JSON.stringify(state);
     if(typeof CompressionStream==='undefined') return {code:json,raw:json.length};
-    const cs = new CompressionStream('gzip'), w = cs.writable.getWriter();
-    w.write(new TextEncoder().encode(json)); w.close();
-    const bytes = new Uint8Array(await new Response(cs.readable).arrayBuffer());
-    let bin=''; for(let i=0;i<bytes.length;i+=8192) bin+=String.fromCharCode(...bytes.subarray(i,i+8192));
-    return {code:'TMB1:'+btoa(bin), raw:json.length};
-}
-async function unpackState(str){
-    const s = str.trim();
-    if(s.startsWith('TMB1:')){
-        const bin = atob(s.slice(5)), bytes = Uint8Array.from(bin, c=>c.charCodeAt(0));
-        const ds = new DecompressionStream('gzip'), w = ds.writable.getWriter();
-        w.write(bytes); w.close();
-        return JSON.parse(await new Response(ds.readable).text());
-    }
-    return JSON.parse(s);
-}
-function openBackupModal(){
-    $('bkArea').value = '';
-    $('bkInfo').textContent = '🔗 或使用精簡壓縮備份碼（自動壓縮省空間）';
-    openModal('backupModal');
-}
-async function copyCompactBackup(){
-    const {code, raw} = await packState();
-    $('bkArea').value = code;
-    const pct = Math.max(0, Math.round((1 - code.length/raw)*100));
-    $('bkInfo').textContent = `🔗 已壓縮：${raw} → ${code.length} 字（省 ${pct}%）`;
-    copyText(code, `✅ 已複製精簡備份碼（省 ${pct}% 字數）`);
-}
-async function applyBackup(rawText){
-    try{
-        const p = await unpackState(rawText);
-        if(!p || !Array.isArray(p.ruleGroups)) throw 0;
-        state = {...clone(DEF),...p,options:{...DEF.options,...(p.options||{})}};
-        saveState(); init(); closeModal('backupModal'); toast('🎉 資料已完整還原！');
-    }catch{ toast('❌ 備份格式不正確喔'); }
-}
-function importBackupText(){
-    const v = $('bkArea').value.trim();
-    if(!v) return toast('請先貼上備份碼喔！');
-    applyBackup(v);
-}
-function exportFile(){
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(state)],{type:'application/json'}));
-    a.download = `文字魔法盒備份_${new Date().toISOString().slice(0,10)}.json`;
-    a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-    toast('⬇️ 已下載備份檔！');
-}
-function importFil
+    const cs = new CompressionStream('gzip'), w = cs.writabl
