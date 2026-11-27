@@ -16,7 +16,7 @@
 [data-theme="ocean"]{--bg:#F2F7FB;--card:#FFF;--surf:#E4EFF7;--pri:#4A89B8;--pri-t:#FFF;--txt:#1F3547;--mut:#6C8499;--bd:#D3E3EF;--err:#DC6464;--sh:0 4px 14px rgba(74,137,184,.08)}
 [data-theme="butter"]{--bg:#FFFDF2;--card:#FFF;--surf:#FAF2D6;--pri:#D49A2A;--pri-t:#FFF;--txt:#42351C;--mut:#94825E;--bd:#EFE2B8;--err:#D96459;--sh:0 4px 14px rgba(212,154,42,.09)}
 
-/* 非純黑質感深色主題 */
+/* 質感深色主題 */
 [data-theme="cocoa-dark"]{color-scheme:dark;--bg:#26201D;--card:#312925;--surf:#3C322D;--pri:#D8A47F;--pri-t:#231B17;--txt:#F3EAE3;--mut:#B5A396;--bd:#483C36;--err:#E88383;--sh:0 4px 16px rgba(0,0,0,.22)}
 [data-theme="slate-dark"],[data-theme="dark"]{color-scheme:dark;--bg:#1E2530;--card:#27303F;--surf:#313C4E;--pri:#7CB4E8;--pri-t:#15202B;--txt:#EAF0F7;--mut:#9BAAC0;--bd:#3C485C;--err:#EB8181;--sh:0 4px 16px rgba(0,0,0,.24)}
 [data-theme="forest-dark"]{color-scheme:dark;--bg:#1F2823;--card:#28342E;--surf:#324039;--pri:#8EC49B;--pri-t:#17231C;--txt:#EAF2EC;--mut:#9BB0A2;--bd:#3D4E45;--err:#E88282;--sh:0 4px 16px rgba(0,0,0,.22)}
@@ -169,7 +169,6 @@ textarea{resize:vertical;line-height:1.65}
             </div>
             <div class="pills" id="optPills"></div>
 
-            <!-- 輸入格式切換：純文字/MD vs 保留原格式 -->
             <div class="seg mini">
                 <button id="mode-txt" class="active" onclick="setKeepRich(0)">📝 純文字 / MD</button>
                 <button id="mode-rich" onclick="setKeepRich(1)">🔒 保留原格式（富文本）</button>
@@ -479,13 +478,14 @@ function loadState(){
             if(Array.isArray(o.rules)) m.ruleGroups[0].rules=o.rules;
             return m;
         }
-    }catch{}
+    }catch(e){}
     return clone(DEF);
 }
-function saveState(){ try{localStorage.setItem(KEY,JSON.stringify(state))}catch{toast('⚠️ 儲存空間不足')} }
+function saveState(){ try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){toast('⚠️ 儲存空間不足');} }
 function saveDebounced(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveState, 400); }
 
 function init(){
+    if(!Array.isArray(state.ruleGroups) || !state.ruleGroups.length) state.ruleGroups = clone(DEF.ruleGroups);
     document.documentElement.dataset.theme = state.theme;
     applyFont(state.font, false);
     $('inputText').value = state.draft || '';
@@ -499,7 +499,7 @@ $('inputText').addEventListener('blur', saveState);
 $('richInput').addEventListener('input', ()=>{ state.richDraft = $('richInput').innerHTML; updCounts(); saveDebounced(); });
 $('richInput').addEventListener('blur', saveState);
 $('richInput').addEventListener('paste', e=>{
-    const html = e.clipboardData?.getData('text/html');
+    const html = e.clipboardData && e.clipboardData.getData('text/html');
     if(html){
         e.preventDefault();
         document.execCommand('insertHTML', false, cleanRichHtml(html));
@@ -580,7 +580,7 @@ function setTheme(id,name){
     saveState(); renderAppearance(); toast('已切換：'+name);
 }
 
-/* ====== 轉換引擎（支援只改字 & 保留原格式） ====== */
+/* ====== 轉換引擎（只改字 & 保留原格式） ====== */
 function activeRules(){
     const out=[];
     state.ruleGroups.forEach(g=>{ if(g.enabled) g.rules.forEach(r=>{ if(r.enabled&&r.from) out.push(r); }); });
@@ -615,7 +615,7 @@ function isKaomoji(s){
     if(!s || /https?:\/\//i.test(s) || /[\u4e00-\u9fff]{2,}/.test(s)) return false;
     if(/^\s*(?:[QTUOqtuo][wWvVuUaA._-][QTUOqtuo]|Orz|orz|OTZ|otz)\s*$/.test(s)) return true;
     if(/[A-Za-z]{3,}/.test(s) || /^[\d\s.,/-]+$/.test(s)) return false;
-    return /[\u0300-\u036f\u02b0-\u02ff\u0e00-\u0e7f\u0370-\u03ff\u0400-\u04ff\u3040-\u30ff\uff61-\uff9f\u2000-\u2bff\u3000-\u303f\ufe00-\ufe6f*^_~<>`´ˋˊ=;:]/.test(s);
+    return /[\u0300-\u036f\u02b0-\u02ff\u0e00-\u0e7f\u0370-\u03ff\u0400-\u04ff\u3040-\u30ff\uff61-\uff9f\u2000-\u2bff\u3000-\u303f\ufe00-\ufe6f*^_~<>\x60´ˋˊ=;:]/.test(s);
 }
 function transformStr(raw, isRichNode=false){
     let t = raw, kao = [], chunks = [];
@@ -626,7 +626,7 @@ function transformStr(raw, isRichNode=false){
     }
     if(o.rules) activeRules().forEach(r=>{ t = t.replace(new RegExp(escRe(r.from),'g'), r.to||''); });
     const hold = m => `\uE002${chunks.push(m)-1}\uE003`;
-    t = t.replace(/```[\s\S]*?```|`[^`\n]+`|\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s]+/g, hold);
+    t = t.replace(/\x60{3}[\s\S]*?\x60{3}|\x60[^\x60\n]+\x60|\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s]+/g, hold);
     if(o.cleanLines && !isRichNode) t = t.replace(/[ \t]+\n/g,'\n').replace(/\n{3,}/g,'\n\n').trim();
     if(o.ellipsis) t = t.replace(/\.{3,}|。{3,}/g,'……');
     if(o.quotes) t = t.replace(/[“"]([^“”"\n]+)[”"]/g,'「$1」').replace(/[‘']([^‘’'\n]+)[’']/g,'『$1』');
@@ -688,7 +688,7 @@ function runConvert(go=1){
 }
 async function pasteClip(){
     try{
-        if(state.keepRich && navigator.clipboard.read){
+        if(state.keepRich && navigator.clipboard && navigator.clipboard.read){
             const items = await navigator.clipboard.read();
             for(const item of items){
                 if(item.types.includes('text/html')){
@@ -706,7 +706,7 @@ async function pasteClip(){
             $('inputText').value = state.draft = s;
         }
         updCounts(); saveState(); toast('📋 已貼上');
-    }catch{ toast('請長按輸入框手動貼上喔'); }
+    }catch(e){ toast('請長按輸入框手動貼上喔'); }
 }
 function clearIn(){
     if(state.keepRich){ $('richInput').innerHTML = state.richDraft = ''; }
@@ -721,17 +721,17 @@ async function copyRich(html, plain){
             await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]);
             return toast('✅ 已複製富文本！');
         }
-    }catch{}
+    }catch(e){}
     const d = document.createElement('div'); d.innerHTML = html;
     d.style.cssText='position:fixed;left:-9999px;background:#fff;color:#000'; document.body.appendChild(d);
     const r = document.createRange(); r.selectNodeContents(d);
     const s = getSelection(); s.removeAllRanges(); s.addRange(r);
-    try{ document.execCommand('copy'); toast('✅ 已複製富文本！'); }catch{ toast('複製失敗，請手動選取'); }
+    try{ document.execCommand('copy'); toast('✅ 已複製富文本！'); }catch(e){ toast('複製失敗，請手動選取'); }
     s.removeAllRanges(); d.remove();
 }
 async function copyText(txt, msg='✅ 已複製！'){
     try{ await navigator.clipboard.writeText(txt); toast(msg); }
-    catch{
+    catch(e){
         const a=document.createElement('textarea'); a.value=txt; a.style.cssText='position:fixed;opacity:0';
         document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); toast(msg);
     }
@@ -868,7 +868,7 @@ function renderPrompts(){
                 <div class="v-title">${esc(p.title)}</div>
                 <span class="meta">${esc(p.updatedAt)}</span>
             </div>
-            ${p.tags?.length?`<div class="tags">${p.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>`:''}
+            ${(p.tags&&p.tags.length)?`<div class="tags">${p.tags.map(t=>`<span class="tag">#${esc(t)}</span>`).join('')}</div>`:''}
             <div class="preview ${open?'open':''}" onclick="togP('${p.id}')">${esc(p.content)}</div>
             <div class="row" style="flex-wrap:wrap;gap:6px">
                 ${hasV ? `<button class="btn btn-p sm" style="flex:1" onclick="openFill('${p.id}')">✨ 填空複製</button>
@@ -946,7 +946,7 @@ function renderPicker(){
         const sel = pickerPid===p.id;
         opts.push(`<button type="button" class="pick-opt ${sel?'sel':''}" onclick="pickP('${p.id}')">
             <div style="min-width:0"><div class="pt">🔮 ${esc(p.title)}</div>
-            ${p.tags?.length?`<div class="ps">${p.tags.map(t=>'#'+esc(t)).join(' ')}</div>`:''}</div>
+            ${(p.tags&&p.tags.length)?`<div class="ps">${p.tags.map(t=>'#'+esc(t)).join(' ')}</div>`:''}</div>
             <span>${sel?'✅':''}</span></button>`);
     });
     $('pickerList').innerHTML = opts.length ? opts.join('') : `<div class="empty" style="padding:12px">找不到符合的咒語</div>`;
@@ -1041,4 +1041,70 @@ function delSave(id){
 async function packState(){
     const json = JSON.stringify(state);
     if(typeof CompressionStream==='undefined') return {code:json,raw:json.length};
-    const cs = new CompressionStream('gzip'), w = cs.writabl
+    const cs = new CompressionStream('gzip'), w = cs.writable.getWriter();
+    w.write(new TextEncoder().encode(json)); w.close();
+    const bytes = new Uint8Array(await new Response(cs.readable).arrayBuffer());
+    let bin=''; for(let i=0;i<bytes.length;i+=8192) bin+=String.fromCharCode(...bytes.subarray(i,i+8192));
+    return {code:'TMB1:'+btoa(bin), raw:json.length};
+}
+async function unpackState(str){
+    const s = str.trim();
+    if(s.startsWith('TMB1:')){
+        const bin = atob(s.slice(5)), bytes = Uint8Array.from(bin, c=>c.charCodeAt(0));
+        const ds = new DecompressionStream('gzip'), w = ds.writable.getWriter();
+        w.write(bytes); w.close();
+        return JSON.parse(await new Response(ds.readable).text());
+    }
+    return JSON.parse(s);
+}
+function openBackupModal(){
+    $('bkArea').value = '';
+    $('bkInfo').textContent = '🔗 或使用精簡壓縮備份碼（自動壓縮省空間）';
+    openModal('backupModal');
+}
+async function copyCompactBackup(){
+    const {code, raw} = await packState();
+    $('bkArea').value = code;
+    const pct = Math.max(0, Math.round((1 - code.length/raw)*100));
+    $('bkInfo').textContent = `🔗 已壓縮：${raw} → ${code.length} 字（省 ${pct}%）`;
+    copyText(code, `✅ 已複製精簡備份碼（省 ${pct}% 字數）`);
+}
+async function applyBackup(rawText){
+    try{
+        const p = await unpackState(rawText);
+        if(!p || !Array.isArray(p.ruleGroups)) throw 0;
+        state = {...clone(DEF),...p,options:{...DEF.options,...(p.options||{})}};
+        saveState(); init(); closeModal('backupModal'); toast('🎉 資料已完整還原！');
+    }catch(e){ toast('❌ 備份格式不正確喔'); }
+}
+function importBackupText(){
+    const v = $('bkArea').value.trim();
+    if(!v) return toast('請先貼上備份碼喔！');
+    applyBackup(v);
+}
+function exportFile(){
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(state)],{type:'application/json'}));
+    a.download = `文字魔法盒備份_${new Date().toISOString().slice(0,10)}.json`;
+    a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    toast('⬇️ 已下載備份檔！');
+}
+function importFile(inp){
+    const f = inp.files[0]; if(!f) return;
+    const r = new FileReader(); r.onload = ()=>applyBackup(r.result); r.readAsText(f);
+    inp.value = '';
+}
+
+/* ====== 彈窗 & Toast ====== */
+const openModal = id => $(id).classList.add('open');
+const closeModal = id => $(id).classList.remove('open');
+const bgClose = (e,id) => { if(e.target.id===id) closeModal(id); };
+function toast(msg){
+    const el=$('toast'); el.textContent=msg; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2100);
+}
+
+init();
+</script>
+</body>
+</html>
